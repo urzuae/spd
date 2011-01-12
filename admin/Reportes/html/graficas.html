@@ -1,0 +1,23 @@
+<script type="text/javascript" src="$_themedir/jquery/crm_monitoreo_filtros_Report.js"></script>
+<form action="index.php" method="post" name="frmFechas">
+<input type="hidden" name="_module" value="$_module">
+<input type="hidden" name="_op" value="graficas">
+<table width="80%" border="0" align="center">
+    <tr>
+        <td>$buffer_filtros</td>
+    </tr>
+    <tr>
+        <td>$filterHeader</td>
+    </tr>
+</table><br>
+<table width="100%" border="0" align="center">
+  <tr>
+        <td width="25%" align="center" valign="top">$boton_excel<br>$tabla_resul<br>$boton_excel</td>
+        <td width="75%" align="center" valign="top"><img src="$archivo">&nbsp;&nbsp;$boton_grafica</td>
+ </tr>
+</table>
+</form>
+<input type="hidden" value="$idVehiculo" name="idVehiculo" id="idVehiculo">
+<input type="hidden" value="$idVersion" name="idVersion" id="idVersion">
+<input type="hidden" value="$idTransmision" name="idTransmision" id="idTransmision">
+<script type="text/javascript" src="$_themedir/jquery/crm_monitoreo_asignacion_main.js"></script>

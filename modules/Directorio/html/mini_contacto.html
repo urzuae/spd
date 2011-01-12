@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Contacto</title>
+  <meta content="">
+  <link type="text/css" href="$_css" rel="stylesheet">
+  <script type="text/javascript" src="themes/grayblue/theme.js">
+  </script>
+<script>
+function validate(f)
+{
+  if (f.nombre.value == '')
+  {
+    alert("Ingrese un nombre");
+    return false;
+  }
+  if (f.apellido_paterno.value == '')
+  {
+    alert("Ingrese un apellido");
+    return false;
+  }
+  if (f.tel_casa.value == '' && f.tel_oficina.value == '' && f.tel_movil.value == '' && f.tel_otro.value == '')
+  {
+    alert("Ingrese por lo menos un teléfono");
+    return false;
+  }
+  if (f.modelo.value == '')
+  {
+    alert("Ingrese un vehículo");
+    return false;
+  }
+  return true;
+}
+</script>
+</head>
+<body>
+
+<form onchange="capsall(this);" method="post" action="index.php" name="contacto" onsubmit="return validate(this);"><input name="_module" value="$_module" type="hidden"><input name="_op" value="$_op" type="hidden"><input name="contacto_id" value="$contacto_id" type="hidden">
+<input name="last_module" value="$last_module" type="hidden">
+<input name="close_after" value="$close_after" type="hidden">
+<input name="campana_id" value="$campana_id" type="hidden">
+<input name="origen2_id" value="$origen_id" type="hidden">
+<input name="origen_contacto_id" value="$origen_contacto_id" type="hidden">
+
+  <table class="width100" border="0" cellpadding="2" cellspacing="2">
+    <thead><tr>
+      <td colspan="4"><img alt="" src="img/personal.gif">Contacto</td>
+    </tr>
+    </thead><tbody>
+      <tr class="row1">
+        <td style="text-align: right;">Nombre</td>
+        <td colspan="3" rowspan="1">
+        <table class="width100" border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td style="width: 33%;"><input class="width100" size="10" maxlength="32" name="nombre" value="$nombre"  onblur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZÑabcdefghijklmnñopqrstuvwxyzñ ');check_min_length_not_null(this,2); caps1(this);"></td>
+              <td style="width: 33%;"><input class="width100" size="10" maxlength="32" name="apellido_paterno" value="$apellido_paterno" onblur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZÑabcdefghijklmnñopqrstuvwxyzñ ');check_min_length_not_null(this,2); caps1(this);"></td>
+              <td style="width: 33%;"><input class="width100" size="10" maxlength="32" name="apellido_materno" value="$apellido_materno" onblur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZÑabcdefghijklmnñopqrstuvwxyzñ ');caps1(this);"></td>
+            </tr>
+          </tbody>
+        </table>
+        </td>
+      </tr>
+      <tr class="row2">
+        <td style="text-align: right;">Tel&eacute;fono casa</td>
+        <td><input size="3" maxlength="3" name="lada1" value="$lada1" onblur="check_chars(this, '0123456789');"><input size="10" maxlength="15" name="tel_casa" value="$tel_casa" onblur="check_chars(this, '0123456789');"> </td>
+        <td style="text-align: right;">Tel&eacute;fono oficina</td>
+        <td><input size="3" maxlength="3" name="lada2" value="$lada2" onblur="check_chars(this, '0123456789');"><input size="10" maxlength="15" name="tel_oficina" value="$tel_oficina" onblur="check_chars(this, '0123456789');"></td>
+      </tr>
+      <tr class="row1">
+        <td style="text-align: right;">Tel&eacute;fono m&oacute;vil</td>
+        <td><input size="3" maxlength="3" name="lada3" value="$lada3" onblur="check_chars(this, '0123456789');"><input size="10" maxlength="15" name="tel_movil" value="$tel_movil" onblur="check_chars(this, '0123456789');"></td>
+        <td style="text-align: right;">Otro tel&eacute;fono</td>
+        <td><input size="3" maxlength="3" name="lada4" value="$lada4" onblur="check_chars(this, '0123456789');"><input size="10" maxlength="15" name="tel_otro" value="$tel_otro" onblur="check_chars(this, '0123456789');"></td>
+      </tr>
+      <tr class="row2">
+        <td style="text-align: right;">e-mail</td>
+        <td colspan="3" rowspan="1"><input class="width100" name="email" maxlength="40" value="$email" onblur=""></td>
+      </tr>
+      <tr class="row1">
+        <td style="text-align: right;">Nota</td>
+        <td colspan="3" rowspan="1"><textarea class="width100" cols="10" rows="3" name="nota">$nota</textarea></td>
+      </tr>
+     <tr class="row2">
+        <td style="text-align: right;">Modelo de vehículo</td>
+        <td colspan="3" rowspan="1">$select_modelo</td>
+      </tr>
+      <tr class="row1">
+        <td style="text-align: center;" colspan="4" rowspan="1"><input value="Guardar" name="submit" type="submit">$cancelar_button</td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,55 @@
+ <script type="text/javascript" src="$_themedir/jquery/crm_concesionarias_reubicar.js"></script>
+<form  name="reubicar" method="get">
+    <input type="hidden" name="_module" value="$_module">
+    <input type="hidden" name="_op" value="$_op">
+    <input type="hidden" name="gid" value="$gid">
+    <table width="100%" align="center" border="0">
+        <tr>
+            <td align="center">
+                <h1>Reubicar grupo $nombreConcesionaria</h1>
+            </td>
+        </tr>
+    </table><br>
+    <table width="50%" align="center" border="0">
+        <thead>
+            <th>Reubicar distribuidoras</th>
+            <th>Datos geograficos</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td align="right">Region</td><td>$listRegiones</td>
+            </tr>
+            <tr>
+                <td align="right">Zona</td><td>$listZonas</td>
+            </tr>
+            <tr>
+                <td align="right">Entidad</td><td>$listEntidades</td>
+            </tr>
+            <tr>
+                <td align="right">Delegaci&oacute;n &oacute; Municipio</td><td>$listPlazas</td>
+            </tr>
+            <tr>
+                <td align="right"></td><td> </td>
+            </tr>
+            
+            <tr>
+                <td align="center" colspan="2"><input type="button" name="regresar" value="Regresar" onclick="location.href='index.php?_module=Concesionarias';">
+                    <input type="submit" name="submit" value="Actualizar">
+                </td>
+            </tr><br>
+        </tbody>
+    </table>
+    <table align="center" border="0">
+        <tbody>
+            <tr>
+                <td align="center">
+                    <font color="red"> $warning</font>
+                    <font color="#3e4f88"> $leyend</font>
+                </td>
+            </tr>
+        </tbody>
+    </table>    
+</form>
+
+
+

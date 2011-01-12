@@ -1,0 +1,35 @@
+<script type="text/javascript" src="$_themedir/jquery/crm_admin_productos.js"></script>
+<form  name="reubicar" method="get">
+        <input type="hidden" name="_module" value="$_module">
+        <input type="hidden" name="_op" value="$_op">
+        <input type="hidden" name="unidad_id" id="unidad_id" value="$unidad_id">
+        <table width="100%" align="center" border="0">
+            <tr>
+                <td align="center">
+                    <h1>Actualizaci&oacute;n de producto</h1>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                <table width='60%' align='center' border='0'>
+                    <tr class="row1" height="40">
+                        <td>Nombre del Producto</td>
+                        <td><input type='text' name='name_prod'  id='name_prod' value='$name' size="35"></td>
+                    </tr>
+                    <tr class="row1" height="40">
+                        <td>Link </td>
+                        <td><input type="text" style="width:60%;"  name="url" id="url" maxlength="40" value="$url" onblur="check_chars(this, '_-/:ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz?&=%.');check_min_length(this,3);caps1(this)"> Obligatorio</td>
+                    </tr>
+ 
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="button" name="actualiza_producto" id="actualiza_producto" value="Actualizar Producto">
+                            &nbsp;&nbsp;
+                            <input type="button" name="regresa_producto" id="regresa_producto" value="Regresar a Producto" onClick="location='index.php?_module=Modelos'">
+                        </td>
+                    </tr>
+                   </table>
+                </td>
+            </tr>
+        </table><br>
+    </form>

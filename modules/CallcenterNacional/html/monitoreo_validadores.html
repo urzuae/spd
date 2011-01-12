@@ -1,0 +1,19 @@
+<form action="index.php?_module=CallcenterNacional&_op=monitoreo_validadores" name="form" method="post">
+<table cellspacing="2" cellpadding="2" border="0" class="width100">
+    <caption><h1>Monitoreo de Validadores</h1></caption>
+    <thead>
+        <tr>
+            <td colspan="4">Listado de Validadores - ($cant validadores encontrados)</td>
+        </tr>
+        <tr>
+            <td><a href="$orderby_ID"><font color="white">ID</font></a></td>
+            <td><a href="$orderby_user"><font color="white">Usuario</font></a></td>
+            <td><a href="$orderby_name"><font color="white">Nombre</font></a></td>
+            <td><font color="white">Ver prospectos</font></td>
+        </tr>
+    </thead>
+    <tbody>
+        $_listado_validadores
+    </tbody>
+</table>
+</form>

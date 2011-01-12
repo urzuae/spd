@@ -1,0 +1,33 @@
+<script type="text/javascript" src="$_themedir/jquery/crm_admin_productos.js"></script>
+<form  name="reubicar" method="get">
+        <input type="hidden" name="_module" value="$_module">
+        <input type="hidden" name="_op" value="$_op">
+        <input type="hidden" name="unidad_id" id="unidad_id" value="$unidad_id">
+        <input type="hidden" name="categoria_id" id="categoria_id" value="$categoria_id">
+        <input type="hidden" name="subcategoria_id" id="subcategoria_id" value="$subcategoria_id">
+
+        <table width="100%" align="center" border="0">
+            <tr>
+                <td align="center">
+                    <h1>Actualizaci&oacute;n de Subcategoria</h1>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                <table width='60%' align='center' border='0'>
+                    <tr class="row1" height="40">
+                        <td>Nombre de la Subcategoria</td>
+                        <td><input type='text' name='name_subcategoria'  id='name_subcategoria' value='$name' size="35"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="button" name="actualiza_subcategoria" id="actualiza_subcategoria" value="Actualizar Subcategoria">
+                            &nbsp;&nbsp;
+                            <input type="button" name="regresa_subcategoria" id="regresa_subcategoria" value="Regresar a Categorias" onClick="location='index.php?_module=Modelos&_op=editt&unidad_id=$unidad_id&categoria_id=$categoria_id'">
+                        </td>
+                    </tr>
+                   </table>
+                </td>
+            </tr>
+        </table><br>
+    </form>

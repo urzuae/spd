@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title></title><meta content="">
+    </head>
+<body>
+<h1>$_title</h1>
+<script>function validate(f)
+{
+    if (f.email.value.indexOf('@')<1||f.email.value.indexOf('.')<2||f.email.value.length<8)
+    {
+	alert('Ingrese un e-mail válido');
+	f.email.value='';
+	return false;
+    }
+
+    if (f.name.value.length >= 8)
+    {
+      if (f.password.value == f.password2.value && f.password.value.length >= 8)
+      {
+        return true;
+      }
+      else
+      {
+        alert('Revise sus passwords');
+        return false;
+      }
+
+    }
+    else
+    {
+      alert('Necesita ingresar un nombre completo de usuario alfabético de mínimo 8 letras');
+      return false;
+    }
+}
+</script>
+<form  method="post" action="index.php" name="user" onsubmit="return validate(this);">
+<input name="_module" value="$_module" type="hidden"><input name="_op" value="$_op" type="hidden">
+$msg
+<h1>Cambiar datos de usuario $user_orig</h1>
+<table style="width:550px;">
+<tbody>
+<tr class="row1">
+  <td style="text-align:right;" style="width:150px;">Nombre completo
+  </td>
+  <td style="width:400px;">
+    <input name="name" value="$name" style="width:90%" onblur="check_chars(this, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ');check_min_length(this,8);caps1(this);">
+  </td>
+</tr>
+<tr class="row2">
+  <td style="text-align:right;" style="width:150px;">e-mail
+  </td>
+  <td style="width:400px;">
+    <input name="email" value="$email" style="width:90%" onblur="if (this.value.indexOf('@')<1||this.value.indexOf('.')<2||this.value.length<8){alert('Ingrese un e-mail válido');this.value='';return false;}">
+  </td>
+</tr>
+<tr class="row1">
+  <td style="text-align:right;">Password
+  </td>
+  <td>
+    <input type="password" name="password" id="password" onblur="check_min_length(this,8);" maxlength="16" style="width:150px;" value="$password">&nbsp;&nbsp; Mínimo 8, máximo 16
+  </td>
+</tr>
+<tr class="row2">
+  <td style="text-align:right;">Repita el Password
+  </td>
+  <td>
+    <input type="password" name="password2" style="width:150px;" onblur="if (document.getElementById('password').value != this.value) alert('Los passwords no coinciden');" maxlength="16"  value="$password2">&nbsp;&nbsp; Mínimo 8, máximo 16
+  </td>
+</tr>
+<tr class="row1">
+  <td style="text-align:center;" colspan="2">
+    <input type="submit" name="submit" value="Guardar" >
+    <input type="button" name="salir" value="Salir" onclick="location.href='index.php?_do_logout=1';">
+  </td>
+</tr>
+<td style="text-align:center;">
+</td>
+</tbody>
+</table>
+<center><p>En esta pantalla usted podrá cambiar el nombre de usuario y su contraseña. Por favor, apunte estos datos con cuidado y guardelos en un lugar seguro.</p></center>
+</form>
+</body>
+</html>

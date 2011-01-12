@@ -1,0 +1,92 @@
+<form action="index.php?_module=CallcenterNacional&_op=grafica_status" name="form" method="post" onsubmit="document.getElementById('iframe').style.display='block'">
+<input type="hidden" name="send" value="true">
+<table cellspacing="2" cellpadding="2" border="0" class="width100">
+    <caption><h1>Gr&aacute;ficas de Status</h1></caption>
+    <thead>
+        <tr>
+            <td colspan="4">Seleccione fechas</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr align="center" class="row1">
+            <td colspan="4">Fecha de inicio:    <input id="fecha_ini" name="fecha_ini" value="$fecha_ini" readonly/><img onmouseout="this.style.background=''" onmouseover="this.style.background='red';" title="Fecha" style="border: 1px solid red; cursor: pointer;" id="f_trigger_c" src="img/calendar.gif"/></td>
+        </tr>
+        <script>
+            function update_fecha_fin(cal)
+            {
+              //checamos si es mayor la ini que la fin y cambiar el fin
+              var fecha_fin = document.getElementById("fecha_fin").value;
+              if (fecha_fin == '') return false;
+              var guion_1 = fecha_fin.indexOf("-");
+              var guion_2 = fecha_fin.indexOf("-", guion_1 + 1);
+              var guion_3 = fecha_fin.length;//fecha_fin.indexOf("-", guion_2 + 1);
+              var fin_d = fecha_fin.substring(0, guion_1);
+              var fin_m = fecha_fin.substring(guion_1 + 1, guion_2);
+              var fin_y = fecha_fin.substring(guion_2 + 1, guion_3);
+              var fin  = new Date(fin_y, fin_m - 1, fin_d);
+              var ini  = new Date(cal.date.getFullYear(), cal.date.getMonth(), cal.date.getDate());
+              if (ini.getTime() > fin.getTime())
+              {
+               document.getElementById("fecha_fin").value = cal.date.print("%Y-%m-%d");
+              }
+            }
+
+            function update_fecha_ini(cal)
+            {
+              //checamos si es mayor la ini que la fin y cambiar el fin
+              var fecha_ini = document.getElementById("fecha_ini").value;
+              if (fecha_ini == '') return false;
+              var guion_1 = fecha_ini.indexOf("-");
+              var guion_2 = fecha_ini.indexOf("-", guion_1 + 1);
+              var guion_3 = fecha_ini.length;//fecha_ini.indexOf("-", guion_2 + 1);
+              var ini_d = fecha_ini.substring(0, guion_1);
+              var ini_m = fecha_ini.substring(guion_1 + 1, guion_2);
+              var ini_y = fecha_ini.substring(guion_2 + 1, guion_3);
+              var ini  = new Date(ini_y, ini_m - 1, ini_d);
+              var fin  = new Date(cal.date.getFullYear(), cal.date.getMonth(), cal.date.getDate());
+              if (ini.getTime() > fin.getTime())
+              {
+               document.getElementById("fecha_ini").value = cal.date.print("%Y-%m-%d");
+              }
+            }
+            Calendar.setup(
+            {
+              inputField :"fecha_ini",
+              ifFormat :"%Y-%m-%d",
+              onUpdate : update_fecha_fin,
+              button : "f_trigger_c"
+            }
+            );
+        </script>
+        <tr align="center" class="row1">
+            <td colspan="4">Fecha de fin:    <input id="fecha_fin" name="fecha_fin" value="$fecha_fin" readonly/><img onmouseout="this.style.background=''" onmouseover="this.style.background='red';" title="Fecha" style="border: 1px solid red; cursor: pointer;" id="f_trigger_d" src="img/calendar.gif"/></td>
+        </tr>
+        <script>
+            Calendar.setup(
+            {
+              inputField :"fecha_fin",
+              ifFormat :"%Y-%m-%d",
+              onUpdate : update_fecha_ini,
+              button : "f_trigger_d"
+            }
+            );
+        </script>
+    </tbody>
+    <thead>
+        <tr class="row1">
+          <td align="center" colspan="4">
+            <input type="submit" value="Buscar" name="submit"/>
+            <input type="reset" value="Limpiar"/>
+          </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" align="center">$_grafico</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="center">$_tabla</td>
+        </tr>
+    </tbody>
+</table>
+</form>

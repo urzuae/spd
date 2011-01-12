@@ -1,0 +1,518 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Contacto</title>
+        <meta content="">
+        <script type="text/javascript" src="$_themedir/jquery.js"></script>
+        <script type="text/javascript" src="$_themedir/jquery/treeview/jquery.cookie.js"></script>
+        <script type="text/javascript" src="$_themedir/jquery.js"></script>
+        <script type="text/javascript" src="$_themedir/jquery/treeview/jquery.cookie.js"></script>
+        <script type="text/javascript" src="$_themedir/jquery/treeview/jquery.treeview.js"></script>
+        <script type="text/javascript" src="$_themedir/jquery/treeview/triggerTreeView.js"></script>
+    </head>
+    <body>
+        <h2>$_title</h2>
+        $_subtitle
+        <link rel="stylesheet" href="$_themedir/jquery/themes/treeview/jquery.treeview.css" />
+        <link rel="stylesheet" href="$_themedir/jquery/themes/treeview/screen.css" />
+        <script type="text/javascript" src="$_themedir/jquery/crm_directorio_contacto_fuentes.js"></script>
+        <script type="text/javascript" src="$_themedir/jquery/jquery-latest.js"></script>
+        <script type="text/javascript" src="$_themedir/jquery/jquery.jec.js"></script>
+        <script type="text/javascript" src="$_themedir/jquery/crm_colonias.js"></script>
+        <script>
+            var xmlHttp_rep;
+            var resp_ex = false;
+
+            function capsall(theForm){
+                var els = theForm.elements;
+                for(i=0; i<els.length; i++){
+                    switch(els[i].type){
+                        case "text":
+                            if (els[i].name == "email")
+                                break;
+                            els[i].value= els[i].value.toUpperCase();
+                            break;
+                    }
+                }
+            }
+
+            var xmlHttp;
+
+            function createXMLHttpRequest(u){
+                if (window.ActiveXObject) {
+                    return new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                else if (window.XMLHttpRequest) {
+                    return new XMLHttpRequest();
+                }
+            }
+
+           function obtenerCodigoCampana(el, chars)
+            {
+                var f = document.contacto;
+                var codigo_campana = f.codigo_campana.value;
+
+                if(check_chars(el, chars))
+                {
+                    caps1(el);
+                    xmlHttp = createXMLHttpRequest();
+                    var url = "index.php?_module=Directorio&_op=ajax-codigo_campana&codigo_campana=" + codigo_campana;
+                    xmlHttp.open("GET", url, true);
+                    xmlHttp.onreadystatechange = callbackCodigosCampanas;
+                    xmlHttp.send(null);
+                }
+            }
+
+            function callbackCodigosCampanas(){
+                var codigo_camp = document.getElementById("valida");
+                var campana;
+                if (xmlHttp.readyState == 4){
+                    if (xmlHttp.status == 200){
+                        var xmlDoc=xmlHttp.responseXML;
+                        campana = xmlDoc.getElementsByTagName("campana")[0].childNodes[0].nodeValue;
+                    }
+                    if(campana == "no_existe"){
+                        codigo_camp.innerHTML = "Codigo de campaña correcto";
+                    }
+                    else
+                    {
+                        codigo_camp.innerHTML = "";
+                        if(campana != "vacio"){
+                            alert(campana);
+                        }
+                        document.contacto.codigo_campana.value="";
+                    }
+                }
+            }
+
+
+
+
+            function validate()
+            {
+                var f = document.contacto;
+                if (f.nombre.value == '')
+                {
+                    alert("Ingrese un nombre");
+                    return false;
+                }
+                 if (f.apellido_paterno.value == '')
+                {
+                    alert("Ingrese un apellido");
+                    return false;
+                }
+                if (f.tel_casa.value == '' && f.tel_oficina.value == '' && f.tel_movil.value == '' && f.tel_casa_2.value == '' && f.tel_oficina_2.value == '' && f.tel_movil_2.value == '' ) //&& f.tel_otro.value == ''
+                {
+                    alert("Ingrese por lo menos un teléfono");
+                    return false;
+                }
+                if (f.no_contactar.value == -1)
+                {
+                    alert("Seleccione una opción para contactar");
+                    return false;
+                }
+                if (document.getElementById("origen").value == "")
+                {
+                    alert("Seleccione un origen para el contacto");
+                    return false;
+                }
+
+                if (f.listVehicle.selectedIndex == 0)
+                {
+                    alert("Ingrese un Producto");
+                    return false;
+                }
+                $valida_existe
+                //alert('ValidÃ¯Â¿Å“');
+            }
+
+            function no_existe(){
+                alert("La opción que eligió no existe aún");
+            }
+
+            function validate_baja(f)
+            {
+                if (f.motivo_baja.value=='0')
+                {
+                    alert("Ingrese un motivo de baja");
+                    return false;
+                }
+            }
+
+
+            function valida_existente(){                
+                var f = document.contacto;
+                var modelo = f.listVehicle.selectedIndex;
+                xmlHttp_rep = createXMLHttpRequest();
+                alert("¿Desea Continuar?");
+                var url = "index.php?_module=Directorio&_op=ajax-contacto_repetido&nom=" + f.nombre.value + "&ap="+ f.apellido_paterno.value + "&am="+ f.apellido_materno.value + "&mod="+ f.listVehicle.options[modelo].value;
+                xmlHttp_rep.open("GET", url, true);
+                xmlHttp_rep.onreadystatechange = llamadaRepetido;
+                xmlHttp_rep.send(null);
+
+            }
+
+            function llamadaRepetido(){
+                var estatus;
+                if (xmlHttp_rep.readyState == 4){
+                    if (xmlHttp_rep.status == 200){
+                        xmlDoc=xmlHttp_rep.responseXML;
+                        estatus = xmlDoc.getElementsByTagName("estatus")[0].childNodes[0].nodeValue;
+                    }
+                    if(estatus == "existe"){
+                        var resp = confirm("El contacto ya esta dado de alta.Desea continuar?");
+                        if(resp){
+                            document.contacto.action = "index.php";
+                            document.contacto.guarda.value = "1";
+                            document.contacto.method = "POST";
+                            document.contacto.submit();
+                        }
+                        else{
+                            alert('El prospecto no ha sido dado de alta');
+                        }
+                    }
+                    else{
+                        document.contacto.action = "index.php";
+                        document.contacto.method = "POST";
+                        document.contacto.guarda.value = "1";
+                        
+                        document.contacto.submit();
+                    }
+                }
+            }
+
+
+        </script>
+        <form onchange="capsall(this);" method="post" name="contacto" id="contactForm">
+            <input name="_module" value="$_module" type="hidden">
+            <input name="_op" value="$_op" type="hidden">
+            <input name="contacto_id" id="contacto_id" value="$contacto_id" type="hidden">
+            <input name="last_module" value="$last_module" type="hidden">
+            <input name="last_op" value="$last_op" type="hidden">
+            <input name="close_after" value="$close_after" type="hidden">
+            <input name="guarda" value="0" type="hidden">
+            <table class="width100" border="0"  id="displayFilter" cellpadding="2" cellspacing="2">
+                <thead><tr>
+                        <td colspan="4"><img alt="" src="img/personal.gif">Contacto</td>
+                    </tr>
+                </thead><tbody>
+                    <tr class="row1">
+                        <td style="text-align: right;"><span style='background-color:$color_semaforo'>&nbsp;&nbsp;&nbsp;</span>&nbsp;Nombre</td>
+                        <td colspan="3" rowspan="1">
+                            <table class="width100" border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 33%;"><input class="width100" size="10" maxlength="32" name="nombre" value="$nombre" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyzÃ±Ã‘ ');check_min_length_not_null(this,2); caps1(this); "></td>
+                                        <td style="width: 33%;"><input class="width100" size="10" maxlength="32" name="apellido_paterno" value="$apellido_paterno" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyzÃ±Ã‘ ');caps1(this); "></td>
+                                        <td style="width: 33%;"><input class="width100" size="10" maxlength="32" name="apellido_materno" value="$apellido_materno" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyzÃ±Ã‘ ');caps1(this); "></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="row2">
+                        <td style="text-align: right; width:180px;">Sexo</td>
+                        <td style="text-align: left; width:180px;">$select_sexo</td>
+                        <td style="text-align: right; width:180px;">Titulo</td>
+                        <td style="text-align: left; width:180px;"><input class="width100" size="10" name="titulo" value="$titulo" maxlength="32" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz. ');caps1(this); "></td>
+                    </tr>
+                    <tr class="row1">
+                        <td style="text-align: right;">R. F. C.</td>
+                        <td colspan="1"><input class="width100" name="rfc" value="$rfc" onBlur="caps1(this);check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-');check_min_length(this,10);analizar_rfc(this);"  maxlength="14"></td>
+                        <td style="text-align: right;">Persona Moral</td>
+                        <td colspan="1">$select_persona_moral</td>
+                    </tr>
+                    <tr class="row2">
+                        <td style="text-align: right;">Fecha de nacimiento</td>
+                        <td rowspan="1">
+                            <table class="" border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td>$select_dia</td>
+                                        <td>$select_mes</td>
+                                        <td>$select_ano</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="text-align: right;">Estado civil</td>
+                        <td rowspan="1">
+                            $select_edo_civil
+                        </td>
+                    </tr>
+                </tbody><thead>
+                   <tr>
+                        <td colspan="4" rowspan="1"><img alt="" src="img/email.gif">Correo electr&oacute;nico</td>
+                    </tr>
+                </thead><tbody>
+                    <tr class="row1">
+                        <td style="text-align: right;">e-mail</td>
+                        <td colspan="3" rowspan="1"><input class="width100" name="email" maxlength="40" value="$email"></td>
+                    </tr>
+                </tbody><thead> <tr>
+                        <td colspan="4" rowspan="1"><img alt="" src="img/phone.gif"> Tel&eacute;fonos</td>
+                    </tr>
+                </thead> <tbody>
+                    <tr class="row2">
+                        <td></td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tel&eacute;fonos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ext.</td>
+                        <td colspan="2">Horario Preferido</td>
+                    </tr>
+                    <tr class="row1">
+                        <td></td>
+                        <td align="center" valign="top">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;</td>
+                        <td colspan="2"><table class="width100"><tr><td>Ma&ntilde;ana</td><td>Tarde</td><td>Noche</td></tr></table></td>
+                    </tr>
+                    <tr class="row2">
+                        <td style="text-align: right;">Casa 1</td>
+                        <td><input size="3" maxlength="3" name="lada1" value="$lada1" onblur="check_chars(this, '0123456789');">
+                            <input size="20" maxlength="8" name="tel_casa" value="$tel_casa" onblur="check_chars(this, '0123456789');">
+                            <input size="4" maxlength="8" name="ext_casa" value="$ext_casa" onblur="check_chars(this, '0123456789');">
+                        </td>
+                        <td colspan="2"><table class="width100"><tr>
+                                <td><input type="checkbox" name="horario_casa[1]" value="M" id="horario_casa_manana" $horario_casa_manana_checked></td>
+                                <td><input type="checkbox" name="horario_casa[2]" value="T" id="horario_casa_tarde" $horario_casa_tarde_checked></td>
+                                <td><input type="checkbox" name="horario_casa[3]" value="N" id="horario_casa_noche" $horario_casa_noche_checked></td>
+                        </table></td>
+                    </tr>
+                    <tr class="row1">
+                        <td style="text-align: right;">Casa 2</td>
+                        <td><input size="3" maxlength="3" name="lada_casa_2" value="$lada_casa_2" onblur="check_chars(this, '0123456789');">
+                            <input size="20" maxlength="8" name="tel_casa_2" value="$tel_casa_2" onblur="check_chars(this, '0123456789');"
+                                   >
+                            <input size="4" maxlength="8" name="ext_casa_2" value="$ext_casa_2" onblur="check_chars(this, '0123456789');">
+                        </td>
+                        <td colspan="2"><table class="width100"><tr>
+                                <td><input type="checkbox" name="horario_casa_2[1]" value="M" id="horario_casa_manana" $horario_casa_manana_checked_2></td>
+                                <td><input type="checkbox" name="horario_casa_2[2]" value="T" id="horario_casa_tarde" $horario_casa_tarde_checked_2></td>
+                                <td><input type="checkbox" name="horario_casa_2[3]" value="N" id="horario_casa_noche" $horario_casa_noche_checked_2></td>
+                        </table></td>
+                    </tr>
+                    <tr class="row2">
+                        <td style="text-align: right;">Oficina 1</td>
+                        <td><input size="3" maxlength="3" name="lada2" value="$lada2" onblur="check_chars(this, '0123456789');">
+                            <input size="20" maxlength="8" name="tel_oficina" value="$tel_oficina" onblur="check_chars(this, '0123456789');"
+                                   >
+                            <input size="4" maxlength="8" name="ext_oficina" value="$ext_oficina" onblur="check_chars(this, '0123456789');">
+                        </td>
+                        <td colspan="2"><table class="width100"><tr>
+                                <td><input type="checkbox" name="horario_oficina[1]" value="M" id="horario_oficina_manana" $horario_oficina_manana_checked></td>
+                                <td><input type="checkbox" name="horario_oficina[2]" value="T" id="horario_oficina_tarde" $horario_oficina_tarde_checked></td>
+                                <td><input type="checkbox" name="horario_oficina[3]" value="N" id="horario_oficina_noche" $horario_oficina_noche_checked></td>
+                        </table></td>
+                    </tr>
+                    <tr class="row1">
+                        <td style="text-align: right;">Oficina 2</td>
+                        <td><input size="3" maxlength="3" name="lada_oficina_2" value="$lada_oficina_2" onblur="check_chars(this, '0123456789');">
+                            <input size="20" maxlength="8" name="tel_oficina_2" value="$tel_oficina_2" onblur="check_chars(this, '0123456789');"
+                                   >
+                            <input size="4" maxlength="8" name="ext_oficina_2" value="$ext_oficina_2" onblur="check_chars(this, '0123456789');">
+                        </td>
+                        <td colspan="2"><table class="width100"><tr>
+                                <td><input type="checkbox" name="horario_oficina_2[1]" value="M" id="horario_oficina_manana" $horario_oficina_manana_checked_2></td>
+                                <td><input type="checkbox" name="horario_oficina_2[2]" value="T" id="horario_oficina_tarde" $horario_oficina_tarde_checked_2></td>
+                                <td><input type="checkbox" name="horario_oficina_2[3]" value="N" id="horario_oficina_noche" $horario_oficina_noche_checked_2></td>
+                        </table></td>
+                    </tr>
+                    <tr class="row2">
+                        <td style="text-align: right;">Celular 1</td>
+                        <td><input size="3" maxlength="3" name="lada3" value="$lada3" onblur="check_chars(this, '0123456789');">
+                            <input size="20" maxlength="8" name="tel_movil" value="$tel_movil" onblur="check_chars(this, '0123456789');"
+                                   >
+                            <input size="4" maxlength="8" name="ext_movil" value="$ext_movil" onblur="check_chars(this, '0123456789');">
+                        </td>
+                        <td colspan="2"><table class="width100"><tr>
+                                <td><input type="checkbox" name="horario_celular[1]" value="M" id="horario_celular_manana" $horario_celular_manana_checked></td>
+                                <td><input type="checkbox" name="horario_celular[2]" value="T" id="horario_celular_tarde" $horario_celular_tarde_checked></td>
+                                <td><input type="checkbox" name="horario_celular[3]" value="N" id="horario_celular_noche" $horario_celular_noche_checked></td>
+                        </table></td>
+                    </tr>
+                    <tr class="row1">
+                        <td style="text-align: right;">Celular 2</td>
+                        <td><input size="3" maxlength="3" name="lada_movil_2" value="$lada_movil_2" onblur="check_chars(this, '0123456789');">
+                            <input size="20" maxlength="8" name="tel_movil_2" value="$tel_movil_2" onblur="check_chars(this, '0123456789');"
+                                   >
+                            <input size="4" maxlength="8" name="ext_movil_2" value="$ext_movil_2" onblur="check_chars(this, '0123456789');">
+                        </td>
+                        <td colspan="2"><table class="width100"><tr>
+                                <td><input type="checkbox" name="horario_celular_2[1]" value="M" id="horario_celular_manana" $horario_celular_manana_checked_2></td>
+                                <td><input type="checkbox" name="horario_celular_2[2]" value="T" id="horario_celular_tarde" $horario_celular_tarde_checked_2></td>
+                                <td><input type="checkbox" name="horario_celular_2[3]" value="N" id="horario_celular_noche" $horario_celular_noche_checked_2></td>
+                        </table></td>
+                    </tr>
+                </tbody>
+                <thead><tr>
+                        <td colspan="4" rowspan="1"><img alt="" src="img/home.gif"> Domicilio</td>
+                    </tr>
+                </thead> <tbody>
+                    <tr class="row1">
+                        <td style="text-align: right;">Domicilio</td>
+                        <td><input class="width100" name="domicilio" value="$domicilio" maxlength="40"></td>
+                        <td style="text-align: right;">C. P   .</td>
+                        <td><input maxlength="5" size="5" name="cp" value="$cp" id="cp" onBlur="check_chars(this, '0123456789'); check_min_length(this,5);"></td>
+                    </tr>
+                    <tr class="row2">
+                        <td style="text-align: right;">Colonia</td>
+                        <td><select name="colonia" id="colonia" style="width:200px;">$filtro_colonia</select></td>
+                        <td style="text-align: right;">Delegaci&oacute;n/Municipio</td>
+                        <td><input class="width100" id="poblacion" name="poblacion" value="$poblacion" maxlength="32" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyzÃ¯Â¿Å“Ã¯Â¿Å“. ');"></td>
+                    </tr>
+                    <tr class="row1">
+                        <td style="text-align: right;">Pais</td>
+                        <td><input class="width100" maxlength="40" name="pais" id="pais" value="$pais" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyzÃ¯Â¿Å“Ã¯Â¿Å“. ');"></td>
+                        <td style="text-align: right;">Ciudad</td>
+                        <td><input class="width100" id="ciudad" name="ciudad" value="$ciudad" maxlength="32" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyzÃ¯Â¿Å“Ã¯Â¿Å“ ');"></td>
+                     </tr>
+                    <tr class="row2">
+                        <td style="text-align: right;">Entidad</td>
+                        <td colspan="3" rowspan="1">$select_entidades<br>
+                        </td>
+                    </tr>
+                </tbody>
+                <script>
+                    function analizar_rfc(rfc)
+                    {
+                        if ((rfc.value.length == 13)||((rfc.value.length == 14)&&(rfc.value[10] == "-")) ||rfc.value.length == 10)
+                        {
+                            var bday = rfc.value.substr(4,6);
+                            var ano = '19'+bday.substr(0,2);
+                            var mes = bday.substr(2,2);
+                            var dia = bday.substr(4,2);
+                            document.contacto.dia.selectedIndex = dia;
+                            document.contacto.mes.selectedIndex = mes;
+                            for (i = 0; i < document.contacto.ano.length; i++)
+                                if (document.contacto.ano.options[i].value == ano)
+                                    document.contacto.ano.selectedIndex = i;
+                        }
+                    }
+                </script><thead><tr>
+                       <td colspan="4" rowspan="1"><img alt="" src="img/more.gif"> Mas</td>
+                    </tr>
+                </thead> <tbody><tr class="row1">
+                    <tr class="row1">
+                        <td style="text-align: right;">Raz&oacute;n Social</td>
+                        <td><input name="razon_social" class="width100" type="text" value="$razon_social" size="10" maxlength="40" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890. ');"></td>
+                        <td style="text-align: right;">Nombre de contacto</td>
+                        <td><input name="nombre_contacto"class="width100" type="text" value="$nombre_contacto" maxlength="40" size="10" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz. ');"></td>
+                    </tr>
+                    <tr class="row2">
+                        <td style="text-align: right;">Compa&ntilde;ia</td>
+                        <td><input class="width100" size="10" name="compania" value="$compania" maxlength="40" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890  ');"></td>
+                        <td style="text-align: right;">Cargo</td>
+                        <td><input class="width100" size="10" name="cargo" value="$cargo" maxlength="40" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890 ');"></td>
+                    </tr>
+                    <tr class="row1">
+                        <td style="text-align: right;">Sector</td>
+                        <td><input class="width100" size="10" name="sector" value="$sector" maxlength="40" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890 ');"></td>
+                        <td style="text-align: right;">Ocupaci&oacute;n actual</td>
+                        <td>
+                            <input name="ocupacion" value="$ocupacion" style="width:100%" maxlength="40" onBlur="check_chars(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890 ');">
+                        </td>
+                    </tr>
+                    <tr class="row2">
+                        <td style="text-align: right;">Primer Contacto</td>
+                        <td><input type="text" name="primer_cont" id="primer_cont" value="$primer_cont" readonly><button type="reset" id="trigger"><img src="img/calendar.gif" /></button></td>
+                        <td style="text-align: right;">Prioridad</td>
+                        <td bgcolor="$color_prioridad">$prioridad</td>
+                    </tr>
+                    <tr class="row1">
+                        <td style="text-align: right;">Nota</td>
+                        <td colspan="3" rowspan="1"><textarea class="width100" cols="10" rows="10" name="nota"  maxlength="255">$nota</textarea></td>
+                    </tr>
+                    <tr><td></br></td></tr>
+                    <tr class="row2" valign="top">
+                        <td style="text-align: right;">¿Desea ser contactado?<br><br>C&oacute;digo de Campa&ntilde;a</td>
+                        <td rowspan="1">$select_no_contactar<br><br><input type="text" name="codigo_campana" id="codigo_campana" value="$codigo_campana" maxlength="10"  size="10" onBlur="obtenerCodigoCampana(this, 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyzÃ±Ã‘0123456789',10);">&nbsp;&nbsp;<div id="valida" style=" color:#AA2B00;"></div></td>
+                        <td style="text-align: right;">Fuente</td>
+                        <td rowspan="1">$select_origen_padre</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <td colspan="4"><img alt="" src="img/personal.gif">Producto de interes</td>
+                    </tr>
+                </thead>
+                <tbody class="filterVehicle">
+                    <tr class="row1 showUnited">
+                        <td align="right">Producto</td>
+                        <td class="list row1"><select style="width: 200px;" name="listUnited" id="listUnited"><option value="0"></option></select></td>
+                        <td style="text-align: right;" class="addBefore" colspan="2"></td>
+                    </tr>
+                    <tr class="row2 showVersion">
+                        <td align="right">Categoria</td>
+                        <td class="list row2"><select style="width: 200px;" name="listVersion" id="listVersion"><option value="0"></option></select></td>
+                        <td style="text-align: right;" class="addBefore" colspan="2"></td>
+                    </tr>
+                    <tr class="row1 showTransmision">
+                        <td align="right">Sub Categoria</td>
+                        <td class='list row1'><select style='width: 200px;' name='listTransmision' id='listTransmision'><option value='0'></option></select></td>
+                        <td style="text-align: right;" class="addBefore" colspan="2"></td>
+                    </tr>
+                    <!--<tr class="row2">
+                        <td style="text-align: right;" class="addBefore">Versi&oacute;n</td>
+                        <td>
+                            $select_ano_vehiculo
+                        </td>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>-->
+                    <tr class="row1">
+                        <td style="text-align: right;" colspan="4">$otro_auto</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;" colspan="4"><div id="listadoVehicles">$buffer</div></td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <td colspan="4"><img alt="" src="img/personal.gif">Distribuidor de elecci&oacute;n</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row1">
+                        <td style="text-align: right;">Distribuidor</td>
+                        <td colspan="3" rowspan="1">$gid_name</td>
+                    </tr>
+                    <tr class="row2">
+                        <td style="text-align: center;" colspan="4" rowspan="1">
+                        $guardar_button
+                        $cancelar_button</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+        </form>
+        <script type="text/javascript">
+            Calendar.setup({
+                inputField     :    "primer_cont",           //*
+                ifFormat       :    "%d-%m-%Y",
+                showsTime      :    false,
+                button         :    "trigger",        //*
+                step           :    1
+            });
+        </script>
+        <script>
+        //DESABILITAR EDICION PARA EL VENDEDOR QUE NO TENGA PERMISOS
+        edit_contact = "$edit_contact";
+        if(edit_contact == 0)
+        {
+                $(":input").attr("disabled", true);
+                $("#buttoncancelar").removeAttr("disabled");
+                $("#buttonguardar").removeAttr("disabled");
+        //        $("#color_ext").attr("disabled", false);
+        //        $("#color_int").attr("disabled", false);
+        //        $("#tipo_pint").attr("disabled", false);
+                $("#actualiza_auto").attr("disabled", false);
+                $("#otro_auto").attr("disabled", false);
+                $("#ano_vehiculo").attr("disabled", false);
+                $("#buttonguardarcerrar").attr("disabled", false);
+                $("#cerrar").attr("disabled", false);
+            }
+        </script>
+        <input type="hidden" value="$idVehiculo" name="idVehiculo" id="idVehiculo">
+        <input type="hidden" value="$idVersion" name="idVersion" id="idVersion">
+        <input type="hidden" value="$idTransmision" name="idTransmision" id="idTransmision">
+        <script type="text/javascript" src="$_themedir/jquery/crm_directorio_contacto.js"></script>
+    </body>
+</html>

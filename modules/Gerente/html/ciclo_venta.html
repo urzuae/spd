@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title></title>
+  <meta content="">
+</head>
+<body>
+<form>
+    <input name="_module" value="$_module" type="hidden">
+    <input name="_op" value="$_op" type="hidden">
+    <table width="100%" border="0">
+        <tr>
+            <td colspan="3" align="center"><div class="title" height="50"><h1>Gr&aacute;ficos</h1></div><br></td>
+        </tr>
+        <tr>
+            <td align="center">Seleccione el a&ntilde;o, del cu&aacute;l desea visualizar el gr&aacute;fico: </td>
+            <td>$select_ano</td>
+            <td><input type="submit" name="genera_grafico" id="genera_grafico" value="Consultar Gráfico"></td>
+        </tr>
+        <tr height="60">
+            <td colspan="3" align="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td colspan="3" class="content" style="width:100%;" align="center">$buffer_ventas</td>
+        </tr>
+
+        <tr>
+            <td colspan="3" class="content" style="width:100%;" align="center">$buffer</td>
+        </tr>
+        <tr>
+        <td colspan="3" class="content" style="width:100%;" align="center">$buffer_semaforo</td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

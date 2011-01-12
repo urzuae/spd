@@ -1,0 +1,44 @@
+.style_cuadro_pagina_text
+{
+	width:70px;
+	text-align:center;
+	border:solid;
+	border-width:1px;
+	border-color:gray;
+	cursor:pointer;
+	background-color:lightgray;
+}
+	
+.style_cuadro_pagina
+{
+	width:14px;
+	text-align:center;
+	border:solid;
+	border-width:1px;
+	border-color:gray;
+	cursor:pointer;
+	background-color:lightgray;
+}
+
+.style_cuadro_pagina_selected
+{
+	font-weight:bold;
+	width:14px;
+	text-align:center;
+	background-color:blue;
+	color:white;
+	font-family:arial;
+	font-size:11px;
+	border:solid;
+	border-color:blue;
+	border-width:1px;
+	cursor:default;
+}
+
+.style_links_pagina
+{
+	text-decoration:none;
+	color:gray;
+	font-family:arial;
+	font-size:11px;
+}

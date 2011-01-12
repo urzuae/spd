@@ -1,0 +1,41 @@
+<script type="text/javascript" src="$_themedir/jquery/formValidate.js"></script>
+<form  name="reubicar" method="get">
+    <input type="hidden" name="_module" value="$_module">
+    <input type="hidden" name="_op" value="$_op">
+    <input type="hidden" name="gid" value="$gid">
+    <input type="hidden" name="padre_id" value="$padre_id">
+    <table width="100%" align="center" border="0">
+        <tr>
+            <td align="center">
+                <h1>Crear Origen</h1>
+            </td>
+        </tr>
+    </table><br>
+    <table width="50%" align="center" border="0">
+        <thead>
+            <th>Campos</th>
+            <th>Datos del nuevo origen</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td align="right">Origen Padre:</td><td>$nombre</td>
+            </tr>
+            <tr>
+                <td align="right">Nuevo origen:</td><td><input style="width:250px" class="requerido" type="text" name="nombreFuente"></td>
+            </tr>            
+            <tr>
+                <td align="right"></td><td> </td>
+            </tr>
+
+            <tr>
+                <td align="center" colspan="2"><input type="button" name="regresar" value="Cancelar" onclick="location.href='index.php?_module=Catalogos&_op=fuentes';">
+                    <input type="submit" name="submit" class="guardar" value="Guardar">
+                </td>
+            </tr><br>
+        </tbody>
+    </table>
+    <font color="red"> $warning</font>
+</form>
+
+
+

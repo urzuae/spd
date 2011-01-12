@@ -1,0 +1,969 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Contrato</title><meta content="">
+  <link type="text/css" href="$_css" rel="stylesheet">
+</head>
+<body onload="init_everything();">
+<script>
+alert("Por favor, confirme los datos con el cliente.");
+function capsall(theForm)
+{
+  var els = theForm.elements;
+  for(i=0; i<els.length; i++)
+  {
+    switch(els[i].type)
+    {
+      case "text":
+      if (els[i].name == "email") break;
+      els[i].value= els[i].value.toUpperCase();
+      break;
+      /*case "textarea":
+      if (els[i].name == "email") break;
+      els[i].value= els[i].value.toUpperCase();
+      break;*/
+    }
+  }
+}
+  </script>
+  <script>
+function inArray(e, a)
+{
+    for (j=0; j<a.length; j++)
+    {
+        if (a[j] == e)
+            return true;
+    }
+    return false;
+}
+function init_everything()
+{
+    var f = document.contrato;
+    var els = f.elements;
+
+    for (i=0; i<els.length; i++)
+    {
+        
+        //ke onblur se caps
+        if (els[i].type == 'text')
+        {
+
+            if (!els[i].onblur)
+                els[i].onblur = function(){ caps1(this); };
+
+            //poner azul si está prellenado
+            if (els[i].value != '') els[i].style.color = 'blue';
+        }
+
+    }
+}
+
+function caps1(obj)
+{
+    obj.value = obj.value.toUpperCase();
+    obj.style.color = 'black';
+}
+function validate(f)
+{
+    capsall(f);
+    var els = f.elements;
+//     var obligatorios = Array(0,1,2,8,9,10,12,13,22,23,24,25,26,27,28,29,31,32,43,44,45,45,46,47);
+    var noobligatorios = Array(12, 18, 19, 32, 35, 44, 45, 53, 54); //y todos los >= de 59 (los adicionales, referencias, y dir de rec.)
+    for (i=0; i<els.length; i++)
+    {
+//         if (inArray(i, obligatorios)) //comentado para no permitir campos vacios
+            if (inArray(i, noobligatorios) || i >= 59)
+            {
+                continue;
+            }
+            else if (els[i].value == "")
+            {
+                alert("El campo " + els[i].name + " es obligatorio y debe de ser llenado.");
+                return false;
+            }
+    }
+    if (f.supervisor.value.toUpperCase() != "MELENA001")
+    {
+        alert("Password de supervisor incorrecto");
+        return false;
+    }
+    else return true;
+}
+function analizar_rfc(rfc)
+{
+  if ((rfc.value.length == 13)||((rfc.value.length == 14)&&(rfc.value[10] == "-")))
+  {
+    var bday = rfc.value.substr(4,6);
+    var ano = '19'+bday.substr(0,2);
+    var mes = bday.substr(2,2);
+    var dia = bday.substr(4,2);
+    document.contacto.dia.selectedIndex = dia;
+    document.contacto.mes.selectedIndex = mes;
+    for (i = 0; i < document.contacto.ano.length; i++)
+    if (document.contacto.ano.options[i].value == ano)
+    document.contacto.ano.selectedIndex = i;
+  }
+}
+function crear_rfc(f)
+{
+  if (f.rfc.value != "") return;
+  if (f.dia.value == "0" || f.mes.value == "0" || f.ano.value == "") return;
+  f.rfc.value = //siglas
+                f.apellido_paterno.value.charAt(0) + f.apellido_paterno.value.charAt(1) + f.apellido_materno.value.charAt(0) + f.nombre.value.charAt(0) + 
+                //fecha
+                f.ano.value.charAt(2) + f.ano.value.charAt(3) + f.mes.value + f.dia.value ;
+}
+function crear_rfc_ad1(f)
+{
+  if (f.rfc_adicional1.value != "") return;
+  if (f.dia_adicional1.value == "0" || f.mes_adicional1.value == "0" || f.ano_adicional1.value == "") return;
+  f.rfc_adicional1.value = //siglas
+                f.apellido_paterno_adicional1.value.charAt(0) + f.apellido_paterno_adicional1.value.charAt(1) + f.apellido_materno_adicional1.value.charAt(0) + f.nombre_adicional1.value.charAt(0) + 
+                //fecha
+                f.ano_adicional1.value.charAt(2) + f.ano_adicional1.value.charAt(3) + f.mes_adicional1.value + f.dia_adicional1.value ;
+}
+function crear_rfc_ad2(f)
+{
+  if (f.rfc_adicional2.value != "") return;
+  if (f.dia_adicional2.value == "0" || f.mes_adicional2.value == "0" || f.ano_adicional2.value == "") return;
+  f.rfc_adicional2.value = //siglas
+                f.apellido_paterno_adicional2.value.charAt(0) + f.apellido_paterno_adicional2.value.charAt(1) + f.apellido_materno_adicional2.value.charAt(0) + f.nombre_adicional2.value.charAt(0) + 
+                //fecha
+                f.ano_adicional2.value.charAt(2) + f.ano_adicional2.value.charAt(3) + f.mes_adicional2.value + f.dia_adicional2.value ;
+}
+var lock = "";
+function check_min_length(el, min_size)
+{
+    
+    if (el.value.length < min_size && (lock == el.name || lock == ""))
+    {
+        lock = el.name;
+        alert("El tamaño minimo para este campo es de "+min_size+" caracteres.");
+        el.focus();
+         
+         return false;
+    }
+    else
+    {
+     el.style.color = 'black';
+     lock = "";
+     return true;
+    }
+}
+  </script>
+  <form method="post" action="index.php" name="contrato" onsubmit="return validate(this);"><!--los hidden al final para evitar problemas de cuentas del validate-->
+    <table class="width100" border="0" cellpadding="2" cellspacing="2">
+      <thead>
+      <tr>
+        <td colspan="4">
+          Datos
+          personales e información domiciliaria
+        </td>
+      </tr>
+    </thead>
+      <tbody>
+        <tr class="row1">
+          <td style="text-align: right; font-weight: bold;">
+            Nombre
+          </td>
+          <td colspan="3" rowspan="1">
+            <table class="width100" border="0" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    Apellido
+                    paterno
+                  </td>
+                  <td>Apellido
+                    materno
+                  </td>
+                  <td>Nombre
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 33%;">
+                    <input class="width100" maxlength="20" size="10" name="apellido_paterno" value="$apellido_paterno" >
+                  </td>
+                  <td style="width: 33%;">
+                    <input class="width100" maxlength="20" size="10" name="apellido_materno" value="$apellido_materno" >
+                  </td>
+                  <td><input class="width100" maxlength="20" size="10" name="nombre" value="$nombre">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr class="row2">
+          <td style="text-align: right;">
+            Sexo
+          </td>
+          <td>
+            $select_sexo
+          </td>
+          <td style="text-align: right;">
+            Nacionalidad
+          </td>
+          <td>
+            $select_nacionalidad
+          </td>
+        </tr>
+        <tr class="row1">
+          <td style="text-align: right;">
+            Fecha
+            de nacimiento
+          </td>
+          <td>
+            <table class="" border="0" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    $select_dia
+                  </td>
+                  <td>
+                    $select_mes
+                  </td>
+                  <td>
+                    $select_ano
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>Estado de nacimiento</td>
+          <td>$select_edo_de_nac</td>
+        </tr>
+        <tr class="row2">
+          <td style="text-align: right;">
+            R.
+            F. C.
+          </td>
+          <td colspan="3" rowspan="1"><input class="width100" name="rfc" value="$rfc" onblur="crear_rfc(this.form)">          
+          </td>
+        </tr>
+
+        <tr class="row1">
+          <td style="text-align: right; font-weight: bold;">
+            Domicilio
+          </td>
+          <td>
+           <table width="100%">
+            <tr><td>Calle</td><td>#Ext</td><td>#Int</td></tr>
+            <tr>
+             <td>
+              <input style="width:100%;" maxlength="50" size="50" name="domicilio" value="$domicilio">
+             </td>
+             <td>
+              <input size="5" maxlength="10" name="domicilio_ext" value="$domicilio_ext">
+             </td>
+             <td>
+              <input size="5" maxlength="10" name="domicilio_int" value="$domicilio_int">
+             </td>
+            </tr>
+           </table>
+          </td>
+          <td style="text-align: right; font-weight: bold;">Colonia
+          </td>
+          <td><input class="width100" name="colonia" value="$colonia" maxlength="41">
+          </td>
+        </tr>
+        <tr class="row2">
+          <td style="text-align: right; font-weight: bold;">
+            C.
+            P.
+          </td>
+          <td><input maxlength="5" size="5" name="cp" value="$cp" onblur="check_min_length(this,5);">
+          </td>
+          <td style="text-align: right;">Delegación/Municipio
+          </td>
+          <td><input class="width100" name="poblacion" value="$poblacion">
+          </td>
+        </tr>
+        <tr class="row1">
+          <td style="text-align: right; font-weight: bold;">
+            Entidad
+          </td>
+          <td colspan="3" rowspan="1">$select_entidades<br>
+          </td>
+        </tr>
+        <tr class="row2">
+          <td style="text-align: right; font-weight: bold;">
+            Teléfono
+            casa
+          </td>
+          <td><input size="10" MAXLENGTH="10" name="tel_casa" value="$tel_casa" onblur="return check_min_length(this,10);">
+          </td>
+          <td style="text-align: right;">Teléfono
+            móvil
+          </td>
+          <td><input size="10" MAXLENGTH="10" name="tel_movil" value="$tel_movil" onblur="return check_min_length(this,10);">
+          </td>
+        </tr>
+        <tr class="row1">
+          <td style="text-align: right;">
+            e-mail
+          </td>
+          <td colspan="3" rowspan="1"><input class="width100" name="email" value="$email" maxlength="46">
+          </td>
+        </tr>
+        <tr class="row2">
+          <td style="text-align: right;">
+            Estado
+            Civil
+          </td>
+          <td>$select_edo_civil
+          </td>
+          <td style="text-align: right;">No.
+            dependientes
+          </td>
+          <td><input class="width100" name="dependientes" value="$dependientes">
+          </td>
+        </tr>
+        <tr class="row1">
+          <td style="text-align: right;">
+            Grado
+            de estudios
+          </td>
+          <td>$select_grado_de_estudios
+          </td>
+          <td style="text-align: right;">Tipo de vivienda
+          </td>
+          <td>$select_tipo_de_vivienda
+          </td>
+        </tr>
+        <tr class="row2">
+          <td colspan="1" rowspan="1" style="text-align: right;">
+            Tiempo
+            de residencia:&nbsp;
+          </td>
+          <td rowspan="1" colspan="3">A&ntilde;os
+            &nbsp;<input size="2" maxlength="2" class="" name="residencia_anos" value="$residencia_anos">
+            Meses &nbsp;<input size="2" maxlength="2" class="" name="residencia_meses" value="$residencia_meses">
+          </td>
+        </tr>
+        <tr class="row1">
+          <td style="text-align: right; font-weight: bold;">
+            Nombre
+            en tarjeta
+          </td>
+          <td colspan="3" rowspan="1"><input size="19" maxlength="19"  name="nombre_tarjeta" value="$nombre_tarjeta"> (19 caracteres)
+          </td>
+        </tr>
+        <tr class="row2">
+          <td style="text-align: right; font-weight: bold;">
+            Color
+          </td>
+          <td>$select_color
+          </td>
+          <td style="text-align: right; font-weight: bold;">Tamaño
+          </td>
+          <td>$select_tamano
+          </td>
+        </tr>
+        <tr class="row1">
+          <td style="text-align: right; font-weight: bold;" colspan="3" rowspan="1">
+            &iquest;Donde desea recibir su estado de
+            cuenta?
+          </td>
+          <td>$select_donde_recibir_edo_cuenta
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="width100" border="0" cellpadding="2" cellspacing="2">
+      <thead align="left">
+      <tr>
+        <th colspan="2" rowspan="1">información Laboral</th>
+      </tr>
+    </thead>
+      <tbody class="row1">
+        <tr class="">
+          <td style="width: 150px; text-align: left; font-weight: bold;">
+            Nombre
+            empresa o
+            negocio
+          </td>
+          <td><input maxlength="75" class="width100" name="nombre_empresa" value="$nombre_empresa">
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            Teléfono
+          </td>
+          <td><input size="10" MAXLENGTH="10" name="tel_oficina" value="$tel_oficina"  onblur="return check_min_length(this,10);">
+              ext. <input size="5" MAXLENGTH="5" name="tel_oficina_ext" value="$tel_oficina_ext">
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            Domicilio
+          </td>
+          <td>
+           <table width="100%">
+            <tr><td>Calle</td><td>#Ext</td><td>#Int</td></tr>
+            <tr>
+             <td style="width:100%;">
+              <input style="width:100%;" name="domicilio_trabajo" value="$domicilio_trabajo" maxlength="50">
+             </td>
+             <td>
+              <input size="5" name="domicilio_trabajo_ext" value="$domicilio_trabajo_ext" maxlength="10">
+             </td>
+             <td>
+              <input size="5" name="domicilio_trabajo_int" value="$domicilio_trabajo_int" maxlength="10">
+             </td>
+            </tr>
+           </table>
+          
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            Colonia
+          </td>
+          <td><input class="width100" name="colonia_trabajo" value="$colonia_trabajo">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Delegación/Municipio
+          </td>
+          <td><input class="width100" name="poblacion_trabajo" value="$poblacion_trabajo">
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            C.
+            P.
+          </td>
+          <td><input maxlength="5" size="5" name="cp_trabajo" value="$cp_trabajo" onblur="return check_min_length(this,5);">
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            Entidad
+          </td>
+          <td>$select_entidades_trabajo
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Giro
+            de la empresa
+          </td>
+          <td>$select_giro_empresa<br>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Actividad
+            laboral
+          </td>
+          <td>$select_actividad_laboral<br>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Ocupación
+            o puesto
+          </td>
+          <td>$select_ocupacion<br>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Ingresos&nbsp;
+          </td>
+          <td><input class="width100" name="ingresos" value="$ingresos">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Otros
+            ingresos
+          </td>
+          <td><input class="width100" name="otros_ingresos" value="$otros_ingresos">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Fuente
+            de otros ingresos
+          </td>
+          <td>$select_fuente_otros_ingresos
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Antiguedad
+            en el empleo
+          </td>
+          <td>A&ntilde;os <input size="2" maxlength="2" name="antiguedad_anos" value="$antiguedad_anos">&nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; Meses <input size="2" maxlength="2" name="antiguedad_meses" value="$antiguedad_meses">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Antiguedad
+            en el anterior
+          </td>
+          <td>A&ntilde;os <input size="2" maxlength="2" name="antiguedad_anos_anterior" value="$antiguedad_anos_anterior">&nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; Meses <input size="2" maxlength="2" name="antiguedad_meses_anterior" value="$antiguedad_meses_anterior">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="width100" border="0" cellpadding="2" cellspacing="2">
+      <thead align="left">
+      <tr>
+        <th colspan="2" rowspan="1">Referencias personales</th>
+      </tr>
+    </thead>
+      <tbody class="row1">
+        <tr>
+          <td style="width: 170px; font-weight: bold;">
+            Nombre
+            referencia familiar<br>
+          </td>
+          <td><input class="width100" maxlength="59" name="referencia_familiar_nombre" value="$referencia_familiar_nombre">
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            Parentezco
+          </td>
+          <td>$select_referencia_familiar_parentezco
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            Teléfono
+          </td>
+          <td><input size="10" MAXLENGTH="10" name="referencia_familiar_telefono" value="$referencia_familiar_telefono" onblur="return check_min_length(this,10);">
+              ext. <input size="5" MAXLENGTH="5" name="referencia_familiar_telefono_ext" value="$referencia_familiar_telefono_ext">
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            Nombre
+            referencia no familiar
+          </td>
+          <td><input name="referencia_no_familiar_nombre" value="$referencia_no_familiar_nombre" maxlength="75">
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            Teléfono
+          </td>
+          <td><input size="10" MAXLENGTH="10" name="referencia_no_familiar_telefono" value="$referencia_no_familiar_telefono" onblur="return check_min_length(this,10);">
+             ext. <input size="5" MAXLENGTH="5" name="referencia_no_familiar_telefono_ext" value="$referencia_no_familiar_telefono_ext">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="width100" border="0" cellpadding="2" cellspacing="2">
+      <thead align="left">
+      <tr>
+        <th colspan="2" rowspan="1">Acepto los siguientes
+        productos opcionales</th>
+      </tr>
+    </thead>
+      <tbody class="row1">
+        <tr>
+          <td style="width: 150px; font-weight: bold;">
+            Seguro siempre
+            protegido<br>
+          </td>
+          <td style="width: 80%;">$select_seguro<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            Protección
+            Spira
+          </td>
+          <td>$select_proteccion
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="width100" border="0" cellpadding="2" cellspacing="2">
+      <thead align="left">
+      <tr>
+        <th colspan="2" rowspan="1">Tarjetas adicionales</th>
+      </tr>
+    </thead>
+      <tbody class="row1">
+        <tr>
+          <td style="width: 150px;">
+            Apellido
+            Paterno<br>
+          </td>
+          <td><input class="width100" name="apellido_paterno_adicional1" value="$apellido_paterno_adicional1" maxlength="40">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Apellido
+            Materno
+          </td>
+          <td><input class="width100" name="apellido_materno_adicional1" value="$apellido_materno_adicional1" maxlength="40">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Nombre
+          </td>
+          <td><input class="width100" name="nombre_adicional1" value="$nombre_adicional1" maxlength="30">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Fecha
+            de nacimiento
+          </td>
+          <td>
+            <table class="" border="0" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    $select_dia_adicional1
+                  </td>
+                  <td>
+                    $select_mes_adicional1
+                  </td>
+                  <td>
+                    $select_ano_adicional1
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            RFC
+          </td>
+          <td><input class="width100" name="rfc_adicional1" value="$rfc_adicional1" onblur="crear_rfc_ad1(this.form)">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Parentezco
+          </td>
+          <td>
+            $select_parentezco_adicional1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Nombre
+            en tarjeta
+          </td>
+          <td><input size="19" MAXLENGTH="19" name="nombre_tarjeta_adicional1" value="$nombre_tarjeta_adicional1">(19 caracteres)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Color
+          </td>
+          <td>$select_color_adicional1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Tamaño
+          </td>
+          <td>$select_tamano_adicional1
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 150px;">
+            Apellido Paterno<br>
+          </td>
+          <td><input class="width100" name="apellido_paterno_adicional2" value="$apellido_paterno_adicional2" maxlength="40">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Apellido
+            Materno
+          </td>
+          <td><input class="width100" name="apellido_materno_adicional2" value="$apellido_materno_adicional2" maxlength="40">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Nombre
+          </td>
+          <td><input class="width100" name="nombre_adicional2" value="$nombre_adicional2" maxlength="30">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Fecha
+            de nacimiento
+          </td>
+          <td>
+            <table class="" border="0" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    $select_dia_adicional2
+                  </td>
+                  <td>
+                    $select_mes_adicional2
+                  </td>
+                  <td>
+                    $select_ano_adicional2
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            RFC
+          </td>
+          <td><input class="width100" name="rfc_adicional2" value="$rfc_adicional2" onblur="crear_rfc_ad2(this.form)">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Parentezco
+          </td>
+          <td>$select_parentezco_adicional2
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Nombre
+            en tarjeta
+          </td>
+          <td><input size="19" MAXLENGTH="19" name="nombre_tarjeta_adicional2" value="$nombre_tarjeta_adicional2">(19 caracteres)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Color
+          </td>
+          <td>$select_color_adicional2
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Tamaño
+          </td>
+          <td>$select_tamano_adicional2
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="width100" border="0" cellpadding="2" cellspacing="2">
+      <thead align="left">
+      <tr>
+        <th colspan="4" rowspan="1"><a name="recoleccion"></a>Referencias
+        bancarias</th>
+      </tr>
+    </thead>
+      <tbody class="row1">
+        <tr>
+          <td style="width: 200px;">
+            TDC
+            últimoss 4 digitos)<br>
+          </td>
+          <td style="width: 30%;"><input size="4" MAXLENGTH="4" name="tdc1" value="$tdc1" onblur="if (this.value != '')return check_min_length(this,4);">
+          </td>
+          <td style="width: 50px;">Banco
+          </td>
+          <td width="40%"><input class="width100" name="banco1" value="$banco1">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 150px;">
+            TDC últimoss 4 digitos)<br>
+          </td>
+          <td><input size="4" MAXLENGTH="4" name="tdc2" value="$tdc2" onblur="if (this.value != '') return check_min_length(this,4);">
+          </td>
+          <td style="width: 50px;">Banco
+          </td>
+          <td><input class="width100" name="banco2" value="$banco2">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 150px;">
+            T. Comercial últimoss 4
+            digitos)<br>
+          </td>
+          <td><input size="4" MAXLENGTH="4" name="tdc3" value="$tdc3" onblur="if (this.value != '') return check_min_length(this,4);">
+          </td>
+          <td style="width: 50px;">Tienda
+          </td>
+          <td><input class="width100" name="banco3" value="$banco3">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 150px;">
+            T. Comercial últimoss 4
+            digitos)<br>
+          </td>
+          <td><input size="4" MAXLENGTH="4" name="tdc4" value="$tdc4" onblur="if (this.value != '') return check_min_length(this,4);">
+          </td>
+          <td style="width: 50px;">Tienda
+          </td>
+          <td><input class="width100" name="banco4" value="$banco4">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 150px;">
+            T. American Exp. últimoss 4
+            digitos)<br>
+          </td>
+          <td><input size="4" MAXLENGTH="4" name="tdc5" value="$tdc5" onblur="if (this.value != '') return check_min_length(this,4);">
+          </td>
+          <td style="width: 50px;"><br>
+          </td>
+          <td>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 150px;">
+            Cuenta de cheques<br>
+          </td>
+          <td><br>
+          </td>
+          <td style="width: 50px;">Banco
+          </td>
+          <td><input class="width100" name="banco5" value="$banco5">
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 150px;">
+            Cuenta de ahorros
+          </td>
+          <td><br>
+          </td>
+          <td style="width: 50px;">Banco
+          </td>
+          <td><input class="width100" name="banco6" value="$banco6">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Cuenta
+            de inversión
+          </td>
+          <td>
+          </td>
+          <td>Banco
+          </td>
+          <td><input class="width100" name="banco7" value="$banco7">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Prestamo
+            bancario
+          </td>
+          <td>
+          </td>
+f          <td>Banco
+          </td>
+          <td><input class="width100" name="banco8" value="$banco8">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Prestamo
+            no bancario
+          </td>
+          <td>
+          </td>
+          <td>Institución
+          </td>
+          <td><input class="width100" name="banco9" value="$banco9">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<!--     <center><a href="#recoleccion" onclick="var rec = document.getElementById('recoleccion');rec.style.display='table;';red.style.width='100%;';this.style.display='none;';">Dirección de recolección</a></center> -->
+    <table style="displaybk: none;" class="width100" id="recoleccion" border="0" cellpadding="2" cellspacing="2">
+      <thead align="left">
+      <tr>
+        <th colspan="2" rowspan="1">Dirección
+        de
+        recolección</th>
+      </tr>
+    </thead>
+      <tbody>
+        <tr class="row1">
+          <td style="font-weight: bold;">
+            Domicilio
+          </td>
+          <td>
+           <table width="100%">
+            <tr><td>Calle</td><td>#Ext</td><td>#Int</td></tr>
+            <tr>
+             <td style="width:100%;">
+              <input style="width:100%;" name="domicilio_recoleccion" value="$domicilio_recoleccion">
+             </td>
+             <td>
+              <input size="5" name="domicilio_recoleccion_ext" value="$domicilio_recoleccion_ext">
+             </td>
+             <td>
+              <input size="5" name="domicilio_recoleccion_int" value="$domicilio_recoleccion_int">
+             </td>
+            </tr>
+           </table>
+
+          </td>
+        </tr>
+        <tr class="row1">
+          <td style="font-weight: bold;">
+            Colonia
+          </td>
+          <td><input class="width100" name="colonia_recoleccion" value="$colonia_recoleccion">
+          </td>
+        </tr>
+        <tr class="row1">
+          <td style="font-weight: bold;">
+            Delegación/Municipio
+          </td>
+          <td><input class="width100" name="poblacion_recoleccion" value="$poblacion_recoleccion">
+          </td>
+        </tr>
+        <tr class="row1">
+          <td style="font-weight: bold;">
+            C.P.
+          </td>
+          <td><input maxlength="5" size="5" name="cp_recoleccion" value="$cp_recoleccion" onblur="return check_min_length(this,5);">
+          </td>
+        </tr>
+        <tr class="row1">
+          <td style="font-weight: bold;">
+            Entidad
+          </td>
+          <td>$select_entidades_recoleccion<br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <table class="width100" border="0" cellpadding="2" cellspacing="2">
+      <tbody>
+        <tr class="row1">
+          <td align="right" width="400">Password de supervisor</td>
+          <td colspan="3" rowspan="1" align="left">
+            <input type="password" name="supervisor">
+          </td>
+        </tr>
+        <tr class="row2">
+          <td style="text-align: center;" colspan="4" rowspan="1">
+            <input value="Guardar" name="submit" type="submit"><input value="Cancelar" onclick="window.close();" type="button">
+          </td>
+        </tr>
+      </tbody>
+    </table><br>
+<input name="_module" value="$_module" type="hidden"><input name="_op" value="$_op" type="hidden"><input name="contacto_id" value="$contacto_id" type="hidden"><input name="campana_id" value="$campana_id" type="hidden">
+  </form>
+</body></html>

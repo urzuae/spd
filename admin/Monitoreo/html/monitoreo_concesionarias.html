@@ -1,0 +1,89 @@
+<script type="text/javascript" src="$_themedir/jquery/crm_monitoreo_filtros.js"></script>
+<script type="text/javascript" src="$_themedir/jquery/crm_monitoreo_asignacion_main.js"></script>
+<form action="index.php" name="concesion" method="post">
+            <input type="hidden" name="_module" value="$_module">
+			<input type="hidden" name="_op" value="$_op">
+            <center><h1>Monitoreo de Distribuidores</h1></center>
+            <table width="40%" border="0" align="center">
+			<thead>
+			<tr>
+			  <td colspan=2><img src="../img/date.png" height="16" wight="16">&nbsp;Fecha de Importaci&oacute;n</td>
+			</tr>
+			</thead>
+			<tr class="row1">
+			  <td style="width:100px;">Fecha de inicio</td>
+			  <td style="width:100px;"><input name="fecha_ini" id="fecha_ini" value="$fecha_ini"><img src="../img/calendar.gif" id="f_trigger_c" style="border: 1px solid red; cursor: pointer;" title="Fecha" onmouseover="this.style.background='red';" onmouseout="this.style.background=''"></td>
+			</tr>
+			<script>
+			function update_fecha_fin(cal)
+			{
+			  //checamos si es mayor la ini que la fin y cambiar el fin
+			  var fecha_fin = document.getElementById('fecha_fin').value;
+			  if (fecha_fin == '') return false;
+			  var guion_1 = fecha_fin.indexOf('-');
+			  var guion_2 = fecha_fin.indexOf('-', guion_1 + 1);
+			  var guion_3 = fecha_fin.length;//fecha_fin.indexOf('-', guion_2 + 1);
+			  var fin_d = fecha_fin.substring(0, guion_1);
+			  var fin_m = fecha_fin.substring(guion_1 + 1, guion_2);
+			  var fin_y = fecha_fin.substring(guion_2 + 1, guion_3);
+			  var fin  = new Date(fin_y, fin_m - 1, fin_d);
+			  var ini  = new Date(cal.date.getFullYear(), cal.date.getMonth(), cal.date.getDate());
+			  if (ini.getTime() > fin.getTime())
+			  {
+			   document.getElementById('fecha_fin').value = cal.date.print('%Y-%m-%d');
+			  }
+			}
+
+			function update_fecha_ini(cal)
+			{
+			  //checamos si es mayor la ini que la fin y cambiar el fin
+			  var fecha_ini = document.getElementById('fecha_ini').value;
+			  if (fecha_ini == '') return false;
+			  var guion_1 = fecha_ini.indexOf('-');
+			  var guion_2 = fecha_ini.indexOf('-', guion_1 + 1);
+			  var guion_3 = fecha_ini.length;//fecha_ini.indexOf('-', guion_2 + 1);
+			  var ini_d = fecha_ini.substring(0, guion_1);
+			  var ini_m = fecha_ini.substring(guion_1 + 1, guion_2);
+			  var ini_y = fecha_ini.substring(guion_2 + 1, guion_3);
+			  var ini  = new Date(ini_y, ini_m - 1, ini_d);
+			  var fin  = new Date(cal.date.getFullYear(), cal.date.getMonth(), cal.date.getDate());
+			  if (ini.getTime() > fin.getTime())
+			  {
+			   document.getElementById('fecha_ini').value = cal.date.print('%Y-%m-%d');
+			  }
+			}
+			Calendar.setup(
+			{
+			  inputField :'fecha_ini',
+			  ifFormat :'%Y-%m-%d',
+			  onUpdate : update_fecha_fin,
+			  button : 'f_trigger_c'
+			}
+			);
+			</script>
+			<tr class="row1">
+			  <td>Fecha de fin</td>
+			  <td><input name="fecha_fin" id="fecha_fin" value="$fecha_fin"><img src="../img/calendar.gif" id="f_trigger_d" style="border: 1px solid red; cursor: pointer;" title="Fecha" onmouseover="this.style.background='red';" onmouseout="this.style.background=''"></td>
+			</tr>
+			<script>
+			Calendar.setup(
+			{
+			  inputField :'fecha_fin',
+			  ifFormat :'%Y-%m-%d',
+			  onUpdate : update_fecha_ini,
+			  button : 'f_trigger_d'
+			}
+			);
+			</script>
+			<tr>
+			  <td colspan="2" align="center"><input type="submit" name="btn" value="Buscar"></td>
+			</tr>
+
+            </table>
+</form>
+ <table style="text-align: left; width: 95%;" border="0" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr class="" ><td colspan="2" style="width:100%;">$tabla_campanas</td></tr>
+    <tr class="" ><td style="width:50%;" align="left">$titulos_campanas</td><td style="width:50%;" align="right">$boton_excel</td></tr>
+  </tbody>
+</table>

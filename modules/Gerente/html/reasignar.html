@@ -1,0 +1,90 @@
+<script>
+    function allon()
+    {
+        for(i=0;i < document.seleccionar.elements.length;i++)
+        {
+            if(document.seleccionar.elements[i].type == "checkbox")
+                document.seleccionar.elements[i].checked=true;
+        }
+    }
+    function alloff()
+    {
+        for(i=0;i<document.seleccionar.elements.length;i++)
+        {
+            if(document.seleccionar.elements[i].type == "checkbox")
+                document.seleccionar.elements[i].checked=false;
+        }
+    }
+</script>
+<script type="text/javascript" src="$_themedir/jquery/crm_gerente_reasignar.js"></script>
+<form onchange="capsall(this);" method="post" action="index.php" name="contacto" >
+<input name="_module" value="$_module" type="hidden">
+<input name="_op" value="$_op" type="hidden">
+<input name="order" value="$order" type="hidden">
+  <table class="width100" border="0" cellpadding="2" cellspacing="2">
+    <thead><tr>
+      <td colspan="4"><img alt="" src="img/search.gif">Buscar contacto</td>
+    </tr>
+    </thead>
+    <tbody>
+
+<tr class="row1">
+  <td style="width:10%;">Nombre</td>
+  <td  style="width:90%;"  colspan=3 >        
+        <table class="width100" border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr> 
+              <td style="width: 33%;"><input class="width100" size="10" name="nombre" value="$nombre"></td>
+              <td style="width: 33%;"><input class="width100" size="10" name="apellido_paterno" value="$apellido_paterno" onblur="check_chars(this, 'ABCDEFGHIJKLMNOPQRSTUVWXYZÑabcdefghijklmnopqrstuvwxyzñ ');caps1(this);"></td>
+              <td style="width: 33%;"><input class="width100" size="10" name="apellido_materno" value="$apellido_materno" onblur="check_chars(this, 'ABCDEFGHIJKLMNOPQRSTUVWXYZÑabcdefghijklmnopqrstuvwxyzñ ');caps1(this);"></td>
+            </tr>
+          </tbody>
+        </table>        
+  </td>
+</tr>
+<tr class="row2">
+	<td>Producto</td>
+	<td>$select_modelo</td>
+	<td>Tipo de Contacto</td>
+	<td>$select_tipo_registro</td>
+</tr>
+<tr class="row1">
+	<td>Desde</td>
+	<td><input type="text" name="fecha_desde" id="fecha_desde" value="$fecha_desde" onClick="this.value='';" readonly><img src="img/calendar.gif" id="f_trigger_a">
+				<script type="text/javascript">
+				    Calendar.setup({
+				        inputField     :    "fecha_desde",           //*
+				        ifFormat       :    "%d-%m-%Y",
+				        showsTime      :    false,
+				        button         :    "f_trigger_a",        //*
+				        step           :    1
+				    });
+				</script>
+	</td>
+	<td>Hasta</td>
+	<td><input type="text" name="fecha_hasta" id="fecha_hasta" value="$fecha_hasta" onClick="this.value='';" readonly><img src="img/calendar.gif" id="f_trigger_b">
+				<script type="text/javascript">
+				    Calendar.setup({
+				        inputField     :    "fecha_hasta",           //*
+				        ifFormat       :    "%d-%m-%Y",
+				        showsTime      :    false,
+				        button         :    "f_trigger_b",        //*
+				        step           :    1
+				    });
+				</script>
+	</td>
+</tr>
+
+<tr class="row2">
+  <td colspan=4 align=center><input type="submit" name="submit" value="Buscar"> <input type="button" value="Regresar" onclick="location.href='index.php?_module=$_module';"> <input  type="button"  value="Limpiar" onclick="this.form.nombre.value='';this.form.apellido_paterno.value='';this.form.apellido_materno.value='';this.form.vehiculo.selectedIndex=0;"/></td>
+</tr>
+    </tbody>
+  </table>
+
+</form>
+
+<form onchange="capsall(this);" method="post" action="index.php" name="seleccionar" >
+<input name="_module" value="$_module" type="hidden">
+<input name="_op" value="$_op" type="hidden">
+$lista_contactos
+</form>

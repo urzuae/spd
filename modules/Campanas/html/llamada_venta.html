@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Call Center - Ciclo de venta "$campana"</title>
+<meta content="">
+
+<link type="text/css" href="$_css" rel="stylesheet">
+<script type="text/javascript" src="$_themedir/js/theme.js"></script>
+</head>
+<body>
+<script>
+var conexion_vta;
+var result_vta;
+var conexion_elimina;
+var result_elimina;
+var url_regreso;
+var nom_modelo;
+var boton_g;
+var chasis_g;
+var precio_g;
+function validate(f)
+{
+	if (f.chasis.value == "")
+	{
+		alert('Ingrese un no de serie válido');
+		return false;
+	}
+	if (f.precio.value == "")
+	{
+		alert('Ingrese un precio válido');
+		return false;
+	}
+	return true;
+}
+function longitud(f){
+    //if(f.length != 17){
+    if(f.length <1){
+      alert("El numero de serie debe debe contener al menos un caracter");
+      return false;
+    }
+    return true;
+}
+function checa_precio(precio)
+{
+	if(precio== '$ 0.00')
+	{
+		alert("El precio no puede ser cero");
+		return false;
+	}
+	return true;
+}
+function elimina_venta_vendedores(contacto_id,modelo_id,version_id,transmision_id,timestamp_venta,chasis,campana_id,llamada_id,nopendientes)
+{
+    var urleliminaventa ="index.php?_module=Gerente&_op=EliminaVenta";
+    url_regreso="index.php?_module=Campanas&_op=llamada_venta&contacto_id="+contacto_id+"&campana_id="+campana_id+"&llamada_id="+llamada_id+"&nopendientes="+nopendientes;
+    if(confirm('Esta seguro de eliminar la venta'))
+    {
+        conexion_elimina=crearXMLHttpRequest();
+        conexion_elimina.onreadystatechange = procesarVentasEliminadasVendedores;
+        conexion_elimina.open('POST',urleliminaventa, true);
+        conexion_elimina.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        conexion_elimina.send("contacto_id="+contacto_id+"&modelo_id="+modelo_id+"&version_id="+version_id+"&transmision_id="+transmision_id+"&timestamp="+timestamp_venta+"&chasis="+chasis);
+    }
+}
+function procesarVentasEliminadasVendedores()
+{
+    if(conexion_elimina.readyState == 4)
+    {
+        window.location.href=url_regreso;
+    }
+}
+
+function concreta_venta(modelo,contacto_id,modelo_id,version_id,transmision_id,timestamp,chasis,precio,uid,boton)
+{
+    boton_g=boton;
+    chasis_g=chasis;
+    precio_g=precio;
+    nom_modelo=modelo;
+    var urlventa ="index.php?_module=Campanas&_op=RegistraVenta";
+    var chasis_f=document.getElementById(chasis).value;    
+    var precio_f=document.getElementById(precio).value;
+    if( (chasis_f.length > 0) && (precio_f.length > 0) )
+    {
+        //if(longitud(chasis_f))
+        if((longitud(chasis_f)) &&(checa_precio(precio_f)) )
+        {
+            if(confirm('Esta seguro de registrar la venta del producto: '+modelo))
+            {
+            	conexion_vta=crearXMLHttpRequest();
+                conexion_vta.onreadystatechange = procesarVentas;
+                conexion_vta.open('POST',urlventa, true);
+                conexion_vta.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                conexion_vta.send("contacto_id="+contacto_id+"&modelo="+modelo+"&modelo_id="+modelo_id+"&version_id="+version_id+"&transmision_id="+transmision_id+"&fecha="+timestamp+"&chasis="+chasis_f+"&precio="+precio_f+"&uid="+uid);
+            }
+        }
+    }
+    else
+    {
+        alert("Favor de especificar el no de serie y el precio");
+    }
+}
+function procesarVentas()
+{
+    var result_vta='';
+	if(conexion_vta.readyState == 4)
+	{
+         result_vta= document.getElementById("valida");
+		if(conexion_vta.responseText=="Venta Registrada")
+		{
+            result_vta.innerHTML = "Venta Registrada del producto:  "+nom_modelo;
+            window.document.getElementById(boton_g).style.display="none";
+            window.document.getElementById(chasis_g).readOnly=true;
+            window.document.getElementById(precio_g).readOnly=true;
+
+            //btn=document.getElementById(boton_g).value;
+            //alert(btn);
+		}
+        else
+        {
+            result_vta.innerHTML = conexion_vta.responseText;
+        }
+	}
+	else
+	{
+		result_vta.innerHTML = 'Procesando.....';
+	}
+}
+
+/*function addEvent(elemento,nomevento,funcion,captura)
+{
+  if (elemento.attachEvent)
+  {
+    elemento.attachEvent('on'+nomevento,funcion);
+    return true;
+  }
+  else
+    if (elemento.addEventListener)
+    {
+      elemento.addEventListener(nomevento,funcion,captura);
+      return true;
+    }
+    else
+      return false;
+}
+*/
+function crearXMLHttpRequest()
+{
+  var xmlHttp=null;
+  if (window.ActiveXObject)
+    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+  else
+    if (window.XMLHttpRequest)
+      xmlHttp = new XMLHttpRequest();
+  return xmlHttp;
+}
+
+</script>
+<form action="index.php" name="objeciones" method="post" onsubmit="return validate(this)">
+<input name="_module" value="$_module" type="hidden">
+<input name="_op" value="$_op" type="hidden">
+<input name="campana_id" value="$campana_id" type="hidden">
+<input name="contacto_id" value="$contacto_id" type="hidden">
+<input name="llamada_id" value="$llamada_id" type="hidden">
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2" cellspacing="2"> <tbody> 
+<tr align="center"> <th>Venta</th></tr>
+<tr class="row1">
+  <td>
+      $buffer
+  </td>
+</tbody></table></form></body></html>

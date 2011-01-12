@@ -1,0 +1,63 @@
+<form action="index.php?_module=Reportes&_op=graficas" name="form" method="post" onsubmit="document.getElementById('iframe').style.display='block'">
+<input type="hidden" name="_module" value="$_module">
+<input type="hidden" name="_op" value="graficas">
+<input type="hidden" name="tipo" value="$tipo">
+
+<table cellspacing="2" cellpadding="2" border="0" align="center" class="width80">
+    <caption><h1>$titulo</h1></caption>
+    <thead>
+        <tr>
+            <td colspan="2" align="center">Seleccione fechas</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr align="center" class="row1">
+            <td width="35%" align="left">Fecha de inicio:</td>
+            <td width="65%" align="left"><input id="cal-field-1" name="fecha_ini" value="$fecha_ini" size="19" style="background-color:#ffffff;border:1px solid #cdcdcd;color:#000000;" readonly/>
+            <button  id="cal-button-1" class="btnac"></button>
+            <script type='text/javascript'>
+                        Calendar.setup({
+                            inputField    : 'cal-field-1',
+                            ifFormat      : '%Y-%m-%d %H:%M:00',
+                            showsTime     : true,
+                            button        : 'cal-button-1'});
+            </script>
+            </td>
+        </tr>
+        <tr align="center" class="row1">
+            <td align="left">Fecha de fin:</td>
+            <td align="left">
+                        <input type="text" id="cal-field-2"  name="fecha_fin" value="$fecha_fin" size="19" style="background-color:#ffffff;border:1px solid #cdcdcd;color:#000000;" readonly/>
+                          <button  id="cal-button-2" class="btnac"></button>
+                          <script type='text/javascript'>
+                            Calendar.setup({
+                            inputField    : 'cal-field-2',
+                            ifFormat      : '%Y-%m-%d %H:%M:00',
+                            showsTime     : true,
+                            button        : 'cal-button-2'});
+                         </script>
+
+            </td>
+        </tr>
+        <tr align="center" class="row1">
+            <td align="left">Evento:</td>
+            <td align="left">$combo_eventos</td>
+        </tr>
+    </tbody>
+    <thead>
+        <tr class="row1">
+          <td align="center" colspan="2">
+            <input type="submit" value="Consultar" name="submit" style="width:80px;background-color:#ffffff;border:1px solid #cdcdcd;color:#333333;font-weight:bold;"/>
+          </td>
+        </tr>
+    </thead>
+</table><br><hr color="#dddddd"><br>
+<table cellspacing="2" cellpadding="2" border="0" class="width100">
+    <tbody>
+        <tr>
+            <td valign="top" align="center"> $tabla_resul</td>
+            <td colspan="3" align="center">$_grafico</td>
+        </tr>
+    </tbody>
+</table>
+</form>

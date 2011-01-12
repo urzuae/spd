@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Subir CSV</title>
+      <meta content="">
+    </head>
+<body>Para actualizar una tabla, selecciona y sube un archivo csv
+(Valores separados por comas) nombrado como la tabla que se quiere
+actualizar (ej. ejemplo.csv actualizara la tabla ejemplo de la Base de
+datos)br><br>
+<script>
+function validate(f)
+{
+    if (f.file.value == "")
+    {
+        alert("Necesita especificar  una tabla a subir");
+        return false;
+    }
+    if (f.vaciar.checked)
+        if (!confirm("¿Está seguro de que desea vaciar la tabla?"))
+            return false;
+    return true;
+}
+</script>
+<form onchange="capsall(this);" enctype="multipart/form-data" method="post" action="index.php" name="upload" onsubmit="return validate(this);">
+<input name="_module" value="$_module" type="hidden">
+<input name="table" value="$_table" type="hidden"><input name="_op" value="$_op" type="hidden"><input name="file" type="file"><br>
+
+<input name="submit" value="Subir" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="vaciar"> Vacias tabla antes de subir
+</form>
+$error<br>
+$actualizando_tabla</body></html>

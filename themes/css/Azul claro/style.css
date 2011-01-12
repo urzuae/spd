@@ -1,0 +1,510 @@
+/*******ESTILOS PARA EL SITIO WEB   ********/
+  body {
+  font-family: Verdana;
+  font-size: 11px;
+  margin: 0px;
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+    }
+
+  td, th {
+    font-family: Verdana,Helvetica,sans-serif;
+    font-size: 11px;
+    }
+
+
+  a:link {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    color: #000;
+    text-decoration: none;
+
+    }
+
+  a:active {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    text-decoration: underline;
+    color: #000;
+
+    }
+
+  a:visited {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    text-decoration: none;
+    color: #000;
+
+    }
+
+  a:hover { font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    text-decoration: underline;
+    color: #00BFFF;
+
+    }
+
+  .width100 { width: 100%;
+    }
+
+  .footer {
+    font-size: 11px;
+    font-family: Verdana;
+    background-color: #FFFFFF;
+    color: #000000;
+    }
+  .nodo{width:200px; }
+  .box_title, h2 {
+    font-family: Verdana;
+    background-color: transparent;
+    padding-top: 0px;
+    font-size: 15px;
+    color: #000000;
+    font-weight: bold;
+    }
+
+  .box_content {
+    /*background-color: #000;*/ 
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    color: #000000;
+    font-size: 11px;
+    }
+
+  .content { font-size: 11px;
+    font-family: Verdana;
+    color: #000000;
+    }
+
+  .title, h1 { font-family: Verdana;
+    font-size: 15px;
+    font-weight: bold;
+    padding-left: 0px;
+    padding-top: 0px;
+    background-color: transparent;
+    color: #000000;
+    }
+
+  .dots {
+  background-image: url(../../../img/dot.png);
+
+  }
+
+  thead, th {
+  background-color: #00BFFF;
+  _background-color: rgba(7, 4, 1, 0.4);
+  _background-image: url('../../../../img/grad_gris1.png');
+  _color: rgba(7, 4, 1, 0.4);
+  _color: #FFFFFF;
+  font-weight: bold;
+  font-size: 10px;
+  /*-webkit-box-shadow: 2px 2px 2px #000000;
+  -moz-box-shadow: 2px 2px 2px #000000;
+  box-shadow: 2px 2px 2px #000000;*/
+  }
+  .row1 {
+  background-color: #FFFFFF;
+  _background-image: url(../../../img/r1bg.gif);
+  color: #000;
+  font-family: Verdana;
+  font-size: 11px;
+  }
+  .row2 {
+  background-color: #00BFFF;
+  color: #000;
+  font-family: Verdana;
+  font-size: 11px;
+  }
+  boton, input[type="submit"],input[type="button"], button{
+    background: #87CEFA url(../../../img/overlay.png) repeat-x;
+    display: inline-block;
+    padding: 4px 20px 4px;
+    color: #000;
+    text-decoration: none;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    /*border-bottom: 1px solid rgba(0,0,0,0.25);*/
+    position: relative;
+    cursor:pointer
+    
+  }
+  boton:hover, input[type="submit"]:hover, input[type="button"]:hover, button:hover{
+    background-color: #FFF;
+    color:#000;
+  }
+  boton:active, input[type="submit"]:active,input[type="button"]:active, button:active{
+    top: 1px;
+    }
+    
+textarea,select,input{
+    color: #000;
+    font-family: Verdana;
+    font-size: 11px;
+    border:1px solid #000000;
+
+  }
+.texto_acceso{
+    width:120px;
+    }
+
+.franja{
+    height: 30px;
+    width: 99%;
+    background:#00BFFF;
+
+    /*background-color: rgba(7, 4, 1, 0.5);
+    color: rgba(7, 4, 1, 0.5);*/
+    -webkit-box-shadow: 3px 3px 3px #000000;
+    -moz-box-shadow: 3px 3px 3px #000000;
+    box-shadow: 3px 3px 3px #000000;
+}
+
+.arbol_color{
+    color:#3399FF;
+}
+.arbol_bloqueado{
+    color:#800000;
+}
+
+
+/*******ESTILO PARA LA VENTANA MODAL QUE APARECE EN EL CATALOGO DE FUENTES   ********/
+#simplemodal-overlay {background-color:#000; cursor:wait;}
+#simplemodal-container {height:400px; width:700px; background-color:#ffffff; color:#000000; border:3px solid #3399FF;}
+#simplemodal-container a.modalCloseImg {background:url(../../../img/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-18px; cursor:pointer;}
+#simplemodal-container #basicModalContent {padding:2px;}
+input      { -moz-border-radius:3px; -webkit-border-radius:3px; }
+input[type=submit],label,select,.pointer    { cursor:pointer; }
+
+/*********** ESTILO PARA LOS TABLE SORTER ***************/
+table.tablesorter {
+	font-family:Verdana;
+	background-color: #F5F5DC;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #00BFFF;
+	border: 0px solid #000000;
+	font-size: 8pt;
+	padding: 4px;
+	color: #000000;
+    height:20px;
+    text-align: left;
+}
+table.tablesorter thead tr .header {
+	background-image: url(../../../img/bg.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #333333;
+	padding: 3px;
+	vertical-align: top;
+    height:20px;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#FFF;
+	background-image:url(../../../img/r1bg.gif);
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../../../img/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../../../img/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #EEE8AA;
+color:#000;
+}
+
+
+/*************** ESTILOS  PARA EL TREEVIEW  *********************/
+.treeview, .treeview ul {
+    padding: 0;margin: 0;list-style: none;
+}
+
+.treeview ul {
+    background-color: white;margin-top: 4px;
+}
+
+.treeview .hitarea {
+	background: url(../../../img/treeview-default.gif) -64px -25px no-repeat;height: 16px;width: 16px;margin-left: -16px;float: left;cursor: pointer;
+}
+/* fix for IE6 */
+* html .hitarea {
+	display: inline;float:none;
+}
+
+.treeview li {
+	margin: 0;padding: 3px 0pt 3px 16px;
+}
+
+.treeview a.selected {
+	background-color: #eee;
+}
+
+#treecontrol { margin: 1em 0; display: none; }
+
+.treeview .hover { color: red; cursor: pointer; }
+
+.treeview li { background: url(../../../img/treeview-default-line.gif) 0 0 no-repeat; }
+.treeview li.collapsable, .treeview li.expandable { background-position: 0 -176px; }
+
+.treeview .expandable-hitarea { background-position: -80px -3px; }
+
+.treeview li.last { background-position: 0 -1766px }
+.treeview li.lastCollapsable, .treeview li.lastExpandable { background-image: url(../../img/treeview-default.gif); }
+.treeview li.lastCollapsable { background-position: 0 -111px }
+.treeview li.lastExpandable { background-position: -32px -67px }
+
+.treeview div.lastCollapsable-hitarea, .treeview div.lastExpandable-hitarea { background-position: 0; }
+
+.treeview-red li { background-image: url(../../../img/treeview-red-line.gif); }
+.treeview-red .hitarea, .treeview-red li.lastCollapsable, .treeview-red li.lastExpandable { background-image: url(../../../img/treeview-red.gif); }
+
+.treeview-black li { background-image: url(../../../img/treeview-black-line.gif); }
+.treeview-black .hitarea, .treeview-black li.lastCollapsable, .treeview-black li.lastExpandable { background-image: url(../../../img/treeview-black.gif); }
+
+.treeview-gray li { background-image: url(../../../img/treeview-gray-line.gif); }
+.treeview-gray .hitarea, .treeview-gray li.lastCollapsable, .treeview-gray li.lastExpandable { background-image: url(../../../img/treeview-gray.gif); }
+
+.treeview-famfamfam li { background-image: url(../../../img/treeview-famfamfam-line.gif); }
+.treeview-famfamfam .hitarea, .treeview-famfamfam li.lastCollapsable, .treeview-famfamfam li.lastExpandable { background-image: url(../../../img/treeview-famfamfam.gif); }
+
+/* Calendario */
+
+div.calendar { position: relative; }
+
+.calendar, .calendar table {
+  border: 1px solid #bdb2bf;
+  font-size: 11px;
+  color: #000;
+  cursor: default;
+  background-color: #FFFFFF;
+  background: url("../../../img/normal-bg.gif");
+  font-family: "trebuchet ms",verdana,tahoma,sans-serif;
+}
+
+.calendar {
+  border-color: #797979;
+  background-color: #FFFFFF
+}
+
+/* Header part -- contains navigation buttons and day names. */
+
+.calendar .button { /* "<<", "<", ">", ">>" buttons have this class */
+  text-align: center;    /* They are the navigation buttons */
+  padding: 2px;          /* Make the buttons seem like they're pressing */
+  background: url("../../../img/title-bg.gif") repeat-x 0 100%; color: #000;
+  font-weight: bold;
+}
+
+.calendar .nav {
+  font-family: verdana,tahoma,sans-serif;
+}
+
+.calendar .nav div {
+  background: transparent url("../../../img/menuarrow.gif") no-repeat 100% 100%;
+}
+
+.calendar thead tr { background: url("../../../img/title-bg.gif") repeat-x 0 100%; color: #000; }
+
+.calendar thead .title { /* This holds the current "month, year" */
+  font-weight: bold;      /* Pressing it will take you to the current date */
+  text-align: center;
+  padding: 2px;
+  background: url("../../../img/title-bg.gif") repeat-x 0 100%; color: #000;
+}
+
+.calendar thead .headrow { /* Row <TR> containing navigation buttons */
+}
+
+.calendar thead .name { /* Cells <TD> containing the day names */
+  border-bottom: 1px solid #797979;
+  padding: 2px;
+  text-align: center;
+  color: #000;
+}
+
+.calendar thead .weekend { /* How a weekend day name shows in header */
+  color: #c44;
+}
+
+.calendar thead .hilite { /* How do the buttons in header appear when hover */
+  background: url("../../../img/hover-bg.gif");
+  border-bottom: 1px solid #797979;
+  padding: 2px 2px 1px 2px;
+}
+
+.calendar thead .active { /* Active (pressed) buttons in header */
+  background: url("../../../img/active-bg.gif"); color: #fff;
+  padding: 3px 1px 0px 3px;
+  border-bottom: 1px solid #797979;
+}
+
+.calendar thead .daynames { /* Row <TR> containing the day names */
+  background: url("../../../img/dark-bg.gif");
+}
+
+/* The body part -- contains all the days in month. */
+
+.calendar tbody .day { /* Cells <TD> containing month days dates */
+  font-family: verdana,tahoma,sans-serif;
+  width: 2em;
+  color: #000;
+  text-align: right;
+  padding: 2px 4px 2px 2px;
+}
+.calendar tbody .day.othermonth {
+  font-size: 80%;
+  color: #999;
+}
+.calendar tbody .day.othermonth.oweekend {
+  color: #f99;
+}
+
+.calendar table .wn {
+  padding: 2px 3px 2px 2px;
+  border-right: 1px solid #797979;
+  background: url("../../img/dark-bg.gif");
+}
+
+.calendar tbody .rowhilite td,
+.calendar tbody .rowhilite td.wn {
+  background: url("../../img/rowhover-bg.gif");
+}
+
+.calendar tbody td.today { font-weight: bold; /* background: url("today-bg.gif") no-repeat 70% 50%; */ }
+
+.calendar tbody td.hilite { /* Hovered cells <TD> */
+  background: url("../../../img/hover-bg.gif");
+  padding: 1px 3px 1px 1px;
+  border: 1px solid #bbb;
+}
+
+.calendar tbody td.active { /* Active (pressed) cells <TD> */
+  padding: 2px 2px 0px 2px;
+}
+
+.calendar tbody td.weekend { /* Cells showing weekend days */
+  color: #c44;
+}
+
+.calendar tbody td.selected { /* Cell showing selected date */
+  font-weight: bold;
+  border: 1px solid #797979;
+  padding: 1px 3px 1px 1px;
+  background: url("../../../img/active-bg.gif"); color: #fff;
+}
+
+.calendar tbody .disabled { color: #999; }
+
+.calendar tbody .emptycell { /* Empty cells (the best is to hide them) */
+  visibility: hidden;
+}
+
+.calendar tbody .emptyrow { /* Empty row (some months need less than 6 rows) */
+  display: none;
+}
+
+/* The footer part -- status bar and "Close" button */
+
+.calendar tfoot .footrow { /* The <TR> in footer (only one right now) */
+  text-align: center;
+  background: #565;
+  color: #fff;
+}
+
+.calendar tfoot .ttip { /* Tooltip (status bar) cell <TD> */
+  padding: 2px;
+  background: url("../../../img/status-bg.gif") repeat-x 0 0; color: #000;
+}
+
+.calendar tfoot .hilite { /* Hover style for buttons in footer */
+  background: #afa;
+  border: 1px solid #084;
+  color: #000;
+  padding: 1px;
+}
+
+.calendar tfoot .active { /* Active (pressed) style for buttons in footer */
+  background: #7c7;
+  padding: 2px 0px 0px 2px;
+}
+
+/* Combo boxes (menus that display months/years for direct selection) */
+
+.calendar .combo {
+  position: absolute;
+  display: none;
+  top: 0px;
+  left: 0px;
+  width: 4em;
+  cursor: default;
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
+  border-color: #797979;
+  background: url("../../../img/normal-bg.gif"); color: #000;
+  z-index: 100;
+  font-size: 90%;
+}
+
+.calendar .combo .label,
+.calendar .combo .label-IEfix {
+  text-align: center;
+  padding: 1px;
+}
+
+.calendar .combo .label-IEfix {
+  width: 4em;
+}
+
+.calendar .combo .hilite {
+  background: url("../../../img/hover-bg.gif"); color: #000;
+}
+
+.calendar .combo .active {
+  background: url("../../../img/active-bg.gif"); color: #fff;
+  font-weight: bold;
+}
+
+.calendar td.time {
+  border-top: 1px solid #797979;
+  padding: 1px 0px;
+  text-align: center;
+  background: url("../../../img/dark-bg.gif");
+}
+
+.calendar td.time .hour,
+.calendar td.time .minute,
+.calendar td.time .ampm {
+  padding: 0px 5px 0px 6px;
+  font-weight: bold;
+  background: url("../../../img/normal-bg.gif"); color: #000;
+}
+
+.calendar td.time .hour,
+.calendar td.time .minute {
+  font-family: monospace;
+}
+
+.calendar td.time .ampm {
+  text-align: center;
+}
+
+.calendar td.time .colon {
+  padding: 0px 2px 0px 3px;
+  font-weight: bold;
+}
+
+.calendar td.time span.hilite {
+  background: url("../../../img/hover-bg.gif"); color: #000;
+}
+
+.calendar td.time span.active {
+  background: url("../../../img/active-bg.gif"); color: #fff;

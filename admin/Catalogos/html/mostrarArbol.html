@@ -1,0 +1,75 @@
+  <script type="text/javascript" src="$_themedir/jquery/treeview/jquery.cookie.js"></script>
+  <script type="text/javascript" src="$_themedir/jquery/treeview/jquery.treeview.js"></script>
+  <script type="text/javascript" src="$_themedir/jquery/treeview/triggerTreeView.js"></script>
+  <script type="text/javascript" src="$_themedir/jquery/crm_catalogo_fuentes.js"></script>
+<div id='basicModal'>
+    <form  name="reubicar" method="get">
+        <input type="hidden" name="_module" value="$_module">
+        <input type="hidden" name="_op" value="$_op">
+        <input type="hidden" name="gid" value="$gid">
+        <input type="hidden" name="padre_id" value="$padre_id">
+        <table width="100%" align="center" border="0">
+            <tr>
+                <td align="center">
+                    <h1>Crear origenes</h1>
+                </td>
+            </tr>
+        </table><br>
+        <table width="50%" align="center" border="0">
+            <thead>
+                <th>Arbol de origenes de distribuidoras</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        $treeString
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div id="basicModalContent" style='display:none'>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <table width="100%" align="center" border="0">
+        <tr>
+            <td width="15%">&nbsp;</td>
+            <td width="70%">
+                <table width="100%" id="updateFont" align="center" border="0">
+                   <thead><tr>
+                        <th class="parrafo" colspan="3">Editar Origen</th>
+                       </tr></thead>
+                    <tbody>
+                        <tr><td colspan="3"></td></tr>
+                        <tr><td colspan="3"></td></tr>
+                        <tr class="padre">
+                            <td>Nombre del Origen</td>
+                            <input type="hidden" value="" id="idFuente" name="padre_id">
+                            <td><input type="text" class="required" value="Hola" id="nombreFuente" name="nombreFuente"></td>
+                            <td>
+                                <input id="addFont" type="image" src="../img/new.png">
+                                <input id="saveFont" type="image" src="../img/save.png">
+                                <input id="deleteFont" type="image" src="../img/del.png">
+                                <input id="updFont" type="image" src="../img/lock.gif" width="16" height="16">
+                                <input id="upddesFont" type="image" src="../img/desbloquea.jpg" width="16" height="16">
+                                <input type="hidden" name="flagAddChild" id="flagAddChild" value="">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td width="15%">&nbsp;</td>
+        </tr>
+    </table>
+
+</div>
+
+
+

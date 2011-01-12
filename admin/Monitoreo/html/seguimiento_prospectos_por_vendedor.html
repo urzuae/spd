@@ -1,0 +1,13 @@
+<script type="text/javascript" src="$_themedir/jquery/crm_monitoreo_seguimiento_prospectos_por_vendedor.js"></script>
+<form method="post"  name="seleccionar" >
+
+    <table style="text-align: left; width: 100%;" border="0" cellpadding="2" cellspacing="2">
+        <tbody><tr>
+                <td> <h1>Monitoreo de Prospectos del Vendedor:&nbsp;&nbsp;$vendedor</h1>
+            </td> </tr>
+        </tbody>
+    </table>
+    $filterHeader
+    $reporteExcel
+    <input type="button" value="Regresar" onclick="location.href='index.php?_module=Monitoreo&_op=seguimiento_prospectos_vendedor&uid=$uid&gid=$gid$url';">
+</form>

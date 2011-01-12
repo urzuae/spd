@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title></title>
+  <meta content="">
+</head>
+<body>
+<span class="title">Crear un nuevo Admin</span>
+<script>function validate(f)
+{
+if (f.user.value == "" || f.password.value == "")
+{
+alert("Debe de proporcionar todos los datos");
+return false;
+}
+if (f.password.value != f.password2.value)
+{
+alert("Ambos passwords deben de coincidir");
+return false;
+}
+return true;
+}
+</script>
+<form onchange="capsall(this);" name="new" action="index.php" method="post" onsubmit="return validate(this);"><input name="_module" value="$_module" type="hidden"><input name="_op" value="$_op" type="hidden">
+  <table style="text-align: left; width: 100%;" border="0" cellpadding="2" cellspacing="1">
+
+    <tbody>
+
+      <tr class="row1">
+
+        <td>Nombre de usuario</td>
+
+        <td style="font-weight: bold;"><input name="user">$error</td>
+
+      </tr>
+
+      <tr class="row2">
+
+        <td>Password</td>
+
+        <td><input name="password" type="password"></td>
+
+      </tr>
+
+      <tr class="row1">
+
+        <td>Repita el password</td>
+
+        <td><input name="password2" type="password"></td>
+
+      </tr>
+
+      <tr class="">
+
+        <td colspan="2" rowspan="1" align="middle"><input value="Crear nuevo Admin" name="submit" type="submit"><input type="button" value="Cancelar" onclick="history.go(-1);"></td>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+</form>
+
+</body>
+</html>

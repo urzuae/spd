@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Tasa de conversion</title>
+        <meta content="">
+    </head>
+<body>
+<center>
+<form action="index.php" method="post">
+<input type="hidden" name="_module" value="$_module">
+<input type="hidden" name="_op" value="$_op">
+<table border="0" align="center" width="28%">
+<thead>
+<tr>
+  <td colspan="2">Opciones de reporte</td>
+</tr>
+</thead>
+<tr class="row1">
+  <td style="width:30%;">Fecha de inicio</td>
+  <td style="width:70%;"><input name="fecha_ini" id="fecha_ini" value="$fecha_ini"><img src="../img/calendar.gif"  id="f_trigger_c" style="border: 0px solid red; cursor: pointer;" title="Fecha" onmouseover="this.style.background='red';" onmouseout="this.style.background=''"></td>
+</tr>
+<script>Calendar.setup({inputField :"fecha_ini",ifFormat :"%d-%m-%Y",onUpdate : update_fecha_fin,button : "f_trigger_c"});</script>
+<tr class="row1">
+  <td>Fecha de fin</td>
+  <td><input name="fecha_fin" id="fecha_fin" value="$fecha_fin"><img src="../img/calendar.gif" id="f_trigger_d" style="border: 0px solid red; cursor: pointer;" title="Fecha" onmouseover="this.style.background='red';" onmouseout="this.style.background=''"></td>
+</tr>
+<script>Calendar.setup({inputField :"fecha_fin",ifFormat :"%d-%m-%Y",onUpdate : update_fecha_ini,button : "f_trigger_d"});</script>
+<tr class="row1">
+  <td style="width:100px;">Distribuidor</td>
+  <td style="width:200px;">$select_concesionarias</td>
+</tr>
+<tr class="row2">
+  <td style="width:100px;">Origen</td>
+  <td style="width:200px;">$select_fuentes</td>
+</tr>
+<!--<tr class="row1">
+  <td colspan="2" align="center"><input type="submit" name="submit" value="Aceptar"><input type="button" value="Regresar" onclick="location.href='index.php';"></td>
+</tr>-->
+</table>
+<input type="submit" name="submit" value="Aceptar"><input type="button" value="Regresar" onclick="location.href='index.php';">
+<table border="0" align="center" width="90%">
+<tr>
+    <td colspan="2" align="center"><br>$_html</td>
+</tr>
+</table>
+<div id="datos">
+    $_html_datos
+</div>
+</form>
+</center>
+  </body>
+</html>
