@@ -32,7 +32,7 @@ if (isset($_POST['data'])) {
   
   //print_r($params);
   
-  $sql = "SELECT gid FROM groups WHERE name='SALE FUNNEL'";
+  $sql = "SELECT gid FROM groups WHERE name='SALES FUNNEL'";
   $res = $db->sql_query($sql) or die($sql);
   list($gid) = $db->sql_fetchrow($res);
   
@@ -55,7 +55,6 @@ if (isset($_POST['data'])) {
       }
     }
   }
-  print_r($uid);
   
   $sql = "INSERT INTO crm_contactos (
                     nombre, apellido_paterno,
@@ -83,14 +82,11 @@ if (isset($_POST['data'])) {
             //guardar el log de asignacion
             $sql = "INSERT INTO crm_contactos_asignacion_log (contacto_id, uid, from_uid, to_uid, from_gid, to_gid)VALUES('$contacto_id','$uid','0','$uid','0','$gid')";
             $db->sql_query($sql) or die("Error al insertar al log");  
-  
-  echo 1;
 }
 else
 {
   echo 0;
 }
-
 
 function connect($_dbhost, $_dbuname, $_dbpass, $_dbname)
 {
