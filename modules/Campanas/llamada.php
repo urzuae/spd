@@ -74,7 +74,7 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 	$sql = "UPDATE crm_campanas_llamadas SET campana_id='$next_campana_id', status_id='$status_id' WHERE id='$llamada_id'";
 	$db->sql_query($sql) or die("Error".print_r($db->sql_error()));
 
-    $sql = "SELECT nombre FROM crm_campanas WHERE campana_id='$next_campana_id' LIMIT 1";
+  $sql = "SELECT nombre FROM crm_campanas WHERE campana_id='$next_campana_id' LIMIT 1";
 	$r2 = $db->sql_query($sql) or die("Error".print_r($db->sql_error()));
 	list($next_campana) = $db->sql_fetchrow($r2);
 
@@ -82,6 +82,36 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 	$db->sql_query("INSERT INTO crm_campanas_llamadas_log (llamada_id, contacto_id, uid,status_id, campana_id)VALUES('$llamada_id', '$contacto_id', '$uid','$status_id','$next_campana_id')") or die("Error".print_r($db->sql_error()));
 	$campana_id = $next_campana_id;
 	//TODO: checar si tenemos permisos para la siguiente campana, si no regresar
+	
+	$result = $db->sql_query("SELECT gid, nombre, email FROM crm_contactos WHERE contacto_id='".$contacto_id."' AND promoted='0'");
+	
+	if(list($_gid, $_name, $_email) = $db->sql_fetchrow($result))
+	{
+		$_user = $_gid.$_name;
+		$_password = $_user;
+	}	
+	
+	$cadena = json_encode(array($_gid, 8, $_user, $_password, $_name, $_email));
+	
+	//Inserción en el sistema de prospección de licencias como nuevo usuario
+	$ch = curl_init("http://10.0.0.18/code/spl/cadena.php");
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
+	$result = curl_exec($ch);
+	curl_close($ch);
+
+	if ($result)
+	{
+    echo "cadena enviada correctamente";
+	}
+	else
+	{
+    echo "Error al recibir la cadena";
+	}
+
+	die ($cadena);
+
+
 }
 
 //si posponemos, abrir un evento, si le quitamos terminamos el evento marcarlo como status=1
@@ -615,6 +645,7 @@ do
 while (list($campana_id_) = $db->sql_fetchrow($r));
 //el select de ciclo
 $enable = false;
+$passed = false;
 foreach($ciclo_campanas_id AS $campana_id_)
 {
 	if ($enable)
@@ -624,7 +655,8 @@ foreach($ciclo_campanas_id AS $campana_id_)
 	}
 	else 
 	{
-		$semaforo = "<img src=\"img/ok.gif\" style=\"height:15px;width:15px;\">"; //poner una imagen a los anteriores
+		if (!$passed)
+			$semaforo = "<img src=\"img/ok.gif\" style=\"height:15px;width:15px;\">"; //poner una imagen a los anteriores
 		$disabled = " DISABLED";
 	}
 	$r = $db->sql_query("SELECT nombre FROM crm_campanas WHERE campana_id='$campana_id_'") or die("Error en ciclo");
@@ -633,7 +665,14 @@ foreach($ciclo_campanas_id AS $campana_id_)
 	
 	if ($campana_id_ == $campana_id) //desactivar los que están antes de esta campana
 		$enable = true;
+	else
+	{
+		$enable = false;
+		$passed = true;
+	}
 }
+
+
 
 //buscar la fecha de los contactos en el log (cuando cambio de ciclo de venta)
 $sql = "SELECT DATE_FORMAT(timestamp,'%d-%m-%Y') FROM crm_campanas_llamadas_log WHERE contacto_id='$contacto_id' ORDER BY timestamp ASC LIMIT 1";
@@ -790,9 +829,9 @@ else //hay un evento, cerrar o cancelar o posponer
 $sql_uni="SELECT contacto_id,modelo_id,version_id,transmision_id,timestamp FROM crm_prospectos_unidades WHERE contacto_id = '$contacto_id' ORDER BY timestamp";
 $res_uni=$db->sql_query($sql_uni) or die($sql_uni);
 $num_unidades=$db->sql_numrows($res_uni);
-if($num_unidades == 0)
+/*if($num_unidades == 0)
 {
-    $opciones_botones_venta = "El prospecto no tiene asociado ningun producto;";
+  $opciones_botones_venta = "El prospecto no tiene asociado ningun producto;";
 }
 else
 {
@@ -824,7 +863,7 @@ else
 $s='';$ss='';
 if($num_unidades > 1) $s='s';
 if($num_ventas > 1) $ss='s';
-$opciones_botones_venta = "<input type=\"button\" style=\"width:180px;\" value=\"Reportar venta\" onclick=\"window.open('index.php?_module=$_module&_op=llamada_venta&contacto_id=$contacto_id&campana_id=$campana_id&llamada_id=$llamada_id&nopendientes=1', 'venta','location=no,resizable=yes,scrollbars=yes,navigation=no,titlebar=no,directories=no,width=600,height=250,left=0,top=0,alwaysraised=yes');\"><br>";
+//$opciones_botones_venta = "<input type=\"button\" style=\"width:180px;\" value=\"Reportar venta\" onclick=\"window.open('index.php?_module=$_module&_op=llamada_venta&contacto_id=$contacto_id&campana_id=$campana_id&llamada_id=$llamada_id&nopendientes=1', 'venta','location=no,resizable=yes,scrollbars=yes,navigation=no,titlebar=no,directories=no,width=600,height=250,left=0,top=0,alwaysraised=yes');\"><br>";
 $opciones_botones_venta.= "<b>$num_unidades producto$s asignado$s<br>$num_ventas venta$ss registrada$ss<b><br>";
 $opciones_botones_venta .=Asigna_semaforo($color_semaforo,$fecha_firmado,$contacto_id);
 //if(!($id_llamada > 0))
@@ -852,7 +891,7 @@ else
 		</form>";
     }
 //}
-
+ */
 function get_horario($string){
     $return = array(
     (eregi('M',$string) ? 'checked="checked"' : ''),
