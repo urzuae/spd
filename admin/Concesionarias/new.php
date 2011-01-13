@@ -12,8 +12,8 @@ $listPlazas=Municipios($db,$entidad_id,$plaza_id);
 $categoria=Categorias($id_nivel);
 if ($submit)
 {
-    if($_licenses_not_used > 0)
-    {
+    /*if($_licenses_not_used > 0)
+    {*/
     $n =$db->sql_numrows($db->sql_query("SELECT name FROM groups WHERE name='".$group."';"));
     if ($n != 0)
         $error = "<b>No se pudo crear la distribuidora por que ya existe otra con el nombre \"$new\"</b><br>\n";
@@ -62,7 +62,7 @@ if ($submit)
         }
         // Creamos el usuario de gerente de vtas
         $user = str_pad($gid,4,'0',STR_PAD_LEFT)."GTEVTAS";
-        $sql = "INSERT INTO users (gid,super,user,password,name,email) VALUES ('$gid','6','$user',PASSWORD('$user'),'GERENTE CRM DE LA DISTRIBUIDORA $gid','$email')";
+        $sql = "INSERT INTO users (gid,super,user,password,name,email) VALUES ('$gid','6','$user',PASSWORD('$user'),'GERENTE DE PROYECTO $gid','$email')";
         $db->sql_query($sql) or die("Error<br>$sql<br>".print_r($db->sql_error()));
 
         $region_id = $region_id+0;
@@ -104,14 +104,14 @@ EOBODY;
         header("location: index.php?_module=Concesionarias");
         
     }
-    }
+    /*}
     else
     {
         $_html= "<script language='JavaScript'>
                     alert('No se puede crear la distribuidora, se tiene".$_licenses." licencias compradas, por favor comunicate con el personal de ventas de PCS Mexico');
                         location.href='index.php?_module=Concesionarias';
                 </script>";
-    }
+    }*/
 }
 
 function Regiones($db,$valor_id)

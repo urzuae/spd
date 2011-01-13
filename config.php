@@ -18,7 +18,7 @@ $_configsdir = 'configs';
 
 //opciones
 $_defaultmodule = 'Bienvenida';
-$_site_title = 'Sales Funnel';
+$_site_title = 'Sales de Prospeccion de Distribuidores';
 $_csv_delimiter = ",";
 
 if (defined('_IN_ADMIN_MAIN_INDEX'))

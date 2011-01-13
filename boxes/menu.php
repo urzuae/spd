@@ -62,7 +62,11 @@ if ($gid == "0001") //gerente de zona
     }
     elseif($super == 8)
     {
-        $files = array("Capturar prospecto" => "Directorio&_op=contacto", "Prospectos" => "Campanas","Compromisos" => "Campanas&_op=compromisos","Ciclo de Venta" => "Gerente&_op=ciclo_venta");
+      $files = array(
+				//"Capturar prospecto" => "Directorio&_op=contacto",
+				"Prospectos" => "Campanas",
+				"Compromisos" => "Campanas&_op=compromisos",
+				"Ciclo de Prospección" => "Gerente&_op=ciclo_venta");
     }
     else
     {
@@ -96,7 +100,10 @@ else
   }
   else
   {
-    $files = array("Capturar prospecto" => "Directorio&_op=contacto", "Prospectos" => "Campanas","Compromisos" => "Campanas&_op=compromisos");
+    $files = array(
+			"Capturar prospecto" => "Directorio&_op=contacto",
+			"Prospectos" => "Campanas",
+			"Compromisos" => "Campanas&_op=compromisos");
   }
 }
 foreach ($files AS $key => $file)

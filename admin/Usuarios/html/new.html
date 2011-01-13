@@ -5,6 +5,7 @@
   <meta content="">
 </head>
 <body>
+  <br/>
 <span class="title">Crear un nuevo Usuario</span>
 <script>
 function validate(f)
@@ -34,7 +35,7 @@ return true;
         <td><input name="name" style="width:90%;" maxlength="40"></td>
       </tr>
       <tr class="row1" height="30">
-        <td>Distribuidor</td>
+        <td>Proyecto</td>
         <td>$gselect</td>
       </tr>    
       <tr class="row2" height="30">
@@ -58,26 +59,27 @@ return true;
 <input value="Crear nuevo usuario" name="submit" type="submit">
 <input type="button" value="Cancelar" onclick="history.go(-1);">
     <br>
-        <table width='40%' align='center' border='0'>
-                <thead>
-                    <tr>
-                        <td align='left' colspan='2' height='30'>Derechos de uso</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class='row2' height='30'>
-                        <td>Derechos de uso</td>
-                        <td>$_licenses</td>
-                    </tr>
-                    <tr class='row1' height='30'>
-                        <td>Derechos de uso asignados</td>
-                        <td>$_licenses_used</td>
-                    </tr>
-                    <tr class='row2' height='30'>
-                        <td>Derechos de uso libres</td>
-                        <td>$_licenses_not_used</td>
-                    </tr>
-                </tbody></table>
+        <!--<table width='40%' align='center' border='0'>
+          <thead>
+            <tr>
+              <td align='left' colspan='2' height='30'>Derechos de uso</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='row2' height='30'>
+              <td>Derechos de uso</td>
+              <td>$_licenses</td>
+            </tr>
+            <tr class='row1' height='30'>
+              <td>Derechos de uso asignados</td>
+              <td>$_licenses_used</td>
+            </tr>
+            <tr class='row2' height='30'>
+              <td>Derechos de uso libres</td>
+              <td>$_licenses_not_used</td>
+            </tr>
+          </tbody>
+        </table>-->
     $_html
 </form>
 </body>
