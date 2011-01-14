@@ -36,14 +36,15 @@ if (isset($_POST['data'])) {
   $res = $db->sql_query($sql) or die($sql);
   list($gid) = $db->sql_fetchrow($res);
   
-  $sql = "SELECT count(c.uid),c.uid from crm_contactos as c, users as u where c.uid=u.uid and u.super='8' group by c.uid";
+  $sql = "SELECT count(c.uid),c.uid,u.gid from crm_contactos as c, users as u where c.uid=u.uid and u.super='8' group by c.uid";
   $result = $db->sql_query($sql);
   $flag = false;
-  while(list($current_count, $current_uid) = $db->sql_fetchrow($result)) {
+  while(list($current_count, $current_uid, $current_gid) = $db->sql_fetchrow($result)) {
     if(!$flag)
     {
       $count = $current_count;
       $uid = $current_uid;
+      $gid = $current_gid;
       $flag = true;
     }
     else
@@ -52,6 +53,7 @@ if (isset($_POST['data'])) {
       {
         $count = $current_count;
         $uid = $current_uid;
+        $gid = $current_gid;
       }
     }
   }

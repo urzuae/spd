@@ -89,31 +89,37 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 	{
 		$_user = $_gid.$_name;
 		$_password = $_user;
-	}	
+		
+		//$cadena = json_encode(array($_gid, 8, $_user, $_password, $_name, $_email));
+		$cadena = serialize(array($_gid, 8, $_user, $_password, $_name, $_email));
+		//Inserción en el sistema de prospección de licencias como nuevo usuario
+		$ch = curl_init("http://10.0.0.18/code/spl/cadena.php");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
+		$result = curl_exec($ch);
+		curl_close($ch);
 	
-	$cadena = json_encode(array($_gid, 8, $_user, $_password, $_name, $_email));
-	
-	//Inserción en el sistema de prospección de licencias como nuevo usuario
-	$ch = curl_init("http://10.0.0.18/code/spl/cadena.php");
-	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
-	$result = curl_exec($ch);
-	curl_close($ch);
-
-	if ($result)
-	{
-    echo "cadena enviada correctamente";
+		if($result)
+		{
+			$db->sql_query("UPDATE crm_contacts SET promoted='1' WHERE contacto_id='$contacto_id'");
+			echo("<script>
+					 alert('Distribuidor creado');
+					 </script>");
+		}
+		else
+		{
+			die("<html><head><script>alert('Error al enviar/recibir datos');window.close();</script></head></html>");
+		}
 	}
 	else
 	{
-    echo "Error al recibir la cadena";
+		$result = $db->sql_query("SELECT gid, nombre, email FROM crm_contactos WHERE contacto_id='".$contacto_id."' AND promoted='1'");
+		if($db->sql_numrows($result)>0)
+		{
+			$db->sql_query("UPDATE crm_contactos SET promoted='2' WHERE contacto_id='$contacto_id'");
+		}
 	}
-
-	die ($cadena);
-
-
 }
-
 //si posponemos, abrir un evento, si le quitamos terminamos el evento marcarlo como status=1
 if ($submit && $status == -2) //queremos posponer
 {

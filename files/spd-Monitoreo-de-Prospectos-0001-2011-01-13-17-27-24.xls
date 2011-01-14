@@ -1,0 +1,298 @@
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2" cellspacing="2"> <tbody>
+        <tr style="cursor:pointer" onclick="var v=document.getElementById('bloque_101');	var i=document.getElementById('img_101'); var o=document.getElementById('open');	if(v.style.display=='none'){v.style.display='block';i.src='img/less.gif';o.value = o.value+'101'+'-';}else{ v.style.display='none';i.src='img/more.gif';o.value = o.value.replace('101 ','')}">
+        <th><img src="img/pixel.gif" width="15px"><img src="img/more.gif" id="img_101"> 0001-1  INTERESADO</th>
+        </tr>
+        </table>
+        <div id="bloque_101" style="display:none;">
+        <table id="tabla_contactos1" class="tablesorter" >
+            <thead>
+              <tr>
+              <th style="width:150px; cursor:pointer;">Origen</td>
+              <th style="width:360px; cursor:pointer;">Nombre</th>
+              <th style="width:340px; cursor:pointer;">Vendedor</th>
+              <th style="width:150px; cursor:pointer;">Registro</th>
+              <th style="width:170px; cursor:pointer;">Tel o Email</th>
+              <th style="width:170px; cursor:pointer;">Producto</th>
+              <th style="width:170px; cursor:pointer;">Compromiso</th>
+              <th style="width:150px; cursor:pointer;">Retraso (hrs)</th>
+              <th style="width:32px; cursor:pointer;">Sel.</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=5&contacto_id=21&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_21" style="height:12;width:16;"></td></tr>
+                        <tr class="row2">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=6&contacto_id=22&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_22" style="height:12;width:16;"></td></tr>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=7&contacto_id=23&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_23" style="height:12;width:16;"></td></tr>
+                        <tr class="row2">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=8&contacto_id=24&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_24" style="height:12;width:16;"></td></tr>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=9&contacto_id=25&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_25" style="height:12;width:16;"></td></tr>
+                        <tr class="row2">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=10&contacto_id=26&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>GERENTE CRM DE LA DISTRIBUIDORA 1</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_26" style="height:12;width:16;"></td></tr>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=12&contacto_id=28&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>GERENTE CRM DE LA DISTRIBUIDORA 1</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_28" style="height:12;width:16;"></td></tr>
+                        <tr class="row2">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=13&contacto_id=29&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>GERENTE CRM DE LA DISTRIBUIDORA 1</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_29" style="height:12;width:16;"></td></tr>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=14&contacto_id=30&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>GERENTE CRM DE LA DISTRIBUIDORA 1</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_30" style="height:12;width:16;"></td></tr>
+                        <tr class="row2">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=15&contacto_id=31&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>GERENTE CRM DE LA DISTRIBUIDORA 1</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_31" style="height:12;width:16;"></td></tr>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=16&contacto_id=32&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_32" style="height:12;width:16;"></td></tr>
+                        <tr class="row2">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=17&contacto_id=33&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_33" style="height:12;width:16;"></td></tr>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=18&contacto_id=34&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_34" style="height:12;width:16;"></td></tr>
+                        <tr class="row2">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=19&contacto_id=35&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_35" style="height:12;width:16;"></td></tr>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=20&contacto_id=36&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_36" style="height:12;width:16;"></td></tr>
+                        <tr class="row2">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=21&contacto_id=37&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_37" style="height:12;width:16;"></td></tr>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=22&contacto_id=38&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_38" style="height:12;width:16;"></td></tr>
+                        <tr class="row2">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=23&contacto_id=39&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_39" style="height:12;width:16;"></td></tr>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=24&contacto_id=40&campana_id=101">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td></td>
+                        <td></td>
+                        <td><input type="checkbox" name="chbx_40" style="height:12;width:16;"></td></tr></tbody><tr class="row2"><td align="right"><b>Total</b></td><td><b>19</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table></div><table style="text-align: left; width: 100%;" border="0" cellpadding="2" cellspacing="2"> <tbody>
+        <tr style="cursor:pointer" onclick="var v=document.getElementById('bloque_102');	var i=document.getElementById('img_102'); var o=document.getElementById('open');	if(v.style.display=='none'){v.style.display='block';i.src='img/less.gif';o.value = o.value+'102'+'-';}else{ v.style.display='none';i.src='img/more.gif';o.value = o.value.replace('102 ','')}">
+        <th><img src="img/pixel.gif" width="15px"><img src="img/more.gif" id="img_102"> 0001-2  DISTRIBUIDOR</th>
+        </tr>
+        </table>
+        <div id="bloque_102" style="display:none;">
+        <table id="tabla_contactos2" class="tablesorter" >
+            <thead>
+              <tr>
+              <th style="width:150px; cursor:pointer;">Origen</td>
+              <th style="width:360px; cursor:pointer;">Nombre</th>
+              <th style="width:340px; cursor:pointer;">Vendedor</th>
+              <th style="width:150px; cursor:pointer;">Registro</th>
+              <th style="width:170px; cursor:pointer;">Tel o Email</th>
+              <th style="width:170px; cursor:pointer;">Producto</th>
+              <th style="width:170px; cursor:pointer;">Compromiso</th>
+              <th style="width:150px; cursor:pointer;">Retraso (hrs)</th>
+              <th style="width:32px; cursor:pointer;">Sel.</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr class="row1">
+                        <td></td>
+                        <td>
+                            <a class='background-color:#fff;' target="llamada" href="index.php?_module=Campanas&_op=llamada_ro&llamada_id=11&contacto_id=27&campana_id=102">
+                             por por </a>
+                        </td>
+                        <td>CINTHIA SANCHEZ</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>987   <br>por@por.por</td>
+                        <td></td><td>2011-01-11 05:45:00</td>
+                        <td>59</td>
+                        <td><input type="checkbox" name="chbx_27" style="height:12;width:16;"></td></tr></tbody><tr class="row2"><td align="right"><b>Total</b></td><td><b>1</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table></div><table style="text-align: left; width: 100%;" border="0" cellpadding="2" cellspacing="2"> <tbody>
+        <tr style="cursor:pointer" onclick="var v=document.getElementById('bloque_103');	var i=document.getElementById('img_103'); var o=document.getElementById('open');	if(v.style.display=='none'){v.style.display='block';i.src='img/less.gif';o.value = o.value+'103'+'-';}else{ v.style.display='none';i.src='img/more.gif';o.value = o.value.replace('103 ','')}">
+        <th><img src="img/pixel.gif" width="15px"><img src="img/more.gif" id="img_103"> 0001-3  MAYORISTA</th>
+        </tr>
+        </table>
+        <div id="bloque_103" style="display:none;">
+        <table id="tabla_contactos3" class="tablesorter" >
+            <thead>
+              <tr>
+              <th style="width:150px; cursor:pointer;">Origen</td>
+              <th style="width:360px; cursor:pointer;">Nombre</th>
+              <th style="width:340px; cursor:pointer;">Vendedor</th>
+              <th style="width:150px; cursor:pointer;">Registro</th>
+              <th style="width:170px; cursor:pointer;">Tel o Email</th>
+              <th style="width:170px; cursor:pointer;">Producto</th>
+              <th style="width:170px; cursor:pointer;">Compromiso</th>
+              <th style="width:150px; cursor:pointer;">Retraso (hrs)</th>
+              <th style="width:32px; cursor:pointer;">Sel.</th></tr>
+                      </thead>
+                      <tbody></tbody><tr class="row1"><td align="right"><b>Total</b></td><td><b>0</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table></div><table class="width100"><thead><tr class="row2"><th></th><th align="left" colspan="6"><b>Total</b><b> 20</b></th></tr></thead></table><table class="width100"><tr class="row2" style="text-align:center;"><td colspan=7><input name="all" type="button" onclick="allon();" value="Todos">&nbsp;<input name="none" type="button" onclick="alloff();" value="Ninguno"></td></tr><tr class="row1" style="text-align:center;"><td colspan=7><input type="submit" name="seleccionar" value="Reasignar"></td></tr><tr class="row2" style="text-align:center;"></table>
