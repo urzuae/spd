@@ -1,14 +1,19 @@
 <?php
 
-include("../configs/spd.php");
-include("../includes/db/mysql.php");
-include("../includes/db/db.php");
+if(!defined('_IN_MAIN_INDEX'))
+  die("No puedes accesar directamente a este archivo");
 
-global $db;
+global $db, $_theme, $data;
 
-if (isset($_REQUEST['data'])) {
+
+$_theme = "";
+
+//Parsear apellido
+//Escapar el sql
+
+if (isset($_POST['data'])) {
   //$data = json_decode($_POST['data']);
-  $data = unserialize($_REQUEST['data']);;
+  $data = unserialize($data);;
   //print_r($data);
   //$data = json_encode($data);
   //print_r($data);

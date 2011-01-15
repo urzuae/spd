@@ -93,7 +93,7 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 		//$cadena = json_encode(array($_gid, 8, $_user, $_password, $_name, $_email));
 		$cadena = serialize(array($_gid, 8, $_user, $_password, $_name, $_email));
 		//Inserción en el sistema de prospección de licencias como nuevo usuario
-		$ch = curl_init("http://10.0.0.18/code/spl/conexion/conexion.php");
+		$ch = curl_init("http://10.0.0.18/code/spl/index.php?_module=Interfaces&_op=spd");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
 		$result = curl_exec($ch);
