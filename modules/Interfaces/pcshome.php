@@ -13,19 +13,19 @@ $_theme = "";
 
 if (isset($_POST['data'])) {
   //$data = json_decode($_POST['data']);
-  $data = unserialize($data);;
+  $data = unserialize($data);
   //print_r($data);
   //$data = json_encode($data);
   //print_r($data);
   //$data = json_decode($data);
   //$data = $_POST['data'];
-  print_r($data);
+  //print_r($data);
   $params = array();
   
   foreach ($data as $row) {
     //print_r($row);
     $temp = explode(",", $row);
-    $params[] = $temp[4];
+    $params[] = mysql_escape_string($temp[4]);
   }
   
   //print_r($params);
