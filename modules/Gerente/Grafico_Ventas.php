@@ -7,7 +7,6 @@ class Grafico_Ventas
     var $include;
     var $filtro;
     var $gid;
-    var $array_metas;
     var $array_ventas;
     var $array_meses;
     var $intervalos;
@@ -41,10 +40,9 @@ class Grafico_Ventas
         $this->total_prospectos=0;
         $this->buffer="";
         $this->Filtro();
-        $this->Consulta_Informacion_Metas();
-        if(count($this->array_metas) > 0)
+        $this->Consulta_informacion_Ventas();
+        if(count($this->array_ventas) > 0)
         {
-            $this->Consulta_informacion_Ventas();
             $this->buffer.=$this->Regresa_Tabla();
             $this->buffer.="<br><h><br>";
             $this->buffer.=$this->Regresa_Imagen();
@@ -52,48 +50,18 @@ class Grafico_Ventas
     }
     function Regresa_Imagen()
     {
+        $contador_div=1;
         $atributes = "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes";
-        $xml="<chart palette='1' showBorder='1' caption='Comparación Proyección / Ventas por mes  ".$nm_subprograma."' showValues='0' decimals='0' formatNumberScale='0' yAxisMinValue='0' yAxisMaxValue='100' exportEnabled='1' exportAtClient='1' exportHandler='fcExporter".$contador_div."c' exportType='PNG=Exportar como imagen'><categories>";
-
-        foreach($this->array_meses as $j => $nm_mes)
-        {
-            $xml.="<category showlabel='1' label='". substr($nm_mes,0,3). "'/>";
-	}
-        $xml.="</categories>";
-
-        
-        #$xml.="<dataset seriesName='Proyección' showValues='1' >";
-        $xml.="<dataset seriesName='Proyección'>";
+        $xml="<chart palette='1' showBorder='1' caption='Distribuidores por mes ' showValues='0' decimals='0' formatNumberScale='0' yAxisMinValue='0' yAxisMaxValue='100' exportEnabled='1' exportAtClient='1' exportHandler='fcExporter".$contador_div."c' exportType='PNG=Exportar como imagen'>";
         for ($j = 1; $j <= 12; $j++)
         {
-            $url="index.php?_module=Gerente%26_op=ciclo_venta_mensual%26uid=".$this->uid."%26ano_id=".$this->ano_id."%26mes_id=".$j;
-            $prom=0;
-            if( $this->array_metas[$j] > 0 )
-                $prom=number_format(( ($this->array_ventas[$j] / $this->array_metas[$j]) * 100),2,'.',',');
-            $total_mes=$this->array_metas[$j] + 0;
-            $xml.="<set value='".$total_mes. "' showLabel='1' link='".$url."' toolText='Proyección de mes:  ".$this->array_meses[str_pad($j,2,'0',STR_PAD_LEFT)]."\nProyección:   ".$this->array_metas[$j]."\nVenta:  ".$this->array_ventas[$j]."\nPromedio: ".$prom."'/>";
-                #$xml.="<set value='".$total_mes. "'/>";
-        }
-	$xml.="</dataset>";
-
-        #$xml.="<dataset seriesName='Ventas'  showValues='1' color='CDCDCD' renderAs='Line'>";
-        $xml.="<dataset seriesName='Ventas'  renderAs='Line'>";
-        for ($j = 1; $j <= 12; $j++)
-        {
-            $url="index.php?_module=Gerente%26_op=ciclo_venta_mensual%26uid=".$this->uid."%26ano_id=".$this->ano_id."%26mes_id=".$j;
-            $prom=0;
-            if( $this->array_metas[$j] > 0 )
-                $prom=number_format(( ($this->array_ventas[$j] / $this->array_metas[$j]) * 100),2,'.',',');
+            $nm_mes=substr($this->array_meses[str_pad($j,2,'0',STR_PAD_LEFT)],0,3);
             $total_mes=$this->array_ventas[$j] + 0;
-            #$xml.="<set value='" .$this->array_ventas[$j]. "' link='".$url."' showLabel='1'  toolText='Ventas de mes:  ".$this->array_meses[str_pad($j,2,'0',STR_PAD_LEFT)]."\nProyección:   ".$this->array_metas[$j]."\nVenta:  ".$this->array_ventas[$j]."\nPromedio: ".$prom."'/>";
-            $xml.="<set value='" .$this->array_ventas[$j]. "'/>";
+            $xml.="<set value='".$total_mes. "' label='".$nm_mes."' showLabel='1'  toolText='Distribuidores del mes:  ".$nm_mes."\nNo. Licencias:  ".$total_mes."'/>";
         }
-	$xml.="</dataset>";
 	$xml.="</chart>";
-        $buf.="<table><tr><td align='left'><b>Proyecci&oacute;n Anual</b>: ".$this->ano_id."</td></tr><tr><td>";
-        #$buf.=renderChartHTML("includes/fusion/StackedColumn3D.swf", "", $xml, "Proyección de Metas y Ventas por mes", 750, 350, false, false);
-        $buf.=renderChartHTML("includes/fusion/MSColumnLine3D.swf", "", $xml, "Proyección de Metas y Ventas por mes", 750, 350, false, false);
-
+        $buf.="<table><tr><td align='left'><b>Distribuidores en el a&ntilde;o</b>: ".$this->ano_id."</td></tr><tr><td>";
+        $buf.=renderChartHTML("includes/fusion/Column3D.swf", "", $xml, "Licencias Vendidas por mes", 750, 350, false, false);
         $buf.="</td></tr></table>";
         return $buf;
     }
@@ -106,32 +74,13 @@ class Grafico_Ventas
         {
             $buf.="<th align='center'>".$nm_mes."</th>";
         }
-        $buf.="<th>Proyeccion Anual</th></tr></thead><tbody><tr heigth='30'  class='row2'><td>Proyecci&oacute;n</td>";
-        $total_anual=0;
-        $this->array_metas=$this->normaliza_a_meses_totales($this->array_metas);
-        foreach($this->array_metas as $mes_id => $valor)
-        {
-            $total_anual=$total_anual + $valor;
-            $buf.="<td width='7%' align='right'>".number_format($valor,0)."</td>";
-        }
-        $buf.="</tr><tr  heigth='30' class='row1'><td>Ventas</td>";
+        $buf.="<th>Total de Distribuidores</th></tr></thead><tbody><tr  heigth='30' class='row1'><td>Total</td>";
         $ventas_anual=0;
         $this->array_ventas=$this->normaliza_a_meses_totales($this->array_ventas);
         foreach($this->array_ventas as $mes_id => $valor)
         {
             $total_anual=$total_anual + $valor;
             $buf.="<td width='7%' align='right'>".number_format($valor,0)."</td>";
-        }
-        $buf.="</tr><tr  heigth='30' class='row2'><td>Promedios</td>";
-        $promedio_anual=0;
-        foreach($this->array_metas as $mes_id => $valor)
-        {
-            $prom_mensual=0;
-            if($valor > 0)
-                $prom_mensual=( ($this->array_ventas[$mes_id] / $valor) * 100);
-
-            $promedio_anual=$promedio_anual + $prom_mensual;
-            $buf.="<td width='7%' align='right'>".number_format($prom_mensual,2,'.',',')." %</td>";
         }
         $buf.="</tr></tbody></table>";
         return $buf;
@@ -182,7 +131,6 @@ class Grafico_Ventas
               WHERE a.eliminar = 0 AND year(a.timestamp) ='".$this->ano_id."' AND b.gid='".$this->gid."' ".$this->filtro."
               GROUP BY substr(b.timestamp,1,7)
               ORDER BY substr(b.timestamp,1,7)";
-
         $res=$this->db->sql_query($sql) or die ("Error en la consulta:  ".$sql);
         if($this->db->sql_numrows($res) > 0)
         {
@@ -191,25 +139,6 @@ class Grafico_Ventas
                 $cantidad_ventas=$cantidad_ventas+0;
                 $this->array_ventas[$mes]=$cantidad_ventas;
 
-            }
-        }
-    }
-
-    function Consulta_Informacion_Metas()
-    {
-        #Sacamos la meta, para saber fechas y monto de la misma
-        $sql="SELECT b.id,b.uid,year(b.fecha_inicio) AS ano, month(b.fecha_inicio) AS mes,b.no_dias,count(substr(b.fecha_inicio,1,7)) AS no_regs,
-              sum(b.cantidad) AS total,a.name
-              FROM crm_proyeccion as b LEFT JOIN users as a ON b.uid = a.uid
-              WHERE b.active = 1 AND year(b.fecha_inicio) ='".$this->ano_id."' AND b.gid='".$this->gid."' ".$this->filtro."
-              GROUP BY substr(b.fecha_inicio,1,7)
-              ORDER BY substr(b.fecha_inicio,1,7)";
-        $res=$this->db->sql_query($sql) or die ("Error en la consulta:  ".$sql);
-        if($this->db->sql_numrows($res) > 0)
-        {
-            while(list($id,$_uid,$ano,$mes,$no_dias,$no_reg,$cantidad,$name) = $this->db->sql_fetchrow($res))
-            {
-                $this->array_metas[$mes]= $cantidad;
             }
         }
     }

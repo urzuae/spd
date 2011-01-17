@@ -26,7 +26,7 @@ list($user, $name, $super, $gid) = htmlize($db->sql_fetchrow($result));
 
 if ($gid == "0001") //gerente de zona
 {
-  if($super == 2 || $super == 3 )
+    if($super == 2 || $super == 3 )
 	{
 	    $files["Monitoreo"] = "";
 	    $files["&nbsp;&nbsp;&nbsp;&nbsp;Concesionarias"] = "Zona&_op=monitoreo_concesionarias";
@@ -34,36 +34,32 @@ if ($gid == "0001") //gerente de zona
 	    $files[""] = "";
 	    $files["Reportes"] = "Zona&_op=zonas";
 	}
-  elseif ($super == 4 || $super == 6)
-  {
-    /*$files["Metas"] = "";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Crear meta"] = "Gerente&_op=proyeccion";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Consultar meta"] = "Gerente&_op=consulta_proyeccion";
-	    $files["<p></p>"] = "";*/
-		
-		$files["Usuarios"] = "";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Crear vendedor"] = "Gerente&_op=usuario";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Permisos a vendedores"] = "Gerente&_op=administracion_vendedores";
-			$files[""] = "";
-			
-		$files["Prospectos"] = "";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Asignación de prospectos"] = "Gerente&_op=contactos";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Prospectos finalizados"] = "Gerente&_op=reasignar";
-			//$files["&nbsp;&nbsp;&nbsp;&nbsp;Carga de prospectos"] = "Gerente&_op=carga_contactos";
-			$files["&#32;"] = "";
-			
-		$files["Monitoreo"] = "";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Ciclo de Venta"] = "Gerente&_op=ciclo_venta";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Vendedores"] = "Gerente&_op=monitoreo_vendedores";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Prospectos registrados"] = "Gerente&_op=monitoreo_alta_prospectos";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Prospectos"] = "Gerente&_op=monitoreo_prospectos";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Tasa de conversión"] = "Gerente&_op=monitoreo_tasa_de_conversion";
-			$files["<b></b>"] = "";
-			
-		$files["Reportes"] = "";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Campa&ntilde;as"] = "Estadisticas&_op=campanas";
-			$files["&nbsp;&nbsp;&nbsp;&nbsp;Ciclo de venta"] = "Estadisticas&_op=ciclo";
-  }
+    elseif ($super == 4 || $super == 6)
+    {
+    $files["Metas"] = "";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Crear meta"] = "Gerente&_op=proyeccion";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Consultar meta"] = "Gerente&_op=consulta_proyeccion";
+    $files["<p></p>"] = "";
+    $files["Usuarios"] = "";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Crear vendedor"] = "Gerente&_op=usuario";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Permisos a vendedores"] = "Gerente&_op=administracion_vendedores";
+    $files[""] = "";
+    $files["Prospectos"] = "";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Asignación de prospectos"] = "Gerente&_op=contactos";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Prospectos finalizados"] = "Gerente&_op=reasignar";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Carga de prospectos"] = "Gerente&_op=carga_contactos";
+    $files["&#32;"] = "";
+    $files["Monitoreo"] = "";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Ciclo de Venta"] = "Gerente&_op=ciclo_venta";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Vendedores"] = "Gerente&_op=monitoreo_vendedores";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Prospectos registrados"] = "Gerente&_op=monitoreo_alta_prospectos";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Prospectos"] = "Gerente&_op=monitoreo_prospectos";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Tasa de conversión"] = "Gerente&_op=monitoreo_tasa_de_conversion";
+    $files["<b></b>"] = "";
+    $files["Reportes"] = "";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Campa&ntilde;as"] = "Estadisticas&_op=campanas";
+    $files["&nbsp;&nbsp;&nbsp;&nbsp;Ciclo de venta"] = "Estadisticas&_op=ciclo";
+    }
     elseif($super == 8)
     {
       $files = array(
