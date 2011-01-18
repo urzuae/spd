@@ -3,7 +3,7 @@ if (!defined('_IN_ADMIN_MAIN_INDEX')) {
     die ("No puedes acceder directamente a este archivo...");
 }
 global $db,$_licenses,$_includesdir,$producto,$url,$_module,$_op,$submit,$msg_ciclo,$_site_title;
-$_site_title = "Nuevo origen";
+$_site_title = "Nueva fuente";
 $select_origenPadre=genera_origen($db,$origen_padre_id);
 
 function genera_origen($db,$origen_padre_id)

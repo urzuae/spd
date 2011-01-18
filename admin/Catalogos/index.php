@@ -33,10 +33,10 @@ function Listado_Fuentes_Hijas($db,$id_hijo)
 }
 
 $_site_title = "Origenes";
-$_html .= "<div class=title>Lista de Origenes</div><br>\n";
-$_html .= "Aquí se muestra la lista de los origenes.<br>\n";
+$_html .= "<div class=title>Lista de Fuentes</div><br>\n";
+$_html .= "Aquí se muestra la lista de los fuentes.<br>\n";
 $_html .= "<table width='60%' border='0' align='center' class='tablesorter'>";
-$_html .= "<thead><tr><th>Origenes</th><th colspan='4'>Acciones</th></tr></thead><tbody>";
+$_html .= "<thead><tr><th>Fuentes</th><th colspan='4'>Acciones</th></tr></thead><tbody>";
 if (count($array_padres)>0)
     
 {   foreach($array_padres as $clave => $array_datos){
@@ -54,7 +54,7 @@ if (count($array_padres)>0)
 $_html .=  '<center></tbody><thead><tr class="row".(($c++%2)+1)."\">
 			    <td colspan="8" align="right">
 			    </td></tr></thead></table></td></tr></table><br>
-                            <INPUT TYPE="submit" VALUE="Crear un origen" onclick="window.location=\'index.php?_module=Catalogos&_op=new\'" >
+                            <INPUT TYPE="submit" VALUE="Crear una fuente" onclick="window.location=\'index.php?_module=Catalogos&_op=new\'" >
 			    </center>';
 
 function Pinta_fuente($db,$id_fuente,$pos,$_module)

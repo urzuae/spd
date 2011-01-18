@@ -89,31 +89,28 @@ $extra_objeciones
 </tbody>
 </table>
 <div id="info" style="display:block;">
-
-
 <table class="width100">
 <tr>
 <td style="width:60%;" valign="top">
+	<table class="width100" border="0" cellpadding="2" cellspacing="0">
+		<tbody>
+			<tr class="row1"><td align="right" style="width:100px;font-weight:bold;"><span style='background-color:$color_semaforo'>&nbsp;&nbsp;&nbsp;</span>&nbsp;Nombre</td><td style="width:250px;" >$nombre $apellido_paterno $apellido_materno</td><td>Mañ-Tar-Noc</td></tr>
+			<tr class="row1"><td align="right" style="width:100px;font-weight:bold;"><span style='background-color:$color_semaforo'>&nbsp;&nbsp;&nbsp;</span>&nbsp;Compañia</td><td style="width:250px;" >$compania</td><td></td>
+			<tr class="row2"><td align="right" style="font-weight:bold;">Tel. Casa 1</td><td>$tel_casa </td><td>$horario_preferido_casa</td></tr>
+			<tr class="row1"><td align="right" style="font-weight:bold;">Tel. Móvil 1</td><td>$tel_movil </td><td>$horario_preferido_movil</td></tr>
+			<tr class="row2"><td align="right" style="font-weight:bold;">Tel. Oficina 1</td><td>$tel_oficina </td><td>$horario_preferido_oficina</td></tr>
 
-<table class="width100" border="0" cellpadding="2" cellspacing="0"> <tbody>
-<tr class="row1"><td align="right" style="width:100px;font-weight:bold;"><span style='background-color:$color_semaforo'>&nbsp;&nbsp;&nbsp;</span>&nbsp;Nombre</td><td style="width:250px;" >$nombre $apellido_paterno $apellido_materno</td><td>Mañ-Tar-Noc</td></tr>
-<tr class="row1"><td align="right" style="width:100px;font-weight:bold;"><span style='background-color:$color_semaforo'>&nbsp;&nbsp;&nbsp;</span>&nbsp;Compañia</td><td style="width:250px;" >$compania</td><td></td>
-<tr class="row2"><td align="right" style="font-weight:bold;">Tel. Casa 1</td><td>$tel_casa </td><td>$horario_preferido_casa</td></tr>
-<tr class="row1"><td align="right" style="font-weight:bold;">Tel. Móvil 1</td><td>$tel_movil </td><td>$horario_preferido_movil</td></tr>
-<tr class="row2"><td align="right" style="font-weight:bold;">Tel. Oficina 1</td><td>$tel_oficina </td><td>$horario_preferido_oficina</td></tr>
+			<tr class="row1"><td align="right" style="font-weight:bold;">Tel. Casa 2</td><td>$tel_casa_2 </td><td>$horario_preferido_casa_2</td></tr>
+			<tr class="row2"><td align="right" style="font-weight:bold;">Tel. Móvil 2</td><td>$tel_movil_2 </td><td>$horario_preferido_movil_2</td></tr>
+			<tr class="row1"><td align="right" style="font-weight:bold;">Tel. Oficina 2</td><td>$tel_oficina_2 </td><td>$horario_preferido_oficina_2</td></tr>
 
-<tr class="row1"><td align="right" style="font-weight:bold;">Tel. Casa 2</td><td>$tel_casa_2 </td><td>$horario_preferido_casa_2</td></tr>
-<tr class="row2"><td align="right" style="font-weight:bold;">Tel. Móvil 2</td><td>$tel_movil_2 </td><td>$horario_preferido_movil_2</td></tr>
-<tr class="row1"><td align="right" style="font-weight:bold;">Tel. Oficina 2</td><td>$tel_oficina_2 </td><td>$horario_preferido_oficina_2</td></tr>
-
-<tr class="row2"><td align="right" style="font-weight:bold;">email</td><td colspan="2">$email</td></tr>
-<tr class="row1"><td align="right" style="font-weight:bold;">C&oacute;digo de Campa&ntilde;a</td><td colspan="2">$codigo_campana</td></tr>
-<tr class="row2"><td align="right"> 	</td><td>
-<a href="#" onclick="window.open('index.php?_module=Directorio&_op=contacto&contacto_id=$contacto_id&close_after=1', 'contacto');">Editar Contacto</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<!--<a href="#" onclick="window.open('index.php?_module=Directorio&_op=mini_contacto&origen_contacto_id=$contacto_id&contacto_id=0&close_after=1&campana_id=$campana_id&origen_id=$origen_id', '','location=no,resizable=yes,scrollbars=yes,navigation=no,titlebar=no,directories=no,width=500,height=300,left=0,top=0,alwaysraised=yes');">Alta de Contacto</a></td><td>&nbsp;</td></tr>-->
-</tbody></table> 
-
+			<tr class="row2"><td align="right" style="font-weight:bold;">email</td><td colspan="2">$email</td></tr>
+			<tr class="row1"><td align="right" style="font-weight:bold;">C&oacute;digo de Campa&ntilde;a</td><td colspan="2">$codigo_campana</td></tr>
+			<tr class="row2"><td align="right"> 	</td><td>
+			<a href="#" onclick="window.open('index.php?_module=Directorio&_op=contacto&contacto_id=$contacto_id&close_after=1', 'contacto');">Editar Contacto</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<!--<a href="#" onclick="window.open('index.php?_module=Directorio&_op=mini_contacto&origen_contacto_id=$contacto_id&contacto_id=0&close_after=1&campana_id=$campana_id&origen_id=$origen_id', '','location=no,resizable=yes,scrollbars=yes,navigation=no,titlebar=no,directories=no,width=500,height=300,left=0,top=0,alwaysraised=yes');">Alta de Contacto</a></td><td>&nbsp;</td></tr>-->
+		</tbody></table> 
 </td>
 <td style="width:40%;" valign="top">
 $buffer_modelo
@@ -196,7 +193,7 @@ $variable
 			<input name="campana_id" value="$campana_id" type="hidden">
 			<input name="llamada_id" value="$llamada_id" type="hidden">
 		    Ciclo:<br>$select_ciclo_de_venta_id<br>
-			<input value="Actualizar Distribuidor" name="actualizar_ciclo"  type="submit" style="width:180px;" ><br><br>
+			<input value="Actualizar ciclo" name="actualizar_ciclo"  type="submit" style="width:180px;" ><br><br>
       $primer_contacto<br>
       $ultimo_contacto
 		</form>

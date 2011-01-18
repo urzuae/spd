@@ -119,7 +119,7 @@
                             // doy de alta los usuarios
                             $user = $gid."GTECRM";
                             $email = $gid."rcvwy@vw-concesionarios.com.mx";
-                            $sql = "INSERT INTO users (gid,super,user,password,name,email) VALUES ('$gid','4','$user',PASSWORD('$user'),'GERENTE DE PROYECTO $gid','$email')";
+                            $sql = "INSERT INTO users (gid,super,user,password,name,email) VALUES ('$gid','4','$user',PASSWORD('$user'),'GERENTE CRM DE LA CONCESIONARIA $gid','$email')";
                             $db->sql_query($sql) or die("Error<br>$sql<br>".print_r($db->sql_error()));
 
 

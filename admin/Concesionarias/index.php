@@ -77,58 +77,53 @@ else
           </script>";
     $_html .= "<script>function desbloquea(id,name){if (confirm('Esta seguro que desea desbloquear la distribuidora '+name)) location.href=('index.php?_module=$_module&desbloquea='+id);}</script>";
     $_html .= "<script>function newgroup(){var conc = prompt('Ingrese el nombre de la nueva distribuidora');if (conc) location.href=('index.php?_module=$_module&new='+conc);}</script>\n";
-    $_html .= "<div class=title style=\"padding-top:15px;\">Lista de Proyectos</div><br>\n";
+    $_html .= "<div class=\"title\">Lista de Distribuidoras</div><br>\n";
     $_html .= "Aquí se muestra la lista de los grupos de usuarios.<br>\n";
    
     // $_html .= "Para ver la lista de miembros del grupo dé click al nombre.<br>\n";
     $_html .= $error;
-    /*$_html .=
-			"<br>
-      <table width='40%' align='center' border='0'>
-        <thead>
-          <tr>
-            <td align='left' colspan='2' height='30'>Derechos de uso</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class='row2' height='30'>
-            <td>Derechos de uso</td>
-						<td>$_licenses</td>
-					</tr>
-					<tr class='row1' height='30'>
-						<td>Derechos de uso asignados</td>
-						<td>$_licenses_used</td>
-					</tr>
-					<tr class='row2' height='30'>
-						<td>Derechos de uso libres</td>
-						<td>$_licenses_not_used</td>
-					</tr>
-        </tbody>
-			</table>";*/
-    $_html .=
-			"<table width='80%' align='center' border='0'><tr><td>
-				<table class='tablesorter' width='80%' cellspacing='3'  cellpadding='3'>
-          <thead>
-						<tr style=\"font-weight:bold;\">
-							<th>ID</th>
-							<th>Nombre</th>
-              <th colspan=\"4\" align=\"center\">Acci&oacute;n</th>
-              <th>No de prospectos</th></tr></thead><tbody>"
-		;
+    
+    /*$_html .= "<br>
+        <table width='40%' align='center' border='0'>
+            <thead>
+                <tr>
+                    <td align='left' colspan='2' height='30'>Derechos de uso</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class='row2' height='30'>
+                    <td>Derechos de uso</td>
+                    <td>$_licenses</td>
+                </tr>
+		<tr class='row1' height='30'>
+		    <td>Derechos de uso asignados</td>
+		    <td>$_licenses_used</td>
+		</tr>
+		<tr class='row2' height='30'>
+		    <td>Derechos de uso libres</td>
+		    <td>$_licenses_not_used</td>
+		</tr>
+            </tbody>
+        </table>";*/
+    
+    $_html .= "<table width='80%' align='center' border='0'><tr><td>
+               <table class='tablesorter' width='80%' cellspacing='3'  cellpadding='3'>
+               <thead><tr style=\"font-weight:bold;\"><th>Gid</th><th>Nombre</th>
+                      <th colspan=\"4\" align=\"center\">Acci&oacute;n</th>
+                      <th>No de prospectos</th></tr></thead><tbody>";
     $result = $db->sql_query("SELECT g.gid, g.name,g.active FROM groups AS g WHERE 1 ORDER BY g.gid;") OR die("Error al consultar db: ".print_r($db->sql_error()));
     while (list($id, $name, $active) = htmlize($db->sql_fetchrow($result)))
     {
         $id=str_pad($id,4,"0",STR_PAD_LEFT);
         $gid_total=( $array_gids[$id] + 0);
-				$_html .=
-					"<tr class=\"row".(($c++%2)+1)."\">"
-            ."<td>$id</td>"
-            ."<td>$name</td>"
-            ."<td colspan=\"2\"><a href=\"index.php?_module=$_module&_op=bloquea&gid=$id\"><img src=\"../img/cross.gif\" onmouseover=\"return escape('Bloquear')\"  border=0></a></td>"
-              //."<td><a href=\"index.php?_module=$_module&_op=reubicar&gid=$id\"><img src=\"../img/mexico.gif\" onmouseover=\"return escape('Reubicar')\"  border=0></a></td>"
+	$_html .=  "<tr class=\"row".(($c++%2)+1)."\">"
+              ."<td>$id</td>"
+              ."<td>$name</td>"
+              ."<td><a href=\"index.php?_module=$_module&_op=bloquea&gid=$id\"><img src=\"../img/cross.gif\" onmouseover=\"return escape('Bloquear')\"  border=0></a></td>"
+              ."<td><a href=\"index.php?_module=$_module&_op=reubicar&gid=$id\"><img src=\"../img/mexico.gif\" onmouseover=\"return escape('Reubicar')\"  border=0></a></td>"
               /*."<td><a href=\"index.php?_module=$_module&_op=categoria&gid=$id\"><img src=\"../img/categorias.png\" onmouseover=\"return escape('Categoria')\"  border=0></a></td>"*/
-            ."<td colspan=\"2\"><a href=\"#\" onclick=\"del('$id','$id','$gid_total')\"><img src=\"../img/del.gif\" onmouseover=\"return escape('Borrar')\"  border=\"0\"></a></td>
-        ";
+              ."<td><a href=\"#\" onclick=\"del('$id','$id','$gid_total')\"><img src=\"../img/del.gif\" onmouseover=\"return escape('Borrar')\"  border=\"0\"></a></td>
+                <td>";
                 if($active == false)
                 {
                     $_html .="<a href=\"#\" onclick=\"desbloquea('$id','$id')\"><img src=\"../img/lock.gif\" width='18' height='18' onmouseover=\"return escape('Desbloquear Concesionaria')\"  border=0></a>";

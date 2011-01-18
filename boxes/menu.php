@@ -36,10 +36,10 @@ if ($gid == "0001") //gerente de zona
 	}
     elseif ($super == 4 || $super == 6)
     {
-    $files["Metas"] = "";
-    $files["&nbsp;&nbsp;&nbsp;&nbsp;Crear meta"] = "Gerente&_op=proyeccion";
-    $files["&nbsp;&nbsp;&nbsp;&nbsp;Consultar meta"] = "Gerente&_op=consulta_proyeccion";
-    $files["<p></p>"] = "";
+    //$files["Metas"] = "";
+    //$files["&nbsp;&nbsp;&nbsp;&nbsp;Crear meta"] = "Gerente&_op=proyeccion";
+    //$files["&nbsp;&nbsp;&nbsp;&nbsp;Consultar meta"] = "Gerente&_op=consulta_proyeccion";
+    //$files["<p></p>"] = "";
     $files["Usuarios"] = "";
     $files["&nbsp;&nbsp;&nbsp;&nbsp;Crear vendedor"] = "Gerente&_op=usuario";
     $files["&nbsp;&nbsp;&nbsp;&nbsp;Permisos a vendedores"] = "Gerente&_op=administracion_vendedores";
@@ -62,11 +62,12 @@ if ($gid == "0001") //gerente de zona
     }
     elseif($super == 8)
     {
-      $files = array(
-				//"Capturar prospecto" => "Directorio&_op=contacto",
-				"Prospectos" => "Campanas",
-				"Compromisos" => "Campanas&_op=compromisos",
-				"Ciclo de Prospección" => "Gerente&_op=ciclo_venta");
+        $files = array(
+	    "Capturar prospecto" => "Directorio&_op=contacto",
+	    "Prospectos" => "Campanas",
+	    "Compromisos" => "Campanas&_op=compromisos",
+	    //"Ciclo de Venta" => "Gerente&_op=ciclo_venta"
+	);
     }
     else
     {
@@ -100,10 +101,7 @@ else
   }
   else
   {
-    $files = array(
-			"Capturar prospecto" => "Directorio&_op=contacto",
-			"Prospectos" => "Campanas",
-			"Compromisos" => "Campanas&_op=compromisos");
+    $files = array("Capturar prospecto" => "Directorio&_op=contacto", "Prospectos" => "Campanas","Compromisos" => "Campanas&_op=compromisos");
   }
 }
 foreach ($files AS $key => $file)

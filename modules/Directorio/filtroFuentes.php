@@ -8,6 +8,7 @@ $idcombo = $_GET["id"];
 $gid=$_GET['gid'];
 $array=array();
 $filtro_gid='';
+$lista_gid_no_visibles='';
 if($idcombo != 0)
 {
     if($gid!=0)

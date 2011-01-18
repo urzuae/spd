@@ -3,7 +3,7 @@ if (!defined('_IN_ADMIN_MAIN_INDEX'))
 {
     die ("No puedes acceder directamente a este archivo...");
 }
-global $db, $del, $_admin_menu2, $gid,$bloquea,$desbloquea,$_site_title/*,$_licenses,$_licenses_not_used,$_licenses_used*/;
+global $db, $del, $_admin_menu2, $gid,$bloquea,$desbloquea,$_site_title,$_licenses,$_licenses_not_used,$_licenses_used;
 $_site_title = "Usuarios";
 if($desbloquea)
 {
@@ -34,28 +34,27 @@ $result = $db->sql_query("SELECT u.uid, u.name, u.user, g.name, u.super, u.last_
 if ($db->sql_numrows($result))
 {
   $_html = "<script>function desbloquea(id,name){if (confirm('Esta seguro que desea desbloquear al usuario '+name)) location.href=('index.php?_module=$_module&desbloquea='+id);}</script>";
-  /*$_html .= "<br>
-    <table width='40%' align='center' border='0'>
-			<thead>
-				<tr>
-					<td align='left' colspan='2' height='30'>Derechos de uso</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class='row2' height='30'>
-					<td>Derechos de uso</td>
-					<td>$_licenses</td>
-				</tr>
-				<tr class='row1' height='30'>
-					<td>Derechos de uso asignados</td>
-					<td>$_licenses_used</td>
-				</tr>
-				<tr class='row2' height='30'>
-					<td>Derechos de uso libres</td>
-					<td>$_licenses_not_used</td>
-				</tr>
-			</tbody>
-		</table>";*/
+  $_html .= "<br>
+            <table width='40%' align='center' border='0'>
+                <thead>
+                    <tr>
+                        <td align='left' colspan='2' height='30'>Derechos de uso</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class='row2' height='30'>
+                        <td>Derechos de uso</td>
+                        <td>$_licenses</td>
+                    </tr>
+                    <tr class='row1' height='30'>
+                        <td>Derechos de uso asignados</td>
+                        <td>$_licenses_used</td>
+                    </tr>
+                    <tr class='row2' height='30'>
+                        <td>Derechos de uso libres</td>
+                        <td>$_licenses_not_used</td>
+                    </tr>
+                </tbody></table>";
   $_html .= "<table class='tablesorter'>";
   $_html .= "<thead><tr style=\"font-weight:bold;\"><th width='15%'>Usuario</th><th width='15%'>Nombre</th><th width='20%'>Distribuidor</th>";
   $_html .= "<th width='14%'>Ultimo registro</th><th width='14%'>Ultima actividad</th><th width='14%'>Registrado desde</th><th width='10%' colspan=5>Acci&oacute;n</th></tr></thead><tbody>";

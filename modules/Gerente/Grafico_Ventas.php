@@ -51,16 +51,15 @@ class Grafico_Ventas
     function Regresa_Imagen()
     {
         $contador_div=1;
-        $atributes = "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes";
-        $xml="<chart palette='1' showBorder='1' caption='Distribuidores por mes ' showValues='0' decimals='0' formatNumberScale='0' yAxisMinValue='0' yAxisMaxValue='100' exportEnabled='1' exportAtClient='1' exportHandler='fcExporter".$contador_div."c' exportType='PNG=Exportar como imagen'>";
+        $xml="<chart palette='1' showBorder='1' caption='Licencias vendidas por mes ' showValues='0' decimals='0' formatNumberScale='0' yAxisMinValue='0' yAxisMaxValue='100' exportEnabled='1' exportAtClient='1' exportHandler='fcExporter".$contador_div."c' exportType='PNG=Exportar como imagen'>";
         for ($j = 1; $j <= 12; $j++)
         {
             $nm_mes=substr($this->array_meses[str_pad($j,2,'0',STR_PAD_LEFT)],0,3);
             $total_mes=$this->array_ventas[$j] + 0;
-            $xml.="<set value='".$total_mes. "' label='".$nm_mes."' showLabel='1'  toolText='Distribuidores del mes:  ".$nm_mes."\nNo. Licencias:  ".$total_mes."'/>";
+            $xml.="<set value='".$total_mes. "' label='".$nm_mes."' showLabel='1'  toolText='Licencias de mes:  ".$nm_mes."\nNo. Licencias:  ".$total_mes."'/>";
         }
 	$xml.="</chart>";
-        $buf.="<table><tr><td align='left'><b>Distribuidores en el a&ntilde;o</b>: ".$this->ano_id."</td></tr><tr><td>";
+        $buf.="<table><tr><td align='left'><b>Licencias Vendidas en el a&ntilde;o</b>: ".$this->ano_id."</td></tr><tr><td>";
         $buf.=renderChartHTML("includes/fusion/Column3D.swf", "", $xml, "Licencias Vendidas por mes", 750, 350, false, false);
         $buf.="</td></tr></table>";
         return $buf;
@@ -74,7 +73,7 @@ class Grafico_Ventas
         {
             $buf.="<th align='center'>".$nm_mes."</th>";
         }
-        $buf.="<th>Total de Distribuidores</th></tr></thead><tbody><tr  heigth='30' class='row1'><td>Total</td>";
+        $buf.="<th>Total de Licencias</th></tr></thead><tbody><tr  heigth='30' class='row1'><td>Ventas</td>";
         $ventas_anual=0;
         $this->array_ventas=$this->normaliza_a_meses_totales($this->array_ventas);
         foreach($this->array_ventas as $mes_id => $valor)

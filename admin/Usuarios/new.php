@@ -5,14 +5,14 @@ if (!defined('_IN_ADMIN_MAIN_INDEX')) {
 global $db, $user, $name, $gid, $sgid, $password, $config, $submit, $super_val,$_licenses,$_licenses_not_used,$_licenses_used;
 if ($submit) //crear el usuario
 {
-    /*if( $_licenses_not_used <= 0)
+    if( $_licenses_not_used <= 0)
     {
         $_html= "<script language='JavaScript'>
                     alert('No se puede crear el usuario, se tiene".$_licenses." licencias compradas, por favor comunicate con el personal de ventas de PCS Mexico');
                     </script>";
     }
     else
-    {*/
+    {
         if ($db->sql_numrows($db->sql_query("SELECT name FROM users WHERE user='$user'")) > 0)
             $error = "<br>Ese usuario ya esta registrado en el sistema, intenta otro nombre de usuario";
         else
@@ -39,7 +39,7 @@ if ($submit) //crear el usuario
             else $configurarusuario = "";
             header("location: index.php?_module=$_module$configurarusuario");
         }
-    //}
+    }
 }
 $gselect = "<select name=gid onchange=\"return check_gid();\">";
 $result = $db->sql_query("SELECT gid, name FROM groups WHERE 1 order by gid");
