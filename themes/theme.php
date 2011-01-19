@@ -14,7 +14,7 @@ function _theme_before_content()
    $_boxesleft = "";
     if (isset($_admin_menu)) //si es menu administrador solo queremos ese menu
     {
-          $_title = "Administrador sistema Sales Funnel";
+          $_title = "Administrador Sistema de Prospecci&oacute;n de Distribuidores";
           $_content = $_admin_menu;
           if (file_exists("$_themedir/boxleft.html")) {
              $_tmpl_file = "$_themedir/boxleft.html";

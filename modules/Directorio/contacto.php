@@ -32,8 +32,8 @@ $result = $db->sql_query($sql);
 list($edit_contact) = $db->sql_fetchrow($result);
 
 $idVehiculo = 0 + $_REQUEST["listVehicle"];
-$idVersion =  0; //+ $_REQUEST["listVersion"];
-$idTransmision = 0; //+ $_REQUEST["listTransmision"];
+$idVersion =  0 + $_REQUEST["listVersion"];
+$idTransmision = 0 + $_REQUEST["listTransmision"];
 
 if($edit_contact == ""){
 	$edit_contact = 1;
@@ -424,22 +424,12 @@ list($super) = $db->sql_fetchrow($cs);
 $origen_readonly='';
 if($super == 8 and $contacto_id != "")
 {
-  $origen_readonly = 'disabled="disabled"';
+	$origen_readonly = 'disabled="disabled"';
 }
 if( (!empty($origen)) && ($origen != 0))
 {
-  $tmp_nom_origen=recupera_nombre($db,$origen);
+    $tmp_nom_origen=recupera_nombre($db,$origen);
 }
-
-
-$ret_prod = $db->sql_query("SELECT * FROM `crm_unidades`");
-while(list($id_prod, $name_prod) = $db->sql_fetchrow($ret_prod))
-{
-  $selected_prod = $name_prod == $modelo ? "selected" : "";
-  $select_product .= "<option value=$id_prod $selected>$name_prod</option>";
-}
-
-
 $sql_padres="SELECT a.padre_id,b.nombre,b.fuente_id FROM crm_fuentes_arbol a,crm_fuentes b WHERE a.padre_id=1 and a.hijo_id=b.fuente_id AND b.active=1 ORDER BY b.nombre;";
 $res_padres=$db->sql_query($sql_padres);
 if( $db->sql_numrows($res_padres) > 0)
@@ -482,7 +472,7 @@ else
 
 
 
-/*$r = $db->sql_query("SELECT YEAR(NOW())");
+$r = $db->sql_query("SELECT YEAR(NOW())");
 list($anos_vehiculo) = $db->sql_fetchrow($r);
 $r = $db->sql_query("SELECT ano FROM `crm_prospectos_unidades` WHERE `contacto_id` = '$contacto_id'");
 list($ano_vehiculo) = $db->sql_fetchrow($r);
@@ -493,10 +483,6 @@ $select_ano_vehiculo .= "<option value=\"".($anos_vehiculo-1)."\">".($anos_vehic
       <option value=\"".($anos_vehiculo)."\" SELECTED>".($anos_vehiculo)."</option>
       <option value=\"".($anos_vehiculo+1)."\">".($anos_vehiculo+1)."</option>
    </select>";
-*/
-
-
-
 
 
 global $_admin_menu2;

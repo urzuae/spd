@@ -79,7 +79,7 @@ if($submit){
 }
   $select_groups = "<select name=\"gid\">";
   $result = $db->sql_query("SELECT gid,name FROM groups WHERE 1 ORDER BY gid") or die("Error al cargar grupos");
-  $select_groups .= "<option value=\"\">Selecciona una distribuidora</option>\n";
+  $select_groups .= "<option value=\"\">Selecciona un Proyecto</option>\n";
   while(list($_gid,$name) = $db->sql_fetchrow($result)){
   	if ($_gid == $gid)
   	  $selected = " SELECTED";

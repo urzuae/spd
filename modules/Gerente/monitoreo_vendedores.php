@@ -61,7 +61,7 @@ $tabla_campanas .= "
                    ".$letrero."
                    <table border=\"0\" style=\"width:100%\"   id=\"tabla_contactos\"  class=\"tablesorter\">\n
                    <thead><tr>"
-                    ."<th rowspan=\"2\">Nombre del vendedor</th>".$columnas_tabla.""
+                    ."<th rowspan=\"2\">Nombre del usuario</th>".$columnas_tabla.""
                     ."<th rowspan=\"2\">Total</th>"
 /*                    ."<th rowspan=\"2\">Prom t asign - ini</th>"
                     ."<th rowspan=\"2\">MAXt Asig-Ini</th>"

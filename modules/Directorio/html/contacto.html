@@ -116,6 +116,7 @@
                     alert("Seleccione un origen para el contacto");
                     return false;
                 }
+
                 if (f.listVehicle.selectedIndex == 0)
                 {
                     alert("Ingrese un Producto");
@@ -436,10 +437,10 @@
                 <tbody class="filterVehicle">
                     <tr class="row1 showUnited">
                         <td align="right">Producto</td>
-                        <td class="list row1"><select style="width: 200px;" name="listVehicle" id="listVehicle"><option value="0"></option>$select_product</select></td>
+                        <td class="list row1"><select style="width: 200px;" name="listUnited" id="listUnited"><option value="0"></option></select></td>
                         <td style="text-align: right;" class="addBefore" colspan="2"></td>
                     </tr>
-                    <!--<tr class="row2 showVersion">
+                    <tr class="row2 showVersion">
                         <td align="right">Categoria</td>
                         <td class="list row2"><select style="width: 200px;" name="listVersion" id="listVersion"><option value="0"></option></select></td>
                         <td style="text-align: right;" class="addBefore" colspan="2"></td>
@@ -449,7 +450,7 @@
                         <td class='list row1'><select style='width: 200px;' name='listTransmision' id='listTransmision'><option value='0'></option></select></td>
                         <td style="text-align: right;" class="addBefore" colspan="2"></td>
                     </tr>
-                    <tr class="row2">
+                    <!--<tr class="row2">
                         <td style="text-align: right;" class="addBefore">Versi&oacute;n</td>
                         <td>
                             $select_ano_vehiculo
@@ -459,9 +460,9 @@
                     <tr class="row1">
                         <td style="text-align: right;" colspan="4">$otro_auto</td>
                     </tr>
-                    <!--<tr>
+                    <tr>
                         <td style="text-align: center;" colspan="4"><div id="listadoVehicles">$buffer</div></td>
-                    </tr>-->
+                    </tr>
                 </tbody>
                 <thead>
                     <tr>

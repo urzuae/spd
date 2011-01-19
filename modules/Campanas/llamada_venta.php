@@ -20,29 +20,27 @@ $_theme = "";
 $buffer="El contacto no tiene productos asociados";
 
 // Consulta la tabla para sacar los modelos seleccionados por el prospecto
-$sql="SELECT modelo,modelo_id,version_id,transmision_id,timestamp, venta_confirmada
+$sql="SELECT modelo,modelo_id,version_id,transmision_id,timestamp
       FROM crm_prospectos_unidades WHERE contacto_id='".$contacto_id."' order by timestamp;";
 $res=$db->sql_query($sql) or die("Error: En la consulta de n modelos por prospecto:  ".$sql);
 if($db->sql_numrows($res) > 0)
 {
-              /*<th width='12%'>Categoria</th>
-              <th width='12%'>SubCategoria</th>
-              <th width=' 5%'>Versi&oacute;n</th>*/
-
-        $buffer=
-          "<table width='99%' align='center'>
-            <thead><tr bgcolor='#cdcdcd'>
-              <th width='12%'>Modelo</th>
-              <th width=' 9%'>No Serie</th>
-              <th width=' 9%'>No Licencias</th>
-              <th width=' 9%'>Venta</th>";
+        $buffer="<table width='99%' align='center'>
+        <thead><tr bgcolor='#cdcdcd'>
+        <th width='12%'>Modelo</th>
+        <th width='12%'>Categoria</th>
+        <th width='12%'>SubCategoria</th>
+        <th width=' 5%'>Versi&oacute;n</th>
+        <th width=' 9%'>No Serie</th>
+        <th width=' 9%'>Precio</th>
+        <th width=' 9%'>Venta</th>";
         if($edit_venta==1)
         {
             $buffer.="<th width=' 9%'></th><th width=' 9%'></th>";
         }
         $buffer.="</tr></thead><tbody>";
         $distintivo=0;
-        while(list($modelo,$modelo_id,$version_id,$transmision_id,$timestamp,$venta_conf) = $db->sql_fetchrow($res))
+        while(list($modelo,$modelo_id,$version_id,$transmision_id,$timestamp) = $db->sql_fetchrow($res))
         {
             $tmp_name_chasis="chasis".$contacto_id.$modelo_id.$version_id.$transmision_id.$distintivo;
             $tmp_name_precio="precio".$contacto_id.$modelo_id.$version_id.$transmision_id.$distintivo;
@@ -51,15 +49,13 @@ if($db->sql_numrows($res) > 0)
             $read='';
             if(count($venta_registrada)>0)
                 $read='Readonly';
-            
-            /*<td>".busca_datos($db,'crm_versiones',' version_id',$version_id)."</td>
-            <td>".busca_datos($db,'crm_transmisiones',' transmision_id',$transmision_id)."</td>
-            <td>".$ano."</td>*/
-
             $buffer.="<tr>
             <td>".busca_datos($db,'crm_unidades',' unidad_id',$modelo_id)."</td>
+            <td>".busca_datos($db,'crm_versiones',' version_id',$version_id)."</td>
+            <td>".busca_datos($db,'crm_transmisiones',' transmision_id',$transmision_id)."</td>
+            <td>".$ano."</td>
             <td><input type='text' size='12' name='$tmp_name_chasis' id='$tmp_name_chasis' value='".$venta_registrada['chasis']."' maxlength='17' $read></td>
-            <td><input type='text' size='12' name='$tmp_name_precio' id='$tmp_name_precio' value='".$venta_registrada['precio']."' onblur='this.value = this.value;' $read></td>";
+            <td><input type='text' size='12' name='$tmp_name_precio' id='$tmp_name_precio' value='".$venta_registrada['precio']."' onblur='this.value = moneyFormat(this.value);' $read></td>";
             if(count($venta_registrada) == 0)
             {
                 $timestamp_vta='';
@@ -68,8 +64,7 @@ if($db->sql_numrows($res) > 0)
             }
             else
             {
-              $conf_message = $venta_conf==0?"No confirmada":"Confirmada";
-                $buffer.="<td style=\"text-align:center;\">$conf_message</td>";
+                $buffer.="<td>&nbsp;</td>";
                 $timestamp_vta=$venta_registrada['timestamp'];
                 $chasis=$venta_registrada['chasis'];
             }

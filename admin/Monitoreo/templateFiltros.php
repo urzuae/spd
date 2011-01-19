@@ -1,7 +1,7 @@
 <?php
 $buffer_filtros="
 
-    <table width=\"40%\" height=\"190px\" border=\"0\" align=\"center\">
+    <table width=\"40%\" height=\"140px\" border=\"0\" align=\"center\">
         <thead>
             <tr>
                 <td colspan=\"2\">Opciones de reporte</td>
@@ -55,12 +55,12 @@ $buffer_filtros="
 			  }
 			}
             Calendar.setup({inputField :'fecha_ini',ifFormat :'%Y-%m-%d',onUpdate : update_fecha_fin,button : 'f_trigger_c'});</script>
-            <tr class=\"row1\">
+            <tr class=\"row1\" style=\"height:26px\">
                 <td>Fecha de fin</td>
                 <td><input name=\"fecha_fin\" id=\"fecha_fin\" value=\"$fecha_fin\"><img src=\"../img/calendar.gif\" id=\"f_trigger_d\" style=\"border: 1px solid white; cursor: pointer;\" title=\"Fecha\" onmouseover=\"this.style.background='red';\" onmouseout=\"this.style.background=''\"></td>
             </tr>
             <script>Calendar.setup({inputField :'fecha_fin',ifFormat :'%Y-%m-%d',onUpdate : update_fecha_ini,button : 'f_trigger_d'});</script>
-            <thead>
+            <!--<thead>
                 <tr>
                     <td colspan=2 ><img src=\"../img/user_go.png\" height=\"16\" widht=\"16\"><font align=\"center\">&nbsp;Grupo Empresarial</font></td>
                 </tr>
@@ -87,7 +87,7 @@ $buffer_filtros="
 		</tr>
             </thead>
             <tr class=\"row1\"><td></td><td>".$select_origenPadre."</td></tr>
-            <thead>
+            <thead>-->
             <tr>
             <tr class=\"row2\">
                 <td colspan=\"2\" align=\"center\"><input type=\"submit\" name=\"submit\" value=\"Aceptar\"></td>

@@ -69,10 +69,10 @@ if ( (count($campanasNombre) > 0) )
               <tr>
               <th style=\"width:150px; cursor:pointer;\">Origen</td>
               <th style=\"width:360px; cursor:pointer;\">Nombre</th>
-              <th style=\"width:340px; cursor:pointer;\">Vendedor</th>
+              <th style=\"width:340px; cursor:pointer;\">Usuario</th>
               <th style=\"width:150px; cursor:pointer;\">Registro</th>
               <th style=\"width:170px; cursor:pointer;\">Tel o Email</th>
-              <th style=\"width:170px; cursor:pointer;\">Producto</th>
+              <!--<th style=\"width:170px; cursor:pointer;\">Producto</th>-->
               <th style=\"width:170px; cursor:pointer;\">Compromiso</th>
               <th style=\"width:150px; cursor:pointer;\">Retraso (hrs)</th>
               <th style=\"width:32px; cursor:pointer;\">Sel.</th></tr>
@@ -107,7 +107,7 @@ if ( (count($campanasNombre) > 0) )
                         <td>".$array_vendedores[$id_ven]."</td>
                         <td>".$valores['fecha_importado']."</td>
                         <td>".$valores['tels']."<br>".$valores['email']."</td>
-                        <td>".$modelos_seleccionados."</td>";
+                        <!--<td>".$modelos_seleccionados."</td>-->";
                         $compromiso='';
                         $ret='';
                         if($valores['idstatus'] == -2)
@@ -127,7 +127,7 @@ if ( (count($campanasNombre) > 0) )
             }
         }
         $tabla_campanas .= "</tbody>";
-        $tabla_campanas .= "<tr class=\"row".(($c++%2)+1)."\"><td align=\"right\"><b>Total</b></td><td><b>$total_bloque</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+        $tabla_campanas .= "<tr class=\"row".(($c++%2)+1)."\"><td align=\"right\"><b>Total</b></td><td><b>$total_bloque</b></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
         $tabla_campanas .= "</table>";
         $tabla_campanas .= "</div>";
     }

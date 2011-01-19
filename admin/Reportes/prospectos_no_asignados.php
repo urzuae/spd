@@ -52,7 +52,7 @@ $tabla_contenido_prospectos .= "<tr class=\"row".(++$rowclass%2?"2":"1")."\" >
                       <td>$cuenta_asignados_t</td>
                     </tr>";
 
-$titulo = "Reporte de prospectos no asignados a distribuidoras";
+$titulo = "Reporte de prospectos no asignados";
  $contenido_prospectos = "<table>
          <thead>
            <tr>
@@ -68,7 +68,7 @@ $titulo = "Reporte de prospectos no asignados a distribuidoras";
   
   $select_groups = "<select name=\"gid\">";
   $result = $db->sql_query("SELECT gid,name FROM groups WHERE 1 ORDER BY gid") or die("Error al cargar grupos");
-  $select_groups .= "<option value=\"\">Selecciona una distribuidora</option>\n";
+  $select_groups .= "<option value=\"\">Selecciona un Proyecto</option>\n";
   while(list($_gid,$name) = $db->sql_fetchrow($result)){
   	if ($_gid == $gid)
   	  $selected = " SELECTED";

@@ -104,7 +104,7 @@ if ($db->sql_numrows($result)>0)
     }
     else
     {
-        $tabla_campanas .= "<h2>Listado de Ciclo de venta </h2><br>
+        $tabla_campanas .= "<h2>Listado de Ciclo</h2><br>
             <table width=\"50%\" border=\"0\" align=\"center\">
             <thead>
                 <tr>
@@ -120,7 +120,8 @@ if ($db->sql_numrows($result)>0)
             </tr>";
             $consec++;
         }
-        $tabla_campanas .= "</table><br><p align='center'>Para poder actualizar su ciclo de venta, favor de comunicarse a las Oficinas de PCS México.</p><br>";
+        $tabla_campanas .= "</table><br/>";
+        //$tabla_campanas .= "</table><br><p align='center'>Para poder actualizar su ciclo de venta, favor de comunicarse a las Oficinas de PCS México.</p><br>";
     }
 }
 else

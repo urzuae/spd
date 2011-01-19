@@ -165,7 +165,7 @@ if((($total_contactos + $total_contactos_finalizados) + 0) != 0)
   
   $select_groups = "<select name=\"gid\">";
   $result = $db->sql_query("SELECT gid,name FROM groups WHERE 1 ORDER BY gid") or die("Error al cargar grupos");
-  $select_groups .= "<option value=\"\">Selecciona una distribuidora</option>\n";
+  $select_groups .= "<option value=\"\">Selecciona un Proyecto</option>\n";
   while(list($_gid,$name) = $db->sql_fetchrow($result)){
   	if ($_gid == $gid)
   	  $selected = " SELECTED";
@@ -175,8 +175,10 @@ if((($total_contactos + $total_contactos_finalizados) + 0) != 0)
   }
   $select_groups .= "</select>";
   
-  $select_fuentes = "<select name=\"fuente_id\">
-                     <option value=\"0\">Todos</option>";
+  /*$select_fuentes =
+    "<select name=\"fuente_id\">
+      <option value=\"0\">Todos</option>"
+  ;
 
 $sql = "SELECT fuente_id, nombre FROM crm_fuentes WHERE fuente_id > 1 ORDER BY fuente_id ASC";
 $result = $db->sql_query($sql) or die("Error");
@@ -189,7 +191,7 @@ while(list($origen_id, $nombre_origen) = $db->sql_fetchrow($result)){
 	  $selected = "";
 	$select_fuentes .= "<option value=\"$origen_id\" $selected>$nombre_origen</option>";
 }
-$select_fuentes .= "</select>";
+  $select_fuentes .= "</select>";*/
 
 /** funcion que realiza el query**/
 function ejecuta_query($db,$sql)

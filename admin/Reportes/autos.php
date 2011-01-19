@@ -21,7 +21,7 @@ if(count($tmp_filtros_mod) > 0)
 }
 if(count($tmp_filtros_v)>0)
 {
-   $filtro_fecha=" AND ".implode(" AND ",$tmp_filtros_v);
+  $filtro_fecha=" AND ".implode(" AND ",$tmp_filtros_v);
 }
 include_once("templateFiltrosReportes.php");
 include_once("construye_grafica.php");

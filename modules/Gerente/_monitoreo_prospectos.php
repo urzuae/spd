@@ -1,7 +1,7 @@
 <?
-  if (!defined('_IN_MAIN_INDEX')) {
+  if (!defined('_IN_MAIN_INDEX'))
     die ("No puedes acceder directamente a este archivo...");
-}
+    
 global $db, $how_many, $from, $campana_id, $nombre, $apellido_paterno, $apellido_materno, 
         $submit, $status_id, $ciclo_de_venta_id, $uid, $orderby, $rsort, $open,$_dbhost,$_dbuname,$_dbpass,$_dbname;
 
@@ -13,7 +13,6 @@ if ($super > 6)
 {
   die("<h1>Usted no es un Gerente</h1>");
 }
-
 
 
 	$sql = "SELECT c.campana_id, nombre FROM crm_campanas AS c, crm_campanas_groups  AS g WHERE c.campana_id=g.campana_id AND g.gid='$gid' ORDER BY campana_id LIMIT 0,25";
@@ -95,7 +94,7 @@ foreach($campanasNombre as $valor)
 			  <tr>
 	                  <td style=\"width:180px;\"><a href=\"#\" onclick=\"location.href='index.php?_module=$_module&_op=$_op&uid=$uid&campana_id=$campana_id&orderby=origen_id&rsort=$nrsort&open='+document.getElementById('open').value;\" style=\"color:white;\">Campaña</a></td>
 			  <td style=\"width:360px;\"><a href=\"#\" onclick=\"location.href='index.php?_module=$_module&_op=$_op&uid=$uid&campana_id=$campana_id&orderby=nombre&rsort=$nrsort&open='+document.getElementById('open').value;\" style=\"color:white;\">Nombre</a></td>
-			  <td style=\"width:360px;\"><a href=\"#\" onclick=\"location.href='index.php?_module=$_module&_op=$_op&uid=$uid&campana_id=$campana_id&orderby=nombre2&rsort=$nrsort&open='+document.getElementById('open').value;\" style=\"color:white;\">Vendedor</a></td>
+			  <td style=\"width:360px;\"><a href=\"#\" onclick=\"location.href='index.php?_module=$_module&_op=$_op&uid=$uid&campana_id=$campana_id&orderby=nombre2&rsort=$nrsort&open='+document.getElementById('open').value;\" style=\"color:white;\">Usuario</a></td>
 			  <td style=\"width:50px;\"><a href=\"#\" onclick=\"location.href='index.php?_module=$_module&_op=$_op&uid=$uid&campana_id=$campana_id&orderby=ultimo_contacto&rsort=$nrsort&open='+document.getElementById('open').value;\" style=\"color:white;\">Espera</a></td>
 			  <td style=\"width:180px;\"><a href=\"#\" onclick=\"location.href='index.php?_module=$_module&_op=$_op&uid=$uid&campana_id=$campana_id&orderby=primer_contacto&rsort=$nrsort&open='+document.getElementById('open').value;\" style=\"color:white;\">Primer contacto</a></td>
 			  <td style=\"width:180px;\"><a href=\"#\" onclick=\"location.href='index.php?_module=$_module&_op=$_op&uid=$uid&campana_id=$campana_id&orderby=ultimo_contacto&rsort=$nrsort&open='+document.getElementById('open').value;\" style=\"color:white;\">Último contacto</a></td>
@@ -116,7 +115,7 @@ foreach($campanasNombre as $valor)
 						 ."<td>$valores[origen]</td>"
 						 ."<td><a target=\"llamada\" href=\"index.php?_module=Campanas&_op=llamada_ro&llamada_id=$row[12]&contacto_id=$row[11]&campana_id={$row[0]}\">
 						 $valores[nombre]</a></td>"
-					  	 ."<td>$valores[vendedor]</td>"
+					   ."<td>$valores[vendedor]</td>"
 						 ."<td>$valores[espera]</td>"
 						 ."<td>$valores[prim_contacto]</td>"
 						 ."<td>$valores[ulti_contacto]</td>"

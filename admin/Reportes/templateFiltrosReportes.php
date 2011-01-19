@@ -41,7 +41,9 @@ $buffer_filtros="
                     </script>
                     <tr>
                         <td colspan=\"2\">
-                            <table id=\"displayFilter\" style=\"text-align: center; width: 100%;\" border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
+                          
+													<!--
+													  <table id=\"displayFilter\" style=\"text-align: center; width: 100%;\" border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
                             <thead>
                             <tr>
                                 <td colspan=2 align=\"left\">&nbsp;&nbsp;Filtro por vehiculo</td>
@@ -62,9 +64,9 @@ $buffer_filtros="
                             </tr>
                             <tr><td>&nbsp;</td></tr>
                             </tbody>
-                            <thead>
+														<thead>
                             <tr>
-                                <td colspan=2 align='left'>&nbsp;Origen</td>
+                              <td colspan=2 align='left'>&nbsp;Origen</td>
                             </tr>
                             </thead>
                             <tr class=\"row1\"><td>Origen Padre</td><td>".$select_origenPadre."</td></tr>
@@ -74,28 +76,29 @@ $buffer_filtros="
                     </table>
                 </td>
                 <td width=\"50%\" valign=\"top\" >
-                  <table width=\"100%\" border=\"0\">
-                    <thead>
+                    
+										<table width=\"100%\" border=\"0\">
+											<thead>
                         <tr>
-                        <td colspan=2 >&nbsp;Grupo Empresarial</td>
+													<td colspan=2 >&nbsp;Grupo Empresarial</td>
                         </tr>
-                    </thead>
-                        <tr class=\"row1\"><td width=\"22%\">Grupo</td><td>".$select_empresarial."</td></tr>
+											</thead>
+                      <tr class=\"row1\"><td width=\"22%\">Grupo</td><td>".$select_empresarial."</td></tr>
                     </table>
                     <div id=\"ubicacion\">
-                    <table width=\"100%\" border=\"0\" align=\"center\">
+											<table width=\"100%\" border=\"0\" align=\"center\">
                         <thead>
-                        <tr>
-                        <td colspan=2 >&nbsp;Ubicación</td>
-                        </tr>
+													<tr>
+														<td colspan=2 >&nbsp;Ubicación</td>
+													</tr>
                         </thead>
-                        <tr class=\"row1\"><td>Regi&oacute;n</td><td>".$select_regiones."</td></tr>
+												<tr class=\"row1\"><td>Regi&oacute;n</td><td>".$select_regiones."</td></tr>
                         <tr class=\"row1\"><td>Zona</td><td>".$select_zonas."</td></tr>
                         <tr class=\"row1\"><td>Entidad</td><td>".$select_entidad."</td></tr>
                         <tr class=\"row1\"><td>Plaza</td><td>".$select_plaza."</td></tr>
-                        <!--<tr class=\"row1\"><td>Distribuidor</td><td>".$select_concesion."</td></tr>-->
+                        <tr class=\"row1\"><td>Distribuidor</td><td>".$select_concesion."</td></tr>
                     </table>
-                    </div>
+                    </div>-->
                     <table width=\"100%\"  border=\"0\" align=\"center\">
                         <!--<thead>
                         <tr>

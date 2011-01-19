@@ -18,7 +18,7 @@ $_configsdir = 'configs';
 
 //opciones
 $_defaultmodule = 'Bienvenida';
-$_site_title = 'Sales Funnel';
+$_site_title = 'Sales de Prospeccion de Distribuidores';
 $_csv_delimiter = ",";
 
 if (defined('_IN_ADMIN_MAIN_INDEX'))
@@ -36,5 +36,5 @@ $_dbname = "sf_$_site_name";
 $_dbpass = "sf_$_site_name";
 
 if (!file_exists("$_configsdir/$_site_name.php")) 
-    die("No existe CONFIG para el sitio \"$_site_name\"");
+    die("No existe CONFIG para el sitio \"$_sitename\"");
 require_once("$_configsdir/$_site_name.php");

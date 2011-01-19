@@ -56,27 +56,27 @@ class Grafico_Ventas_Anual
     function Regresa_Imagen()
     {
         $contador_div=12;
-        $xml="<chart palette='1' showBorder='1' caption='Licencias Vendidas por año' showValues='0' decimals='0' formatNumberScale='0' yAxisMinValue='0' yAxisMaxValue='100' exportEnabled='1' exportAtClient='1' exportHandler='fcExporter".$contador_div."c' exportType='PNG=Exportar como imagen'>";
+        $xml="<chart palette='1' showBorder='1' caption='Distribuidores por año' showValues='0' decimals='0' formatNumberScale='0' yAxisMinValue='0' yAxisMaxValue='100' exportEnabled='1' exportAtClient='1' exportHandler='fcExporter".$contador_div."c' exportType='PNG=Exportar como imagen'>";
         foreach($this->array_anos as $j => $value)
         {
             $total_mes=$this->array_ventas[$j] + 0;
-            $xml.="<set label='".$j."' value='".$total_mes. "' showLabel='1'  toolText='Licencias de año:  ".$this->ano_id."\nNo. Licencias:  ".$total_mes."'/>";
+            $xml.="<set label='".$j."' value='".$total_mes. "' showLabel='1'  toolText='Distribuidores de año:  ".$this->ano_id."\nNo. Licencias:  ".$total_mes."'/>";
         }
 	$xml.="</chart>";
-        $buf.="<table><tr><td align='left'><b>Venta de Licencias por Año</b>: ".$this->ano_id."</td></tr><tr><td>";
-        $buf.=renderChartHTML("includes/fusion/Column3D.swf", "", $xml, "No. de licencias Vendidas por año", 750, 350, false, false);
+        $buf.="<table><tr><td align='left'><b>Distribuidores por Año</b>: ".$this->ano_id."</td></tr><tr><td>";
+        $buf.=renderChartHTML("includes/fusion/Column3D.swf", "", $xml, "Distribuidores por año", 750, 350, false, false);
         $buf.="</td></tr></table>";
         return $buf;
     }
     function Regresa_Tabla()
     {
         $buf.="<table width='100%' align='center' border='0' class='tablesorter'>
-                 <thead><tr heigth='40'><th>Licencias Vendidas Anualmente</th>";
+                 <thead><tr heigth='40'><th>Distribuidores por a&ntilde;o</th>";
         foreach($this->array_anos as $ano_id => $nm_ano)
         {
             $buf.="<th align='center'>".$nm_ano."</th>";
         }
-        $buf.="<th>Totales</th></tr></thead><tbody><tr heigth='30'  class='row2'><td>No. de Licencias</td>";
+        $buf.="<th>Totales</th></tr></thead><tbody><tr heigth='30'  class='row2'><td>Distribuidores</td>";
         $ventas_anual=0;
         foreach($this->array_anos as $ano_id => $value)
         {
@@ -104,7 +104,7 @@ class Grafico_Ventas_Anual
               FROM crm_prospectos_ventas as a left join crm_contactos as b on a.contacto_id=b.contacto_id
               WHERE a.eliminar = 0  AND b.gid='".$this->gid."' ".$this->filtro."
               GROUP BY substr(b.timestamp,1,4)
-              ORDER BY substr(b.timestamp,1,4)";        
+              ORDER BY substr(b.timestamp,1,4)";
         $res=$this->db->sql_query($sql) or die ("Error en la consulta:  ".$sql);
         if($this->db->sql_numrows($res) > 0)
         {

@@ -31,7 +31,7 @@
   if ($db->sql_numrows($result) > 0)
   {
     $lista_contactos .= "<table style=\"width:100%;\">";
-    $lista_contactos .= "<thead><tr><td><a  href=\"index.php?_module=$_module&_op=$_op&order=contacto_id&buscar_gid=$buscar_gid\" ><font color=\"white\">ID</font></a></td><td><a  href=\"index.php?_module=$_module&_op=$_op&order=nombre&buscar_gid=$buscar_gid\" ><font color=\"white\">Nombre</font></a></td><td><font color=\"white\">Último contacto</font></a><td><font color=\"white\">Asignado a</font></a></td></td><td>Cancelar</td></tr></thead>";//
+    $lista_contactos .= "<thead><tr><td><a  href=\"index.php?_module=$_module&_op=$_op&order=contacto_id&buscar_gid=$buscar_gid\" ><font color=\"white\">ID</font></a></td><td><a  href=\"index.php?_module=$_module&_op=$_op&order=nombre&buscar_gid=$buscar_gid\" ><font color=\"white\">Nombre</font></a></td><td><font color=\"white\">Último contacto</font></a><td><font color=\"white\">Proyecto</font></a></td></td><td>Cancelar</td></tr></thead>";//
     while (list($contacto_id, $contrato_id, $nombre, $apellido_paterno, $apellido_materno, $t1, $t2, $t3, $t4, $gid) = htmlize($db->sql_fetchrow($result)))
     {
       //obtener el último contacto

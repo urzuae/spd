@@ -200,12 +200,12 @@ function getNameTransmision($db, $transmisionId)
 function getGrafica($tipo)
 {
     $array[0]="Selecciona el tipo de grafica";
-    $array[1]="Productos";
-    $array[2]="Zonas";
-    $array[3]="Origenes";
-    $array[6]="Total de ventas por Distribuidor";
-    $array[7]="Total Prospectos por Distribuidor";
-    $array[8]="Total Procesados por Distribuidor";
+    //$array[1]="Productos";
+    //$array[2]="Zonas";
+    //$array[3]="Origenes";
+    //$array[6]="Total de ventas por Distribuidor";
+    $array[7]="Total Prospectos por Proyecto";
+    $array[8]="Total Procesados por Proyecto";
 
     $select_graficos="<select name='grafica' id='grafica'>";
     foreach($array as $clave => $valor)

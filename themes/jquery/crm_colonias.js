@@ -7,7 +7,7 @@ $(document).ready(function (){
         if($("#cp").val() != '')
         {
             $.getJSON(urlCps,{zipcode:$("#cp").val()},function(data){
-                if(data.district != "")
+                if(data.district != '')
                 {
                     $("#poblacion").attr("value",data.district);
                     $("#ciudad").attr("value",data.state);

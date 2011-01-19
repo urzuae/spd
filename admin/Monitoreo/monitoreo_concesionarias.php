@@ -34,12 +34,13 @@ $result = $db->sql_query($sql) or die("Error" . print_r($db->sql_error()));
 if ($db->sql_numrows($result) > 0) {
     $tabla_campanas .= "
 			<table align='center' class='tablesorter'>
-            <thead><tr>
-            <td width=5%></td><td width=35%></td><td width=10%>Total de</td><td colspan='" . count($array_fuentes_padres) . "' align='center'>Prospectos por Fuente:</td><td colspan='" . count($array_fuentes_padres) . "'  align='center'>Seguimiento de prospectos por Fuente:</td>
-            </tr></thead>
+            <thead><tr>".
+            //<td width=5%></td><td width=35%></td><td width=10%>Total de</td>".
+	    //<td colspan='" . count($array_fuentes_padres) . "' align='center'>Prospectos por Fuente:</td><td colspan='" . count($array_fuentes_padres) . "'  align='center'>Seguimiento de prospectos por Fuente:</td>
+            "</tr></thead>
 			<thead><tr>
 			<th>#</th>
-            <th>Distribuidor</th>
+            <th>Proyecto</th>
 			<th>Prosp.</th>";
     if (count($array_fuentes_padres) > 0) {
         $array = array('Fuentes', 'fuente', 'Fuente', 'de', '');
@@ -68,7 +69,7 @@ if ($db->sql_numrows($result) > 0) {
         if (count($array_fuentes_prosp) > 0) {
             foreach ($array_fuentes_prosp as $cl => $val) {
                 if (empty($cl)) {
-                    $array_problemas[] = "Concesionaria " . $gid . " tiene " . $val . " prospectos con fuente eliminada";
+                    //$array_problemas[] = "Concesionaria " . $gid . " tiene " . $val . " prospectos con fuente eliminada";
                 } else {
                     $tabla_campanas .= "<td align='right'>" . $val . "</td>";
                 }

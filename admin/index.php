@@ -186,60 +186,61 @@ function do_module($_module) {
 
 function _do_admin_menu()
 {
-    global $PHP_SELF,$_licenses_used,$_menu_c;
-    $_menu_c = 1;
-    $_content = "<br>";
-    $_menu = "";
-    $files=array("" => "");
-    if($_menu_c > 0)
-    {
-        $files = array("Ciclo de venta" => "",
-			"&nbsp;&nbsp;Visualizar Ciclo de venta" => "Campanas",
-                       
-			"Distribuidores" => "",
-				"&nbsp;&nbsp;Administrar Distribuidores" => "Concesionarias",
-				//"&nbsp;&nbsp;Carga de Distribuidores" => "Carga de Datos&_op=grupos",
-				"&nbsp;&nbsp;Crear Distribuidor" => "Concesionarias&_op=new",
-
+	global $PHP_SELF,$_licenses_used,$_menu_c;
+	$_menu_c=1;
+	$_content = "<br>";
+	$_menu = "";
+	$files=array("" => "");
+	if($_menu_c > 0)
+	{
+		$files = array(
+			"Ciclo de Prospección" => "",
+			"&nbsp;&nbsp;Visualizar Ciclo" => "Campanas",
+			
+			"Proyectos" => "",
+			"&nbsp;&nbsp;Administraci&oacute;n de Proyectos" => "Concesionarias",
+				//"&nbsp;&nbsp;Carga de Matrices/Distribuidoras" => "Carga de Datos&_op=grupos",
+				"&nbsp;&nbsp;Crear Proyecto" => "Concesionarias&_op=new",
+			
 			"Usuarios" => "",
 				"&nbsp;&nbsp;Crear Usuarios" => "Usuarios&_op=new",
 				"&nbsp;&nbsp;Consultar Usuarios" => "Usuarios",
-
-			"Cat&aacute;logo de Productos" => "",
-				"&nbsp;&nbsp;Administraci&oacute;n de Productos" => "Modelos",
+			
+			//"Cat&aacute;logo de Productos" => "",
+				//"&nbsp;&nbsp;Administraci&oacute;n de Productos" => "Modelos",
 				//"&nbsp;&nbsp;Carga de Productos" => "Carga de Datos&_op=modelos",
-
-			"Cat&aacute;logo de Fuentes" => "",
-				"&nbsp;&nbsp;Administraci&oacute;n  de fuentes" => "Catalogos",
-
-                       "Prospectos" => "",
-                       "&nbsp;&nbsp;Carga de Prospectos" => "Carga de Datos&_op=prospectos",
-                       "&nbsp;&nbsp;Reasignar Contactos" => "Contactos&_op=contactos",
-                       "&nbsp;&nbsp;Cancelar Contactos" => "Contactos&_op=cancelar",
-
-                       "Monitorear" => "",
-                       "&nbsp;&nbsp;Asignación" => "Monitoreo&_op=monitoreo_concesionarias_asignacion",
-                       "&nbsp;&nbsp;Reasignación" => "Monitoreo&_op=monitoreo_concesionarias_reasignacion",
-                       "&nbsp;&nbsp;Seguimiento" => "Monitoreo&_op=seguimiento_prospectos",
-                       "&nbsp;&nbsp;Distribuidores" => "Monitoreo&_op=monitoreo_concesionarias",
-                       "&nbsp;&nbsp;Tasa de conversion" => "Monitoreo&_op=monitoreo_tasa_de_conversion",
-                       "Reportes" => "",
-                       "&nbsp;Campa&ntilde;as" => "",
-                       "&nbsp;&nbsp;Reporte de Avance" => "Reportes&_op=campanas_avance",
-                       "&nbsp;&nbsp;Reporte de Penalizaciones" => "Reportes&_op=penalizacion_usuarios",
-                       "&nbsp;Estadisticas" => "",
-                       "&nbsp;&nbsp;Gr&aacute;ficos" => "Reportes&_op=autos",
-                       "&nbsp;&nbsp;Status Distribuidor" => "Reportes&_op=status_concesionaria",
-                       "&nbsp;&nbsp;Prospectos <b>No</b> asignados" => "Reportes&_op=prospectos_no_asignados",
-                       "&nbsp;Reportes" => "",
-                       "&nbsp;&nbsp;Cantidad de Ventas" => "Reportes&_op=pdf_cantidad_ventas_concretadas_por_vendedor",
-                       "&nbsp;&nbsp;Cancelaciones de Ventas" => "Reportes&_op=pdf_cancelaciones_ventas",
-                       "&nbsp;&nbsp;Motivos de cancelaciones de Ventas" => "Reportes&_op=pdf_cancelaciones_ventas_motivos"
-                    );
-    }
-
-
-        $i=0;
+			
+			//"Cat&aacute;logo de Origenes" => "",
+				//"&nbsp;&nbsp;Administraci&oacute;n  de origenes" => "Catalogos",
+			
+			"Prospectos" => "",
+				//&nbsp;&nbsp;Carga de Prospectos" => "Carga de Datos&_op=prospectos",
+				//"&nbsp;&nbsp;Reasignar Contactos" => "Contactos&_op=contactos",
+				"&nbsp;&nbsp;Cancelar Contactos" => "Contactos&_op=cancelar",
+			
+			"Monitorear" => "",
+				"&nbsp;&nbsp;Asignación" => "Monitoreo&_op=monitoreo_concesionarias_asignacion",
+				"&nbsp;&nbsp;Reasignación" => "Monitoreo&_op=monitoreo_concesionarias_reasignacion",
+				"&nbsp;&nbsp;Seguimiento" => "Monitoreo&_op=seguimiento_prospectos",
+				"&nbsp;&nbsp;Proyectos" => "Monitoreo&_op=monitoreo_concesionarias",
+				//"&nbsp;&nbsp;Tasa de conversion" => "Monitoreo&_op=monitoreo_tasa_de_conversion",
+			
+			"Reportes" => "",
+				"&nbsp;Campa&ntilde;as" => "",
+					"&nbsp;&nbsp;Reporte de Avance" => "Reportes&_op=campanas_avance",
+					//"&nbsp;&nbsp;Reporte de Penalizaciones" => "Reportes&_op=penalizacion_usuarios",
+				"&nbsp;Estadisticas" => "",
+					"&nbsp;&nbsp;Gr&aacute;ficos" => "Reportes&_op=autos",
+					"&nbsp;&nbsp;Status Proyecto" => "Reportes&_op=status_concesionaria",
+					//"&nbsp;&nbsp;Prospectos <b>No</b> asignados" => "Reportes&_op=prospectos_no_asignados",
+				//"&nbsp;Reportes" => "",
+					//"&nbsp;&nbsp;Cantidad de Ventas" => "Reportes&_op=pdf_cantidad_ventas_concretadas_por_vendedor",
+					//"&nbsp;&nbsp;Cancelaciones de Ventas" => "Reportes&_op=pdf_cancelaciones_ventas",
+					//"&nbsp;&nbsp;Motivos de cancelaciones de Ventas" => "Reportes&_op=pdf_cancelaciones_ventas_motivos"
+		);
+	}
+  
+	$i=0;
 	foreach ($files AS $key=>$file)
 	{
             if ($file)
@@ -283,54 +284,42 @@ else //mostrar el menu de modulos ke se pueden administrar
             $_admin_menu = _do_admin_menu();
             _theme_before_content();
         }
-
         /*$msg_admin='<span class="parrafo">El <b>administrador</b> del sitio es un rol vital, ya que permite configurar todas las variables disponibles del sistema, crear gerentes, distribuidoras/matrices, cambiar contrase&ntilde;as, y ver los resultados de las ventas a traves de los reportes generados por el sistema.</br>
-                Un usuario con este rol tiene el nivel m&aacute;s alto de acceso posible a la aplicaci&oacute;n.<br></span>';
-
+          Un usuario con este rol tiene el nivel m&aacute;s alto de acceso posible a la aplicaci&oacute;n.<br></span>';
         $msg_gte="<span class='parrafo'>El <b>gerente</b> es el rol creado para administrar una distribuidora/matriz, permite crear y administrar usuarios, asignar los prospectos a los vendedores, monitorear prospectos y revisar los reportes generados por la distribuidora/matriz.</br>
-              Los gerentes también pueden reasignar el prospecto de un vendedor y asignarselo a otro, buscando una mejor distribución del trabajo o un vendedor especializado.<br></span>";
-
+          Los gerentes también pueden reasignar el prospecto de un vendedor y asignarselo a otro, buscando una mejor distribución del trabajo o un vendedor especializado.<br></span>";
         $msg_ven="<span class='parrafo'>El rol de <b>vendedor</b> permite ingresar nuevos prospectos, darles seguimiento programando actividades como llamada telefónicas, visitas o correos electrónicos, también permite avanzar a los prospectos en el ciclo de ventas y cerrar los prospectos al concretar la venta.</br>
-              Este rol también puede cancelar un prospecto en caso de ser necesario.<br></span>";
-	*/
-	//Tabla para alojar las instrucciones y links
-	//$inst_1='<span class"instrucciones"><a href="http://pcsmexico.com/salesfunnel/ged/admin/index.php?_module=Campanas">Configura</a> ciclo de ventas<br><a href="http://pcsmexico.com/salesfunnel/ged/admin/index.php?_module=Concesionarias">Dar de alta</a>distribuidor<br><a href="http://pcsmexico.com/salesfunnel/ged/admin/index.php?_module=Modelos">Dar de alta</a>productos</span>';
-
+          Este rol también puede cancelar un prospecto en caso de ser necesario.<br></span>";*/
+				
+				//Tabla para alojar las instrucciones y links
+				//$inst_1='<span class"instrucciones"><a href="http://pcsmexico.com/salesfunnel/ged/admin/index.php?_module=Campanas">Configura</a> ciclo de ventas<br><a href="http://pcsmexico.com/salesfunnel/ged/admin/index.php?_module=Concesionarias">Dar de alta</a>distribuidor<br><a href="http://pcsmexico.com/salesfunnel/ged/admin/index.php?_module=Modelos">Dar de alta</a>productos</span>';
+				
         //mostramos bienvenida
         $sql = "SELECT admin_name, last_login, last_activity, logged_from FROM admins WHERE admin_id='$_admin_id'";
         list($admin, $lastlogin, $lastactivity, $logged_from) = $db->sql_fetchrow($db->sql_query($sql)) or die("Error");
 
-        /*print("
-	      <div style= padding-left:70;>
-	      </br>
-	      <h1>Bienvenido</h1>
-	      </br>
-	      <table cellpadding=\"4\" width=\"60%\" align=\"center\">
-		<tr>
-		   <td class='parrafo'>Bienvenido a su sistema <b>Sales Funnel</b>, usted esta ingresando con el perfil de administrador sistema sales funnel, deberá seguir las instrucciones que a continuación se listan para configurar la solución de acuerdo a sus necesidades.
-                   </td>
+        print("
+					<div style= padding-left:70;>
+						</br>
+						<h1>Bienvenido al Sistema de Prospección de Distribuidores</h1>
+						</br>
+					</div>");
+	      /*<table cellpadding=\"4\" width=\"60%\" align=\"center\">
+               <tr>
+                <td class='parrafo'>Bienvenido a su sistema <b>Sales Funnel</b>, usted esta ingresando con el perfil de administrador sistema sales funnel, deberá seguir las instrucciones que a continuación se listan para configurar la solución de acuerdo a sus necesidades.
+                </td>
                 </tr>
-              </table>
-              </br>
-	      <h3>Roles del Sistema Sales Funnel</h3>
-	      </br>
-              <table cellpadding=\"4\" width=\"60%\" align=\"center\">
+                </table>
+                </br>
+		<h3>Roles del Sistema Sales Funnel</h3>
+		</br>
+                <table cellpadding=\"4\" width=\"60%\" align=\"center\">
 		<tr class=\"row1\" height=\"100\"><th width=\"20%\"><h3>Administrador sistema Sales Funnel</h3></th><td>".$msg_admin."</td></tr>
                 <tr class=\"row2\" height=\"100\"><th><h3>Gerente de ventas</h3></th><td>".$msg_gte."</td></tr>
-                <tr class=\"row1\" height=\"100\"><th><h3>Vendedor</h3></th><td>".$msg_ven."</td></tr>
-	      </table>
-	      </br>
-	      </br>
-	</div>");*/
-	print("
-		<div class=\"container\" style=\"padding-top:70px;\">
-			<h1>Bienvenido</h1>
-			<br/>
-			<div>
-				<h2>Bienvenido al Sistema de Prospección de Licencias</h2>
-			</div>
-		</div>
-	      ");
+                <tr class=\"row1\" height=\"100\"><th><h3>Vendedor</h3></th><td>".$msg_ven."</td></tr></table>
+		</br>
+		</br>
+		</div>");*/
 
         //actualizar el ultimo login
         $from = $_SERVER['REMOTE_ADDR'];
