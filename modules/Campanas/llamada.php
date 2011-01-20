@@ -92,33 +92,47 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 		$_password = $_user;
 		
 		//$cadena = json_encode(array($_user, $_password, $_name, $_email));
-		$cadena = serialize(array($_user, $_password, $_name, $_email));
+		$cadena = array($_user, $_password, $_name, $_email);
 		//Inserción en el sistema de prospección de licencias como nuevo usuario
-		$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd");
+		/*$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
-		$result = curl_exec($ch);
-		curl_close($ch);
-	
-		if($result)
+		$result = curl_exec($ch);*/
+		$client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd'));
+		//$client = new SoapClient(null, array('uri'=>'host','location'=>'http://10.0.0.18/spl/spd.php'));
+
+		$resultado=$client->new_distributor($cadena);
+		
+		if($resultado)
 		{
-			$db->sql_query("UPDATE crm_contacts SET promoted='$i' WHERE contacto_id='$contacto_id'");
-			echo("<script>
-					 alert('Distribuidor creado');
-					 </script>");
+			$i++;
+			$sql = "UPDATE crm_contactos SET promoted='".$i."', distribuidor_id='".$resultado."' WHERE contacto_id='".$contacto_id."'";
+			$db->sql_query($sql) or die($sql);
+			//curl_close($ch);
+			echo("<html><head><script>alert('Distribuidor creado Distribuidor:$resultado');</script></head></html>");
 		}
 		else
 		{
+			//curl_close($ch);
 			die("<html><head><script>alert('Error al enviar/recibir datos');window.close();</script></head></html>");
 		}
 	}
 	elseif($i == 1)
 	{
-		$db->sql_query("UPDATE crm_contactos SET promoted='2' WHERE contacto_id='$contacto_id'");
-		$cadena = serializa(array($_user, $contacto_id));
-		$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd_mayorista");
+		$i++;
+		$db->sql_query("UPDATE crm_contactos SET promoted='$i' WHERE contacto_id='$contacto_id'");
+		list($dist_id) = $db->sql_fetchrow($db->sql_query("SELECT distribuidor_id FROM crm_contactos WHERE contacto_id='$contacto_id'"));
+		//$cadena = serialize(array($dist_id));
+		$cadena = array($dist_id);
+		$result = $client->update_distributor($cadena);
+		if($result)
+			echo("<html><head><script>alert('Distribuidor ha sido actualizado a Mayorista');</script></head></html>");
+		else
+			die("<html><head><script>alert('Error al enviar/recibir datos');window.close();</script></head></html>");
+		/*$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd_mayorista");
 		curl_setopt($ch, CURLOPT_PORT, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
+		curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");*/
+		
 	}
 }
 //si posponemos, abrir un evento, si le quitamos terminamos el evento marcarlo como status=1
@@ -873,21 +887,22 @@ if($num_ventas > 1) $ss='s';
 //$opciones_botones_venta = "<input type=\"button\" style=\"width:180px;\" value=\"Reportar venta\" onclick=\"window.open('index.php?_module=$_module&_op=llamada_venta&contacto_id=$contacto_id&campana_id=$campana_id&llamada_id=$llamada_id&nopendientes=1', 'venta','location=no,resizable=yes,scrollbars=yes,navigation=no,titlebar=no,directories=no,width=600,height=250,left=0,top=0,alwaysraised=yes');\"><br>";
 $opciones_botones_venta.= "<b>$num_unidades producto$s asignado$s<br>$num_ventas venta$ss registrada$ss<b><br>";
 $opciones_botones_venta .=Asigna_semaforo($color_semaforo,$fecha_firmado,$contacto_id);
-//if(!($id_llamada > 0))
-if($num_ventas < $num_unidades)
-{
-  $opciones_botones_venta .= "<input type=\"button\" style=\"width:180px;\" ".$boton_eliminar_prospecto." value=\"Eliminar prospecto\" ><br>
-		Esta opción sirve para explicar los motivos del vendedor para no cerrar una venta.
-		<br>
-      $contacto_button";
-}
-else
+//if(!($id_llamada > 0))*/
+//if($num_ventas < $num_unidades)
+//{
+  $opciones_botones_venta .= "<input type=\"button\" style=\"width:180px;\" ".$boton_eliminar_prospecto." value=\"Eliminar prospecto\" ><br>".
+		//Esta opción sirve para explicar los motivos del vendedor para no cerrar una venta.
+		//<br>
+    "$contacto_button";
+//}
+/*else
 {
     $opciones_botones_venta.= "<b>Este contacto ya tiene una venta registrada<b>";
-}
-    if(eregi('8$',$campana_id))
+}*/
+    if(eregi('3$',$campana_id))
     {
-        $forma_finalizar_contacto = "<form action=\"index.php\" name=\"finalizar_venta\" method=\"post\" onsubmit=\"return confirm('¿Desea terminar el seguimiento del cliente?');\">
+			$disable_actualizar = "disabled";
+        /*$forma_finalizar_contacto = "<form action=\"index.php\" name=\"finalizar_venta\" method=\"post\" onsubmit=\"return confirm('¿Desea terminar el seguimiento del cliente?');\">
 		  <br>
 		    <input name=\"_module\" value=\"$_module\" type=\"hidden\">
 			<input name=\"_op\" value=\"$_op\" type=\"hidden\">
@@ -895,10 +910,10 @@ else
 			<input name=\"campana_id\" value=\"$campana_id\" type=\"hidden\">
 			<input name=\"llamada_id\" value=\"$llamada_id\" type=\"hidden\">
 		  <input name=\"finalizar\" value=\"Terminar seguimiento\" type=\"submit\" style=\"width:180px;\">
-		</form>";
+		</form>";*/
     }
 //}
- */
+
 function get_horario($string){
     $return = array(
     (eregi('M',$string) ? 'checked="checked"' : ''),

@@ -1,0 +1,24 @@
+
+            <table align='center' class='tablesorter'>
+            <thead><tr>
+            <th width='5%'>#</th>
+            <th width='42%'>Distribuidor</th>
+            <th width='8%'>No </th>
+            <th width='8%'> Asignados</th>
+            <th width='8%'>Porcentaje Asignaci&oacute;n</th>
+            <th width='8%'>Hrs Retraso</th>
+            <th width='8%'>Promedio de Hrs</th>
+            <th width='8%'>Maximo hrs retraso</th>
+            <th width='5%'>&nbsp;</th>
+            </tr>
+            </thead><tr class="row1" style="cursor:pointer;"><td>1</td><td align='left'>SALE FUNNEL</td><td align='right'>43</td><td align='right'>40</td><td align='right'>93.02</td><td align='right'>0 d 0 h</td><td align='right'>0 d 0 h</td><td align='right'>0 d 0 h</td><td align='center'><a href='index.php?_module=Monitoreo&_op=monitoreo_prospectos_asignados&gid=0001&grupo_empresarial_id=&region_id=&zona_id=&entidad_id=&plaza_id=&origen=&fecha_ini=2010-12-01&fecha_fin=2011-01-21&basico=&medio=&avanzado='></a></td></tr><thead><tr>
+                            <td>&nbsp;</td>
+                            <td align='right'>Totales:</td>
+                            <td align='right'>43</td>
+                            <td align='right'>40</td>
+                            <td align='right'>93.02</td>
+                            <td align='right'>0 d 0 h</td>
+                            <td align='right'>0 d 0 h</td>
+                            <td align='right'>0 d 0 h</td>
+                            <td align='center'>&nbsp;</td>
+                            </tr></thead></table>
