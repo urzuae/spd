@@ -17,6 +17,11 @@
 
 </style>
 <script>
+function enable_mayorista()
+{
+	may = document.getElementById("mayorista_id");
+	may.disabled = false;
+}
 function show_obj(obj)
 {
 document.objeciones.objecion.value = obj;
@@ -189,14 +194,14 @@ $variable
   <table width="100%" border="0">
    <tr>
     <td width="33%" valign="top">
-		<form action="index.php" name="ciclo" method="post" onsubmit="if(document.getElementById('evento_cierre_comentario') == null){alert('Planee un compromiso primero'); return false;}return confirm('¿Desea avanzar en el ciclo de prospección?');">
+		<form action="index.php" name="ciclo" method="post" onsubmit="$mayorista_func">
 			<input name="_module" value="$_module" type="hidden">
 			<input name="_op" value="$_op" type="hidden">
 			<input name="contacto_id" value="$contacto_id" type="hidden">
 			<input name="campana_id" value="$campana_id" type="hidden">
 			<input name="llamada_id" value="$llamada_id" type="hidden">
 		    Ciclo:<br>$select_ciclo_de_venta_id<br>
-			<input value="Actualizar Distribuidor" name="actualizar_ciclo" id="actualizar_ciclo"  type="submit" style="width:180px;" disabled="$disabled" /><br><br>
+			<input value="Actualizar Distribuidor" name="actualizar_ciclo" id="actualizar_ciclo"  type="submit" style="width:180px;" /><br><br>
       $primer_contacto<br>
       $ultimo_contacto
 		</form>
@@ -204,6 +209,7 @@ $variable
     </td>
     <td width="33%" valign="top">
 $select_actividades
+		$mayoristas
     </td>
 	  <td width="33%" valign="top">
    <b>$titulo_planear</b> 

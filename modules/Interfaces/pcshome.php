@@ -2,7 +2,7 @@
 	if(!defined('_IN_MAIN_INDEX'))
 		die("No puedes accesar directamente a este archivo");
 	
-	global $db, $_theme, $data;
+	global $db, $_theme;
 	
 	$_theme = "";
 	
@@ -77,14 +77,14 @@
 		echo false;
 	}*/
 	
-	class pcs_mexico
+	class pcshome
 	{
 		public function add_contact($data)
 		{
 			$_dbhost = 'localhost';
 			$_dbuname = 'root';
 			$_dbpass = 'redsox';
-			$_dbname = 'spl';
+			$_dbname = 'spd';
 			include("../../includes/db/mysql.php");
 			$db = new sql_db($_dbhost, $_dbuname, $_dbpass, $_dbname, false);
 			
@@ -101,7 +101,7 @@
 				$res = $db->sql_query($sql) or die($sql);
 				list($gid) = $db->sql_fetchrow($res);
 				
-				$sql = "SELECT count(c.uid),c.uid,u.gid from crm_contactos as c, users as u where c.uid=u.uid and u.super='8' group by c.uid";
+				$sql = "SELECT COUNT(contacto_id), u.uid, u.gid FROM crm_contactos c RIGHT JOIN (SELECT uid, gid FROM users WHERE super='8') u ON u.uid=c.uid GROUP BY uid";
 				$result = $db->sql_query($sql);
 				$flag = false;
 				while(list($current_count, $current_uid, $current_gid) = $db->sql_fetchrow($result)) {
@@ -140,15 +140,15 @@
 				$sql = "INSERT INTO crm_contactos_asignacion_log (contacto_id, uid, from_uid, to_uid, from_gid, to_gid)VALUES('$contacto_id','$uid','0','$uid','0','$gid')";
 				$db->sql_query($sql) or die("Error al insertar al log");
 				
-				return true;
+				return "Cadena procesada exitosamente";
 			}
 			else
-				return false;
+				return "no procesada";
 		}
 	}
 	
 	$soap=new SoapServer(null,array('uri'=>'http://localhost'));
-	$soap->setClass('test');
+	$soap->setClass('pcshome');
 	$soap->handle();
 	die();
 	

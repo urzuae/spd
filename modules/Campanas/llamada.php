@@ -5,7 +5,7 @@ if (!defined('_IN_MAIN_INDEX')) {
 global $db, $uid, $how_many, $from, $campana_id, $contacto_id, $llamada_id, $submit, $status, $compania, 
 		$nota, $fecha_cita, $hora_cita, $minuto_cita, $personal, $delalert, $ciclo_de_venta_id,
     $evento_id, $evento_tipo_id, $evento_comentario, 
-		$next_campana_id,$finalizar;
+		$next_campana_id,$finalizar, $mayorista_id;
 	
 header("Cache-Control: no-cache");
 include_once("modules/Gerente/class_autorizado.php");
@@ -86,34 +86,57 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 	$result = $db->sql_query("SELECT nombre, email, promoted FROM crm_contactos WHERE contacto_id='$contacto_id'");
 	list($_name, $_email, $i) = $db->sql_fetchrow($result);
 	
+	$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd'));
+	
 	if ($i == 0)
 	{
 		$_user = $_name;
 		$_password = $_user;
 		
 		//$cadena = json_encode(array($_user, $_password, $_name, $_email));
-		$cadena = array($_user, $_password, $_name, $_email);
+		$cadena = array($_user, $_password, $_name, $_email, $mayorista_id	);
 		//Inserción en el sistema de prospección de licencias como nuevo usuario
 		/*$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
 		$result = curl_exec($ch);*/
-		$client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd'));
+		$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd'));
 		//$client = new SoapClient(null, array('uri'=>'host','location'=>'http://10.0.0.18/spl/spd.php'));
-
-		$resultado=$client->new_distributor($cadena);
+		$resultado=$spl_client->new_distributor($cadena);
+		
+		//require_once('lib/nusoap.php');
+		
+		//$cadena2 = $_name.",".$_email.",";
+		//$act_client = new nusoap_client ('http://10.0.0.123/server.php?wsdl', true);
+		//$daka = $client->call('insertar', array('param'=>'esta,es,prueba'));
 		
 		if($resultado)
 		{
 			$i++;
+			switch (strlen($resultado))
+			{
+			case 1:
+			 $gid = "000".$resultado;
+			 break;
+			case 2:
+			 $gid = "00".$resultado;
+			 break;
+			case 3:
+			 $gid = "0".$resultado;
+			 break;
+			}
+
 			$sql = "UPDATE crm_contactos SET promoted='".$i."', distribuidor_id='".$resultado."' WHERE contacto_id='".$contacto_id."'";
 			$db->sql_query($sql) or die($sql);
-			//curl_close($ch);
+			require_once("$_themedir/lib/nusoap.php");
+			$cadena2 = "'".$_name."','".$resultado."','0001','1'";
+			print_r($cadena2);
+			$act_client = new nusoap_client ('http://10.0.0.123/server.php?wsdl', true);
+			$daka = $act_client->call('insertar', array('param'=>$cadena2));
 			echo("<html><head><script>alert('Distribuidor creado Distribuidor:$resultado');</script></head></html>");
 		}
 		else
 		{
-			//curl_close($ch);
 			die("<html><head><script>alert('Error al enviar/recibir datos');window.close();</script></head></html>");
 		}
 	}
@@ -123,12 +146,12 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 		$db->sql_query("UPDATE crm_contactos SET promoted='$i' WHERE contacto_id='$contacto_id'");
 		list($dist_id) = $db->sql_fetchrow($db->sql_query("SELECT distribuidor_id FROM crm_contactos WHERE contacto_id='$contacto_id'"));
 		//$cadena = serialize(array($dist_id));
-		$cadena = array($dist_id);
-		$result = $client->update_distributor($cadena);
+		$cadena[0] = $dist_id;
+		$result = $spl_client->update_distributor($cadena);
 		if($result)
 			echo("<html><head><script>alert('Distribuidor ha sido actualizado a Mayorista');</script></head></html>");
 		else
-			die("<html><head><script>alert('Error al enviar/recibir datos');window.close();</script></head></html>");
+			echo("<html><head><script>alert('Error al enviar/recibir datos');window.close();</script></head></html>");
 		/*$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd_mayorista");
 		curl_setopt($ch, CURLOPT_PORT, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");*/
@@ -667,31 +690,73 @@ while (list($campana_id_) = $db->sql_fetchrow($r));
 //el select de ciclo
 $enable = false;
 $passed = false;
+$counter=0;
 foreach($ciclo_campanas_id AS $campana_id_)
 {
 	if ($enable)
 	{
 		$semaforo = "<img src=\"img/pixel.gif\" style=\"height:15px;width:15px;\">";	   //poner vacio a las qu eno
 		$disabled = "";
+		$onclick = "onclick='enable_mayorista();'";
+		$passed=true;
 	}
 	else 
 	{
 		if (!$passed)
+		{
 			$semaforo = "<img src=\"img/ok.gif\" style=\"height:15px;width:15px;\">"; //poner una imagen a los anteriores
+			$counter++;
+		}
 		$disabled = " DISABLED";
+		$onclick="";
 	}
 	$r = $db->sql_query("SELECT nombre FROM crm_campanas WHERE campana_id='$campana_id_'") or die("Error en ciclo");
 	list($n) = $db->sql_fetchrow($r);
-	$select_ciclo_de_venta_id .= "$semaforo<input type=\"radio\" name=\"next_campana_id\" group=\"next_campana_id\" value=\"$campana_id_\"$disabled>$n<br>";
+	$select_ciclo_de_venta_id .= "$semaforo<input type=\"radio\" $onclick name=\"next_campana_id\" group=\"next_campana_id\" value=\"$campana_id_\"$disabled>$n<br>";
 	
 	if ($campana_id_ == $campana_id) //desactivar los que están antes de esta campana
 		$enable = true;
 	else
-	{
 		$enable = false;
-		$passed = true;
-	}
 }
+
+if($counter % 10 == 1)
+{
+
+	$sql_may = "SELECT distribuidor_id, nombre FROM crm_contactos WHERE promoted='2'";
+	$resultado_may = $db->sql_query($sql_may);
+	$mayoristas = "
+		<select id='mayorista_id' disabled='disabled'>
+		<option value = '0'>Seleccione un mayorista</option>
+		<option value = '0001'>PCS MEXICO</option>";
+	while(list($dist_id, $nom_may) = $db->sql_fetchrow($resultado_may))
+	{
+		$mayoristas .= "<option value='$dist_id'>$nom_may</option>";
+	}
+	$mayoristas .= "</select>";
+
+	$mayorista_func = "if(document.getElementById('evento_cierre_comentario') == null)
+		{
+			alert('Planee un compromiso primero');
+			return false;
+		}
+		if(document.getElementById('mayorista_id').value == 0)
+		{
+			alert('Seleccione un mayorista');
+			return false;
+		}
+		return confirm('¿Desea avanzar en el ciclo de prospección?');";
+}
+else
+{
+	$mayorista_func = "if(document.getElementById('evento_cierre_comentario') == null)
+	{
+		alert('Planee un compromiso primero');
+		return false;
+	}
+	return confirm('¿Desea avanzar en el ciclo de prospección?');";	
+}
+
 
 
 
