@@ -6,6 +6,16 @@ global $db, $uid, $how_many, $from, $campana_id, $contacto_id, $llamada_id, $sub
 		$nota, $fecha_cita, $hora_cita, $minuto_cita, $personal, $delalert, $ciclo_de_venta_id,
     $evento_id, $evento_tipo_id, $evento_comentario, 
 		$next_campana_id,$finalizar, $mayorista_id;
+		
+$select_actividades = "";
+$opciones_botones_venta = "";
+$js_extra = "";
+$catalogo = "";
+$nota_nueva = "";
+$cerrar_evento = "";
+$comentario = "";
+$botones_submit = "";
+$msg_prosponer = "";
 	
 header("Cache-Control: no-cache");
 include_once("modules/Gerente/class_autorizado.php");
@@ -38,6 +48,8 @@ list($grupo) = $db->sql_fetchrow($result);
 
 if ($gid != 1)
     $where_gid = " AND gid='$gid'";
+else
+  $where_gid = "";
 
 $sql = "SELECT campana_id FROM crm_campanas_groups  WHERE campana_id='$campana_id' $where_gid LIMIT 1";
 $r = $db->sql_query($sql) or die("Error al obtener el ciclo de venta de esta distribuidora.<br>$sql");
@@ -83,10 +95,10 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 	$campana_id = $next_campana_id;
 	//TODO: checar si tenemos permisos para la siguiente campana, si no regresar
 	
-	$result = $db->sql_query("SELECT nombre, email, promoted FROM crm_contactos WHERE contacto_id='$contacto_id'");
-	list($_name, $_email, $i) = $db->sql_fetchrow($result);
+	$result = $db->sql_query("SELECT nombre, apellido_paterno, email, promoted FROM crm_contactos WHERE contacto_id='$contacto_id'");
+	list($_name, $_apellido $_email, $i) = $db->sql_fetchrow($result);
 	
-	$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd'));
+	$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://pcsmexico.com/spl/index.php?_module=Interfaces&_op=spd'));
 	
 	if ($i == 0)
 	{
@@ -94,13 +106,13 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 		$_password = $_user;
 		
 		//$cadena = json_encode(array($_user, $_password, $_name, $_email));
-		$cadena = array($_user, $_password, $_name, $_email, $mayorista_id	);
+		$cadena = array($_user, $_password, $_name, $_email, $mayorista_id);
 		//Inserción en el sistema de prospección de licencias como nuevo usuario
 		/*$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
 		$result = curl_exec($ch);*/
-		$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd'));
+		$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://pcsmexico.com/spl/index.php?_module=Interfaces&_op=spd'));
 		//$client = new SoapClient(null, array('uri'=>'host','location'=>'http://10.0.0.18/spl/spd.php'));
 		$resultado=$spl_client->new_distributor($cadena);
 		
@@ -129,9 +141,9 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 			$sql = "UPDATE crm_contactos SET promoted='".$i."', distribuidor_id='".$resultado."' WHERE contacto_id='".$contacto_id."'";
 			$db->sql_query($sql) or die($sql);
 			require_once("$_themedir/lib/nusoap.php");
-			$cadena2 = "'".$_name."','".$resultado."','0001','1'";
-			print_r($cadena2);
-			$act_client = new nusoap_client ('http://10.0.0.123/server.php?wsdl', true);
+			$cadena2 = "'".$_name.$_apellido."','".$resultado."','0001','1'";
+			//print_r($cadena2);
+			$act_client = new nusoap_client ('http://pcsmexico.com/salesfunnel/activation/server.php?wsdl', true);
 			$daka = $act_client->call('insertar', array('param'=>$cadena2));
 			echo("<html><head><script>alert('Distribuidor creado Distribuidor:$resultado');</script></head></html>");
 		}
@@ -691,6 +703,7 @@ while (list($campana_id_) = $db->sql_fetchrow($r));
 $enable = false;
 $passed = false;
 $counter=0;
+$select_ciclo_de_venta_id = "";
 foreach($ciclo_campanas_id AS $campana_id_)
 {
 	if ($enable)
@@ -726,7 +739,7 @@ if($counter % 10 == 1)
 	$sql_may = "SELECT distribuidor_id, nombre FROM crm_contactos WHERE promoted='2'";
 	$resultado_may = $db->sql_query($sql_may);
 	$mayoristas = "
-		<select id='mayorista_id' disabled='disabled'>
+		<select name=\"mayorista_id\" id=\"mayorista_id\" disabled='disabled'>
 		<option value = '0'>Seleccione un mayorista</option>
 		<option value = '0001'>PCS MEXICO</option>";
 	while(list($dist_id, $nom_may) = $db->sql_fetchrow($resultado_may))
@@ -955,10 +968,10 @@ $opciones_botones_venta .=Asigna_semaforo($color_semaforo,$fecha_firmado,$contac
 //if(!($id_llamada > 0))*/
 //if($num_ventas < $num_unidades)
 //{
-  $opciones_botones_venta .= "<input type=\"button\" style=\"width:180px;\" ".$boton_eliminar_prospecto." value=\"Eliminar prospecto\" ><br>".
+  $opciones_botones_venta .= "<input type=\"button\" style=\"width:180px;\" ".$boton_eliminar_prospecto." value=\"Eliminar prospecto\" ><br>";
 		//Esta opción sirve para explicar los motivos del vendedor para no cerrar una venta.
 		//<br>
-    "$contacto_button";
+    //"$contacto_button";
 //}
 /*else
 {

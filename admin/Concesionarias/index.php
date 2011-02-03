@@ -5,6 +5,9 @@ if (!defined('_IN_ADMIN_MAIN_INDEX')) {
 
 global $db, $del, $new,$_module,$_id,$desbloquea,$msg_ciclo,$_site_title,$_licenses,$_licenses_not_used,$_licenses_used;
 $_site_title = "Distribuidoras";
+
+$error = "";
+
 if($desbloquea)
 {
    	$db->sql_query("UPDATE groups SET active=true WHERE gid=".$desbloquea);
@@ -116,6 +119,7 @@ else
               <th>No de prospectos</th></tr></thead><tbody>"
 		;
     $result = $db->sql_query("SELECT g.gid, g.name,g.active FROM groups AS g WHERE 1 ORDER BY g.gid;") OR die("Error al consultar db: ".print_r($db->sql_error()));
+    $c = 0;
     while (list($id, $name, $active) = htmlize($db->sql_fetchrow($result)))
     {
         $id=str_pad($id,4,"0",STR_PAD_LEFT);

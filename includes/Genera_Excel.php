@@ -24,7 +24,7 @@ class Genera_Excel {
         $this->data = str_replace('Prospectos', '', $this->data);
         $boton = '<table width="90%">
                     <tr><td align="right">
-                        <a href="' . $this->path_save. '" target="_blank">Exportar a Excel</a>
+                        <a href="'. $this->path_save.'" target="_blank">Exportar a Excel</a>
                     </td></tr></table>';
         $this->buffer_html = $this->data;
         $this->buffer = $boton;

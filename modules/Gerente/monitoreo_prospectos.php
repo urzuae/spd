@@ -10,6 +10,8 @@ global $db, $how_many, $from, $campana_id, $nombre, $apellido_paterno, $apellido
 include_once($_includesdir."/Genera_Excel.php");
 $sql  = "SELECT gid, super FROM users WHERE uid='".$_COOKIE['_uid']."'";
 $result = $db->sql_query($sql) or die("Error");
+
+$contador_tablas = 0;
 list($gid, $super) = $db->sql_fetchrow($result);
 if ($super > 6)
 {
@@ -59,11 +61,11 @@ if ( (count($campanasNombre) > 0) )
         $contador_tablas++;
         $tabla_campanas .=
         "<table style=\"text-align: left; width: 100%;\" border=\"0\" cellpadding=\"2\" cellspacing=\"2\"> <tbody>
-        <tr style=\"cursor:pointer\" onclick=\"var v=document.getElementById('bloque_$uid_$valor[campanaId]');	var i=document.getElementById('img_$uid_$valor[campanaId]'); var o=document.getElementById('open');	if(v.style.display=='none'){v.style.display='block';i.src='img/less.gif';o.value = o.value+'$valor[campanaId]'+'-';}else{ v.style.display='none';i.src='img/more.gif';o.value = o.value.replace('$valor[campanaId] ','')}\">
-        <th><img src=\"img/pixel.gif\" width=\"15px\"><img src=\"img/$icono_bloque.gif\" id=\"img_$uid_$valor[campanaId]\"> $valor[campana]</th>
+        <tr style=\"cursor:pointer\" onclick=\"var v=document.getElementById('bloque_".$uid."_$valor[campanaId]');	var i=document.getElementById('img_$uid_$valor[campanaId]'); var o=document.getElementById('open');	if(v.style.display=='none'){v.style.display='block';i.src='img/less.gif';o.value = o.value+'$valor[campanaId]'+'-';}else{ v.style.display='none';i.src='img/more.gif';o.value = o.value.replace('$valor[campanaId] ','')}\">
+        <th><img src=\"img/pixel.gif\" width=\"15px\"><img src=\"img/$icono_bloque.gif\" id=\"img_".$uid."_$valor[campanaId]\"> $valor[campana]</th>
         </tr>
         </table>
-        <div id=\"bloque_$uid_$valor[campanaId]\" style=\"display:$display_bloque;\">
+        <div id=\"bloque_".$uid."_$valor[campanaId]\" style=\"display:$display_bloque;\">
         <table id=\"tabla_contactos$contador_tablas\" class=\"tablesorter\" >
             <thead>
               <tr>

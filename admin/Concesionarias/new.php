@@ -10,6 +10,8 @@ $listZonas   =Zonas($db, $region_id,$zona_id);
 $listEntidades=Entidades($db,$region_id,$entidad_id);
 $listPlazas=Municipios($db,$entidad_id,$plaza_id);
 $categoria=Categorias($id_nivel);
+$msg = "";
+$error = "";
 if ($submit)
 {
     /*if($_licenses_not_used > 0)

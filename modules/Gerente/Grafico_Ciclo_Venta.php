@@ -14,6 +14,7 @@ class Grafico_Ciclo_Venta
     var $buffer;
 
     function  __construct($db,$uid,$_includesdir) {
+        $ano_id = 0;
         $this->ano_id=$ano_id;
         $this->include=$_includesdir;
         $this->db=$db;

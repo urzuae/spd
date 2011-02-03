@@ -6,6 +6,14 @@ global $db, $how_many, $from, $campana_id, $nombre, $apellido_paterno, $apellido
         $submit, $status_id, $ciclo_de_venta_id, $uid, $orderby,$_site_title;
 $window_opc = "'llamada','menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,navigation=no,titlebar=no,directories=no,width=800,height=750,left=200,top=0,alwaysraised=yes'";
 $_site_title = "Actividades";
+$tipo = "";
+$ultimo_contacto_timestamp = $ultimo_contacto_timestamp_bk = "";
+$primer_contacto_timestamp = "";
+$primer_contacto = "";
+$ultimo_contacto = "";
+$retraso = "";
+$llamada_timestamp = "";
+$counter = 0;
 $how_many = 15;
 include_once("modules/Gerente/class_autorizado.php");
 
@@ -58,7 +66,7 @@ while(list($origen_id_1,$origen) = $db->sql_fetchrow($r3)){
     $color_semaforo=$objeto->Obten_Semaforo();
 
 	  $contacto_ids[] = $contacto_id;
-	  $origenes[$contacto_id] = $arr_origenes[$origen_id];
+	  $origenes[$contacto_id] = $origen_id !=0?$arr_origenes[$origen_id]:"";
       $origenes_id[$contacto_id] = $origen_id;
 	  $nombres[$contacto_id] = "$nombre $apellido_paterno $apellido_materno";
 	  $tels[$contacto_id] = $tel;
@@ -73,9 +81,9 @@ while(list($origen_id_1,$origen) = $db->sql_fetchrow($r3)){
 	  $llamada_ts[$contacto_id] = $llamada_timestamp;
 	  $llamada_ids[$contacto_id] = $llamada_id;
       $tipos[$contacto_id] = $tipo;
-      $prioridad_arr[$contacto_id] = $prioridades[$prioridad];
+      $prioridad_arr[$contacto_id] = $prioridad != 0?$prioridades[$prioridad]:"";
       $prioridades_arr[$contacto_id] = $prioridad;
-      $color_prioridad[$contacto_id] = $prioridades_color[$prioridad]; 
+      $color_prioridad[$contacto_id] = $prioridad != 0 ?$prioridades_color[$prioridad]:""; 
       $fechas_importacion[$contacto_id]=$fecha_importado;
       $autorizacion[$contacto_id]=$color_semaforo;
       $counter++;//queremos el total de contactos
@@ -184,7 +192,7 @@ foreach ($array_para_ordenar AS $key=>$value)
 {
 	    $ordered_contacto_ids[] = $key;//echo $key."->$value<br>";
 }
-
+$jsarray_index = 0;
 $jsarray = "var array_contacto_ids = Array(";
 foreach($ordered_contacto_ids as $c)
 {

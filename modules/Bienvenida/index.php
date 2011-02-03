@@ -6,6 +6,9 @@ if (!defined('_IN_MAIN_INDEX')) {
 
 global $db, $uid, $title, $_site_title, $super, $_modulesdir, $tipo_usuario,$name_usuario,$usuario_franja;
 $_site_title = "Bienvenida";
+$buffer_ventas = "";
+$buffer = "";
+$buffer_semaforo = "";
 
 if (!$uid)
 {

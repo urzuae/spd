@@ -1,8 +1,8 @@
 <?
 	if(!defined('_IN_MAIN_INDEX'))
 		die("No puedes accesar directamente a este archivo");
-	
-	global $db, $_theme;
+		
+	global $_theme;
 	
 	$_theme = "";
 	
@@ -79,18 +79,19 @@
 	
 	class pcshome
 	{
-		public function add_contact($data)
+		public function add_contact($param)
 		{
 			$_dbhost = 'localhost';
-			$_dbuname = 'root';
-			$_dbpass = 'redsox';
+			$_dbuname = 'spd';
+			$_dbpass = 'spd';
 			$_dbname = 'spd';
 			include("../../includes/db/mysql.php");
 			$db = new sql_db($_dbhost, $_dbuname, $_dbpass, $_dbname, false);
 			
-			if($data)
+			if(isset($param))
 			{
-				$data = unserialize($data);
+				//$data = unserialize($param);
+				$data = $param;
 				$params = array();
 				
 				foreach ($data as $row) {
@@ -140,14 +141,14 @@
 				$sql = "INSERT INTO crm_contactos_asignacion_log (contacto_id, uid, from_uid, to_uid, from_gid, to_gid)VALUES('$contacto_id','$uid','0','$uid','0','$gid')";
 				$db->sql_query($sql) or die("Error al insertar al log");
 				
-				return "Cadena procesada exitosamente";
+			return true;
 			}
 			else
-				return "no procesada";
+				return false;
 		}
 	}
 	
-	$soap=new SoapServer(null,array('uri'=>'http://localhost'));
+	$soap=new SoapServer(null,array('uri'=>'localhost'));
 	$soap->setClass('pcshome');
 	$soap->handle();
 	die();

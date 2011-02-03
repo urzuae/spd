@@ -4,6 +4,8 @@ if (!defined('_IN_MAIN_INDEX')) {
     die("No puedes acceder directamente a este archivo...");
 }
 global $db, $uid, $submit, $orderby, $fecha_ini, $fecha_fin, $_site_title;
+$and_fecha = "";
+$tabla_campanas = "";
 
 $_site_title = "Compromisos";
 $window_opc = "'llamada','menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,navigation=no,titlebar=no,directories=no,width=800,height=750,left=200,top=0,alwaysraised=yes'";

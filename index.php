@@ -21,6 +21,7 @@
 // if ($_SERVER[SERVER_PORT] != 443) header('https://www.pcsmexico.com/vw');
 define('_IN_MAIN_INDEX', '1');
 $PHP_SELF = $_SERVER['PHP_SELF'];
+
 /*$hora = date("Y-m-d h:i");*/
 $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
 $hora = $dias[date('w')];
@@ -100,7 +101,7 @@ function _ask_to_login($message)
         include_once("$_themedir/theme.php");
         _theme_before_content();
     }
-    //mostramos login fields
+    //mostramos login fields 
     print("<div class=title>$message   </div><br>"
         . "<div class=title>Login</div><br><table><form action=\"index.php\" method=post>\n"
         . "<input type=\"hidden\" name=\"_module\" value=\"$_module\">"
@@ -192,7 +193,7 @@ if (isset($_COOKIE['_uid']))
         list($_default_module) = $db->sql_fetchrow($result);
         
 }
-//else $uid = 0;
+else $uid = "";
 $__uid = $uid;
 $_themedir = "themes/";
 $_imgdir = "img";

@@ -4,9 +4,13 @@
 }
 global $db, $uid, $how_many, $from, $orderby, $del, $_site_title;
 
+$tabla_campanas = "";
+
 $_site_title = "Ciclo de venta";
 $window_opc = "'llamada','location=no,resizable=yes,scrollbars=yes,navigation=no,titlebar=no,directories=no,width=800,height=750,left=0,top=0,alwaysraised=yes'";
 $how_many = 10;
+$total = 0;$c=0;
+$paginacion_campanas = "";
 if ($from < 1 || !$from) $from = 0;
 if (!$orderby) $orderby = "nombre";
 

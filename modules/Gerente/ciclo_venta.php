@@ -3,6 +3,7 @@
     die ("No puedes acceder directamente a este archivo...");
 }
 global $db, $uid, $_site_name,$_includesdir,$_modulesdir,$buffer,$buffer_ventas,$buffer_semaforo,$ano_id;
+$array_meses = "";
 include_once("Grafico_Ciclo_Venta.php");
 #include_once("Grafico_Ventas.php");
 include_once($_includesdir."/fusion/FusionCharts.php");
