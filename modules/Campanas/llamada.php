@@ -96,7 +96,7 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 	//TODO: checar si tenemos permisos para la siguiente campana, si no regresar
 	
 	$result = $db->sql_query("SELECT nombre, apellido_paterno, email, promoted FROM crm_contactos WHERE contacto_id='$contacto_id'");
-	list($_name, $_apellido $_email, $i) = $db->sql_fetchrow($result);
+	list($_name, $_apellido, $_email, $i) = $db->sql_fetchrow($result);
 	
 	$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://pcsmexico.com/spl/index.php?_module=Interfaces&_op=spd'));
 	

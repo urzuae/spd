@@ -124,8 +124,8 @@
 					}
 				}
 				
-				$sql = "INSERT INTO crm_contactos ( nombre, apellido_paterno, tel_casa, email,nota,gid,uid)
-					VALUES ('".$params[0]."','".$params[1]."','".$params[2]."','".$params[3]."','".$params[4]."','".$gid."','".$uid."')";
+				$sql = "INSERT INTO crm_contactos ( nombre, apellido_paterno, tel_casa, email,nota,gid,uid, fecha_importado)
+					VALUES ('".$params[0]."','".$params[1]."','".$params[2]."','".$params[3]."','".$params[4]."\n"."','".$gid."','".$uid."','NOW()')";
 				
 				$result = $db->sql_query($sql) or die($sql);
 				$contacto_id = $db->sql_nextid();
@@ -140,6 +140,15 @@
 				//guardar el log de asignacion
 				$sql = "INSERT INTO crm_contactos_asignacion_log (contacto_id, uid, from_uid, to_uid, from_gid, to_gid)VALUES('$contacto_id','$uid','0','$uid','0','$gid')";
 				$db->sql_query($sql) or die("Error al insertar al log");
+				
+				$sql = "SELECT l.id FROM crm_campanas_llamadas AS l, crm_contactos AS c
+					WHERE l.contacto_id=c.contacto_id AND c.uid='$uid'  AND l.campana_id='$campana_id' AND l.status_id!=-1 ORDER BY l.timestamp LIMIT 1";
+				$result = $db->sql_query($sql);
+				
+				list($llamada_id) = htmlize($db->sql_fetchrow($result));
+				
+				$sql = "INSERT INTO crm_campanas_llamadas_eventos (llamada_id,tipo_id,comentario,uid,fecha_cita) VALUES('$llamada_id','2','Llamar inmediatamente','$uid','current_date')";
+				$db->sql_query($sql) or die("Error".print_r($db->sql_error()));
 				
 			return true;
 			}
