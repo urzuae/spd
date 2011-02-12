@@ -2,7 +2,7 @@
 if (!defined('_IN_ADMIN_MAIN_INDEX')) {
     die ("No puedes acceder directamente a este archivo...");
 }
-global $db, $user, $name, $gid, $sgid, $password, $config, $submit, $super_val,$_licenses,$_licenses_not_used,$_licenses_used;
+global $db, $user, $name, $gid, $sgid, $password, $config, $submit, $super_val;
 if ($submit) //crear el usuario
 {
     /*if( $_licenses_not_used <= 0)

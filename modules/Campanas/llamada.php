@@ -91,31 +91,29 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 	list($next_campana) = $db->sql_fetchrow($r2);
 
 	//logear la aktividad
-	$db->sql_query("INSERT INTO crm_campanas_llamadas_log (llamada_id, contacto_id, uid,status_id, campana_id)VALUES('$llamada_id', '$contacto_id', '$uid','$status_id','$next_campana_id')") or die("Error".print_r($db->sql_error()));
+	$db->sql_query("INSERT INTO crm_campanas_llamadas_log (llamada_id, contacto_id, uid,status_id, campana_id)VALUES('$llamada_id', '$contacto_id', '$uid','$status_id','$next_campana_id')");
 	$campana_id = $next_campana_id;
 	//TODO: checar si tenemos permisos para la siguiente campana, si no regresar
 	
 	$result = $db->sql_query("SELECT nombre, apellido_paterno, email, promoted FROM crm_contactos WHERE contacto_id='$contacto_id'");
 	list($_name, $_apellido, $_email, $i) = $db->sql_fetchrow($result);
 	
-	$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://pcsmexico.com/spl/index.php?_module=Interfaces&_op=spd'));
-	
+	//$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd'));
 	if ($i == 0)
 	{
 		$_user = $_name;
 		$_password = $_user;
 		
 		//$cadena = json_encode(array($_user, $_password, $_name, $_email));
-		$cadena = array($_user, $_password, $_name, $_email, $mayorista_id);
+		$cadena = array($_user, $_password, $_name, $_email, $mayorista_id, $_apellido);
 		//Inserción en el sistema de prospección de licencias como nuevo usuario
 		/*$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
 		$result = curl_exec($ch);*/
-		$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://pcsmexico.com/spl/index.php?_module=Interfaces&_op=spd'));
+		$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://www.pcsmexico.com/spl/index.php?_module=Interfaces&_op=spd'));
 		//$client = new SoapClient(null, array('uri'=>'host','location'=>'http://10.0.0.18/spl/spd.php'));
 		$resultado=$spl_client->new_distributor($cadena);
-		
 		//require_once('lib/nusoap.php');
 		
 		//$cadena2 = $_name.",".$_email.",";
@@ -141,7 +139,8 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 			$sql = "UPDATE crm_contactos SET promoted='".$i."', distribuidor_id='".$resultado."' WHERE contacto_id='".$contacto_id."'";
 			$db->sql_query($sql) or die($sql);
 			require_once("$_themedir/lib/nusoap.php");
-			$cadena2 = "'".$_name.$_apellido."','".$resultado."','0001','1'";
+			$another_des = strtoupper($_name.$_apellido);
+			$cadena2 = "'".$another_des."','".$resultado."','0001','1'";
 			//print_r($cadena2);
 			$act_client = new nusoap_client ('http://pcsmexico.com/salesfunnel/activation/server.php?wsdl', true);
 			$daka = $act_client->call('insertar', array('param'=>$cadena2));
@@ -158,15 +157,16 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 		$db->sql_query("UPDATE crm_contactos SET promoted='$i' WHERE contacto_id='$contacto_id'");
 		list($dist_id) = $db->sql_fetchrow($db->sql_query("SELECT distribuidor_id FROM crm_contactos WHERE contacto_id='$contacto_id'"));
 		//$cadena = serialize(array($dist_id));
-		$cadena[0] = $dist_id;
-		$result = $spl_client->update_distributor($cadena);
-		if($result)
-			echo("<html><head><script>alert('Distribuidor ha sido actualizado a Mayorista');</script></head></html>");
-		else
-			echo("<html><head><script>alert('Error al enviar/recibir datos');window.close();</script></head></html>");
-		/*$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd_mayorista");
-		curl_setopt($ch, CURLOPT_PORT, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");*/
+		//$cadena = array($dist_id);
+		//$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://www.pcsmexico.com/spl/index.php?_module=Interfaces&_op=spd'));
+		//$result = $spl_client->update_distributor($cadena);
+		//if($result)
+			echo("<html><head><script>alert('Distribuidor ha sido Certificado');</script></head></html>");
+		//else
+			//echo("<html><head><script>alert('Error al enviar/recibir datos');window.close();</script></head></html>");
+		//$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd_mayorista");
+		//curl_setopt($ch, CURLOPT_PORT, 1);
+		//curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
 		
 	}
 }
@@ -736,7 +736,7 @@ foreach($ciclo_campanas_id AS $campana_id_)
 if($counter % 10 == 1)
 {
 
-	$sql_may = "SELECT distribuidor_id, nombre FROM crm_contactos WHERE promoted='2'";
+	$sql_may = "SELECT distribuidor_id, razon_social FROM crm_payoristas WHERE status='1'";
 	$resultado_may = $db->sql_query($sql_may);
 	$mayoristas = "
 		<select name=\"mayorista_id\" id=\"mayorista_id\" disabled='disabled'>

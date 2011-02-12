@@ -225,6 +225,10 @@ function _do_admin_menu()
 				"&nbsp;&nbsp;Proyectos" => "Monitoreo&_op=monitoreo_concesionarias",
 				//"&nbsp;&nbsp;Tasa de conversion" => "Monitoreo&_op=monitoreo_tasa_de_conversion",
 			
+			"Mayoristas" => "",
+				"&nbsp;Lista de Mayoristas" => "Mayoristas",
+				"&nbsp;Nuevo" => "Mayoristas&_op=new",
+			
 			"Reportes" => "",
 				"&nbsp;Campa&ntilde;as" => "",
 					"&nbsp;&nbsp;Reporte de Avance" => "Reportes&_op=campanas_avance",
@@ -237,6 +241,7 @@ function _do_admin_menu()
 					//"&nbsp;&nbsp;Cantidad de Ventas" => "Reportes&_op=pdf_cantidad_ventas_concretadas_por_vendedor",
 					//"&nbsp;&nbsp;Cancelaciones de Ventas" => "Reportes&_op=pdf_cancelaciones_ventas",
 					//"&nbsp;&nbsp;Motivos de cancelaciones de Ventas" => "Reportes&_op=pdf_cancelaciones_ventas_motivos"
+					
 		);
 	}
   
