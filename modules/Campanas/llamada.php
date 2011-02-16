@@ -95,17 +95,17 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 	$campana_id = $next_campana_id;
 	//TODO: checar si tenemos permisos para la siguiente campana, si no regresar
 	
-	$result = $db->sql_query("SELECT nombre, apellido_paterno, email, promoted FROM crm_contactos WHERE contacto_id='$contacto_id'");
-	list($_name, $_apellido, $_email, $i) = $db->sql_fetchrow($result);
+	$result = $db->sql_query("SELECT nombre, apellido_paterno, email, promoted, empresa FROM crm_contactos WHERE contacto_id='$contacto_id'");
+	list($_name, $_apellido, $_email, $i, $_empresa) = $db->sql_fetchrow($result);
 	
 	//$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd'));
-	if ($i == 0)
+	if ($i == 1)
 	{
 		$_user = $_name;
 		$_password = $_user;
 		
 		//$cadena = json_encode(array($_user, $_password, $_name, $_email));
-		$cadena = array($_user, $_password, $_name, $_email, $mayorista_id, $_apellido);
+		$cadena = array($_user, $_password, $_name, $_email, $mayorista_id, $_empresa);
 		//Inserción en el sistema de prospección de licencias como nuevo usuario
 		/*$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd");
 		curl_setopt($ch, CURLOPT_POST, 1);
@@ -151,23 +151,28 @@ if ($next_campana_id) //se está actualizando el ciclo de prospección, solo guard
 			die("<html><head><script>alert('Error al enviar/recibir datos');window.close();</script></head></html>");
 		}
 	}
-	elseif($i == 1)
+	elseif($i == 0)
 	{
 		$i++;
 		$db->sql_query("UPDATE crm_contactos SET promoted='$i' WHERE contacto_id='$contacto_id'");
-		list($dist_id) = $db->sql_fetchrow($db->sql_query("SELECT distribuidor_id FROM crm_contactos WHERE contacto_id='$contacto_id'"));
+		//list($dist_id) = $db->sql_fetchrow($db->sql_query("SELECT distribuidor_id FROM crm_contactos WHERE contacto_id='$contacto_id'"));
 		//$cadena = serialize(array($dist_id));
 		//$cadena = array($dist_id);
 		//$spl_client=new SoapClient(null,array('uri'=>'http://localhost','location'=>'http://www.pcsmexico.com/spl/index.php?_module=Interfaces&_op=spd'));
 		//$result = $spl_client->update_distributor($cadena);
 		//if($result)
-			echo("<html><head><script>alert('Distribuidor ha sido Certificado');</script></head></html>");
+			echo("<html><head><script>alert('Ha avanzado en el ciclo de prospección');</script></head></html>");
 		//else
 			//echo("<html><head><script>alert('Error al enviar/recibir datos');window.close();</script></head></html>");
 		//$ch = curl_init("http://10.0.0.18/spl/index.php?_module=Interfaces&_op=spd_mayorista");
 		//curl_setopt($ch, CURLOPT_PORT, 1);
 		//curl_setopt($ch, CURLOPT_POSTFIELDS, "data=$cadena");
-		
+	}
+	elseif($i = 2)
+	{
+		$i++;
+		$db->sql_query("UPDATE crm_contactos SET promoted='$i' WHERE contacto_id='$contacto_id'");
+		echo("<html><head><script>alert('Distribuidor ha sido certificado');</script></head></html>");
 	}
 }
 //si posponemos, abrir un evento, si le quitamos terminamos el evento marcarlo como status=1
@@ -400,7 +405,7 @@ if ($fecha_cita == "0000-00-00 00:00:00") $fecha_cita = "";
 $sql = "SELECT nombre, apellido_paterno, apellido_materno,tel_casa, tel_oficina,tel_movil, tel_otro,nota,
         email, origen_id,tel_casa_2,tel_oficina_2,tel_movil_2,horario_preferido_casa,horario_preferido_oficina,
         horario_preferido_movil,horario_preferido_casa_2,horario_preferido_oficina_2,horario_preferido_movil_2,
-        codigo_campana,fecha_autorizado,fecha_firmado
+        codigo_campana,fecha_autorizado,fecha_firmado, empresa
         FROM crm_contactos WHERE contacto_id='$contacto_id' LIMIT 1";
 
 $result = $db->sql_query($sql) or die("Error al consultar datos del contacto");
@@ -408,7 +413,7 @@ global $nombre, $apellido_paterno, $apellido_materno;
 list($nombre, $apellido_paterno, $apellido_materno,$tel_casa, $tel_oficina,$tel_movil, $tel_otro,$nota, $email,
      $origen_id,$tel_casa_2, $tel_oficina_2, $tel_movil_2,$horario_preferido_casa, $horario_preferido_oficina,
      $horario_preferido_movil,$horario_preferido_casa_2, $horario_preferido_oficina_2, $horario_preferido_movil_2,
-     $codigo_campana,$fecha_autorizado,$fecha_firmado) = htmlize($db->sql_fetchrow($result));
+     $codigo_campana,$fecha_autorizado,$fecha_firmado, $empresa) = htmlize($db->sql_fetchrow($result));
 
     $objeto= new Fecha_autorizado ($db,$fecha_autorizado,$fecha_firmado);
     $color_semaforo=$objeto->Obten_Semaforo();
@@ -733,10 +738,10 @@ foreach($ciclo_campanas_id AS $campana_id_)
 		$enable = false;
 }
 
-if($counter % 10 == 1)
+if($counter % 10 == 2)
 {
 
-	$sql_may = "SELECT distribuidor_id, razon_social FROM crm_payoristas WHERE status='1'";
+	$sql_may = "SELECT id_mayorista, razon_social FROM crm_mayoristas WHERE status='1'";
 	$resultado_may = $db->sql_query($sql_may);
 	$mayoristas = "
 		<select name=\"mayorista_id\" id=\"mayorista_id\" disabled='disabled'>

@@ -82,8 +82,8 @@
 		public function add_contact($param)
 		{
 			$_dbhost = 'localhost';
-			$_dbuname = 'root';
-			$_dbpass = 'redsox';
+			$_dbuname = 'spd';
+			$_dbpass = 'spd';
 			$_dbname = 'spd';
 			include("../../includes/db/mysql.php");
 			$db = new sql_db($_dbhost, $_dbuname, $_dbpass, $_dbname, false);
@@ -102,7 +102,7 @@
 				$res = $db->sql_query($sql) or die($sql);
 				list($gid) = $db->sql_fetchrow($res);
 				
-				$sql = "SELECT COUNT(contacto_id), u.uid, u.gid, u.email FROM crm_contactos c RIGHT JOIN (SELECT uid, gid FROM users WHERE super='8') u ON u.uid=c.uid GROUP BY uid";
+				$sql = "SELECT COUNT(contacto_id), u.uid, u.gid, u.email FROM crm_contactos c RIGHT JOIN (SELECT uid, gid, email FROM users WHERE super='8') u ON u.uid=c.uid GROUP BY uid";
 				$result = $db->sql_query($sql);
 				$flag = false;
 				while(list($current_count, $current_uid, $current_gid, $current_email) = $db->sql_fetchrow($result)) {
@@ -128,11 +128,12 @@
 				
 				$nombre = $params[0];
 				$apellido = $params[1];
-				$telefono = $params[2];
-				$email = $params[3];
+				$empresa = $params[2];
+				$telefono = $params[3];
+				$email = $params[4];
 				
-				$sql = "INSERT INTO crm_contactos ( nombre, apellido_paterno, tel_casa, email,nota,gid,uid, fecha_importado)
-					VALUES ('".$nombre."','".$apellido."','".$telefono."','".$email."','".$params[4]."\n"."','".$gid."','".$uid."',CURRENT_TIMESTAMP)";
+				$sql = "INSERT INTO crm_contactos ( nombre, apellido_paterno, tel_casa, email,nota,gid,uid, fecha_importado, empresa)
+					VALUES ('".$nombre."','".$apellido."','".$telefono."','".$email."','".$params[5]."\n"."','".$gid."','".$uid."',CURRENT_TIMESTAMP, '$empresa')";
 				
 				$result = $db->sql_query($sql) or die($sql);
 				$contacto_id = $db->sql_nextid();

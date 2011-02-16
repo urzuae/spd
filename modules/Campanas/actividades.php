@@ -130,7 +130,7 @@ while(list($origen_id_1,$origen) = $db->sql_fetchrow($r3)){
 	}
 	//hasta el final crear la tabla
 	
-	$tabla_campanas  = "<center><div id=\"loading\"><img src=\"img/loading.gif\"></div></center>";
+	//$tabla_campanas  = "<center><div id=\"loading\"><img src=\"img/loading.gif\"></div></center>";
 	$tabla_campanas .= "<table id=\"tabla_contactos\" class=\"tablesorter\" width=\"100%\">
 	              <thead>
 				  <tr>

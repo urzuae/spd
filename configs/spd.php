@@ -1,6 +1,6 @@
 <?php
-$_dbuname = 'root';
-$_dbpass = 'redsox';
+$_dbuname = 'spd';
+$_dbpass = 'spd';
 $_dbname = 'spd';
 $_site_title = 'Sistema de Prospección de Distribuidores';
 $_theme = "Verde claro";
