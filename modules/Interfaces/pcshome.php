@@ -167,7 +167,7 @@ $msg =<<<EOBODY
 			<img style="margin-left:5px;" src="http://pcsmexico.com/files/logo.gif" /><br/><br/>
 			<br/>
 			<b>Se ha registrado {$nombre} {$apellido}  como prospecto de Distribuidor.</b>
-			<p>Comunicarse inmediatamente al siguiente telefono de contacto: {"$telefono"}
+			<p>Comunicarse inmediatamente al siguiente telefono de contacto: {$telefono}
 			o a la siguiente direccion electronica: {$email}</p>
 			<p>Dispone de hasta dos horas para realizar el contacto con el interesado
 			y registrar los avances realizados</p>

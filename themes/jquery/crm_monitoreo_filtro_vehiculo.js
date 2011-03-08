@@ -8,7 +8,7 @@ var version_anterior=0;
 var transmision_anterior=0;
 var timestamp_anterior='';
 
-$(document).ready(function(){    
+$(document).ready(function(){
     $('#datos').hide();
 
     $("#visualiza").click(function()
@@ -43,7 +43,7 @@ $(document).ready(function(){
         }
         else
         {
-            alert("Favor de seleccionar un vehiculo");
+            alert("Favor de seleccionar un producto");
         }
     });
 
@@ -71,7 +71,7 @@ $(document).ready(function(){
         }
         else
         {
-            alert("Favor de seleccionar un vehiculo");
+            alert("Favor de seleccionar un producto");
         }
 
     });
@@ -82,7 +82,7 @@ $(document).ready(function(){
  */
 function displayListTransmisionVehicle(event)
 {
-    var contentHtmlFilterTransmsion = "<td class='list'><select style='width: 200px;' name='listTramsmision' id='listTramsmision' style='width:150px;'><option value='0'>Ninguno</option>";
+    var contentHtmlFilterTransmsion = "<td class='list'><select name='listTramsmision' id='listTramsmision'><option value='0'>Ninguno</option>";
     $.getJSON(urlFilter,
     {
         transmision: 1,
@@ -105,7 +105,7 @@ function displayListTransmisionVehicle(event)
  */
 function displayListVersionVehicle(event)
 {
-    var contentHtmlFilterVersion = "<td class='list'><select style='width: 200px;' name='listVersion' id='listVersion' style='width:150px;'><option value='0'>Ninguno</option>";
+    var contentHtmlFilterVersion = "<td class='list'><select name='listVersion' id='listVersion'><option value='0'>Ninguno</option>";
     $.getJSON(urlFilter,
     {
         version : 1,
@@ -124,7 +124,7 @@ function displayListVersionVehicle(event)
                 return;
         }
         if(versions.error == 1)
-            alert("Ha ocurrido un error al cargar las versiones del vehiculo");
+            alert("Ha ocurrido un error al cargar las categorias del producto");
         return;
     });
     event.preventDefault();
@@ -137,7 +137,7 @@ function displayListVersionVehicle(event)
 function elimina_modelo(modelo,contacto_id,modelo_id,version_id,transmision_id,timestamp)
 {
     urldelete ="index.php?_module=Directorio&_op=EliminaVehiculo";
-    if(confirm("¿Desea eliminar el modelo: "+modelo))
+    if(confirm("¿Desea eliminar el producto: "+modelo))
     {
         $.get(urldelete,{contacto_id:contacto_id,
                          modelo_id:modelo_id,
@@ -147,16 +147,12 @@ function elimina_modelo(modelo,contacto_id,modelo_id,version_id,transmision_id,t
                           },function(data){$("#listadoVehicles").html(data);});
     }
 }
-function actualiza_modelo(modelo,contacto_id,modelo_id,version_id,transmision_id,ano,tipo_pintura,color_exterior,color_interior,timestamp)
+function actualiza_modelo(modelo,contacto_id,modelo_id,version_id,transmision_id,timestamp)
 {
     modelo_anterior=modelo_id;
     version_anterior=version_id;
     transmision_anterior=transmision_id;
     timestamp_anterior=timestamp;
-    $("#ano_vehiculo").val(ano);
-    $("#color_ext").val(color_exterior);
-    $("#color_int").val(color_interior);
-    $("#tipo_pint").val(tipo_pintura);
     $("#listVehicle").val(modelo_id);
     $.get(urlVersionS,{modelo_id:modelo_id,version_id:version_id},function(data){$("#listVersion").html(data);});
     $.get(urlTransmisionS,{modelo_id:modelo_id,version_id:version_id,transmision_id:transmision_id},function(datat){$("#listTramsmision").html(datat);});
@@ -167,28 +163,31 @@ function actualiza_modelo(modelo,contacto_id,modelo_id,version_id,transmision_id
  * Despliegue la lista de vehiculos en el filtrado por automovil
  */
 $(function(){
-    var contentHtmlFilterVehicle = "<td><select style='width: 200px;' name='listVehicle' id='listVehicle' style='width:150px;'><option value='0'></option>";
+    var contentHtmlFilterVehicle = "<td><select name='listVehicle' id='listVehicle'><option value='0'></option>";
     $.getJSON(urlFilter,
     {
         uniteds : 1
     }, function(data){
-        uniteds = data;
-        if(uniteds.error == 0)
+        if(data != null)
         {
-            contentHtmlFilterVehicle = contentHtmlFilterVehicle + uniteds.uniteds + "</select></td>";
-            $("#displayFilter tbody.filterVehicle tr.showUnited td.list").remove();
-            $("#displayFilter tbody.filterVehicle tr.showUnited td").after(contentHtmlFilterVehicle);
-            $("#listVehicle").change(function(event){
-                displayListVersionVehicle(event)
-            });
-            return;
+            uniteds = data;
+            if(uniteds.error == 0)
+            {
+                contentHtmlFilterVehicle = contentHtmlFilterVehicle + uniteds.uniteds + "</select></td>";
+                $("#displayFilter tbody.filterVehicle tr.showUnited td.list").remove();
+                $("#displayFilter tbody.filterVehicle tr.showUnited td").after(contentHtmlFilterVehicle);
+                $("#listVehicle").change(function(event){
+                    displayListVersionVehicle(event)
+                });
+                return;
+            }
+            if(uniteds.error == 1)
+            {
+                alert("Error al obtener la lista de productos");
+                return
+            }
+            else
+                alert("Se ha producido un error al obterner las lista de productos");
         }
-        if(uniteds.error == 1)
-        {
-            alert("Error al obtener el la lista de vehiculos");
-            return
-        }
-        else
-            alert("Se ha producido un error al obterner las lista de vehiculos");
     });
 });

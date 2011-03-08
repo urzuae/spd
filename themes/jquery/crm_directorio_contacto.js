@@ -3,8 +3,13 @@
  * and open the template in the editor.
  */
 var urlFilterVehiculos ="index.php?_module=Directorio&_op=filtroVehiculo";
+var edit_contact;
+var disabled;
 $(document).ready(function(){
-
+    disabled='';
+    edit_contact=$("#edit_contact").val();
+    if(edit_contact == 0)
+        disabled= " disabled='true'";
     $("#listVehicle").change(function(){
         displayListVersionVehicle();
     });
@@ -19,7 +24,7 @@ $(document).ready(function(){
  */
 function displayListTransmisionVehicle()
 {
-    var contentHtmlFilterTransmsion = "<td class='list'><select style='width: 200px;' name='listTransmision' id='listTramsmision' style='width:150px;'><option value='0'></option>";
+    var contentHtmlFilterTransmsion = "<td class='list'><select name='listTransmision' id='listTramsmision' "+disabled+"><option value='0'></option>";
     var vehiculoId = $("#listVehicle option:selected").val();
     var version_id = $("#listVersion option:selected").val();
     if(vehiculoId == null)
@@ -49,7 +54,7 @@ function displayListTransmisionVehicle()
  */
 function displayListVersionVehicle()
 {
-    var contentHtmlFilterVersion = "<td class='list'><select style='width: 200px;' name='listVersion' id='listVersion' style='width:150px;'><option value='0'></option>";        
+    var contentHtmlFilterVersion = "<td class='list'><select name='listVersion' id='listVersion' "+disabled+"><option value='0'></option>";
     var idVehiculo = $("#listVehicle option:selected").val();    
     if(idVehiculo == null)
         idVehiculo = $("#idVehiculo").val();
@@ -73,7 +78,7 @@ function displayListVersionVehicle()
             return;
         }
         if(versions.error == 1)
-            alert("Ha ocurrido un error al cargar las versiones del vehiculo");
+            alert("Ha ocurrido un error al cargar las categorias del producto");
         return;
     });
 //event.preventDefault();
@@ -84,7 +89,7 @@ function displayListVersionVehicle()
  * Despliegue la lista de vehiculos en el filtrado por automovil
  */
 $(function(){
-    var contentHtmlFilterVehicle = "<td><select style='width: 200px;' name='listVehicle' id='listVehicle' style='width:150px;'><option value='0'></option>";    
+    var contentHtmlFilterVehicle = "<td><select name='listVehicle' id='listVehicle' "+disabled+"><option value='0'></option>";
     
     $.getJSON(urlFilterVehiculos,
     {
@@ -94,7 +99,7 @@ $(function(){
         uniteds = data;
         if(uniteds.error == 0)
         {
-            contentHtmlFilterVehicle = contentHtmlFilterVehicle + uniteds.uniteds + "</select></td>";
+            contentHtmlFilterVehicle = contentHtmlFilterVehicle + uniteds.uniteds + "</select>&nbsp;&nbsp;&nbsp;<img src='img/asterisco.png' border='0'></td>";
             $("#displayFilter tbody.filterVehicle tr.showUnited td.list").remove();
             $("#displayFilter tbody.filterVehicle tr.showUnited td.addBefore").before(contentHtmlFilterVehicle);
             $("#listVehicle").change(function(){
@@ -104,11 +109,11 @@ $(function(){
         }
         if(uniteds.error == 1)
         {
-            alert("Error al obtener el la lista de vehiculos");
+            alert("Error al obtener la lista de productos");
             return
         }
         else
-            alert("Se ha producido un error al obterner las lista de vehiculos");
+            alert("Se ha producido un error al obterner las lista de productos");
     });
     if($("#idVersion").val().length > 0)
     {

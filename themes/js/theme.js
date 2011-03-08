@@ -80,7 +80,7 @@ function init_everything()
       }
       ;
       //poner azul si está prellenado
-      if (els[i].value != "") els[i].style.color = "#3c5f8c";
+      if (els[i].value != "") els[i].style.color = "#000000";
     }
   }
  }
@@ -123,7 +123,7 @@ function check_chars(el, chars)
   el.value = s;
   if (j > 0)
   {
-   alert('Se elimaron caracteres no válidos.');
+   alert('Se eliminaron caracteres no válidos.');
    el.focus();
    return false;
   }

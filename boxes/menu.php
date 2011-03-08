@@ -49,7 +49,7 @@
 				$files["&nbsp;&nbsp;&nbsp;&nbsp;Prospectos finalizados"] = "Gerente&_op=reasignar";
 				//$files["&nbsp;&nbsp;&nbsp;&nbsp;Carga de prospectos"] = "Gerente&_op=carga_contactos";
 				$files["&#32;"] = "";
-	    $files["Monitoreo"] = "";
+	    /*$files["Monitoreo"] = "";
 				$files["&nbsp;&nbsp;&nbsp;&nbsp;Ciclo de Prospección"] = "Gerente&_op=ciclo_venta";
 				$files["&nbsp;&nbsp;&nbsp;&nbsp;Usuarios"] = "Gerente&_op=monitoreo_vendedores";
 				$files["&nbsp;&nbsp;&nbsp;&nbsp;Prospectos registrados"] = "Gerente&_op=monitoreo_alta_prospectos";
@@ -58,7 +58,7 @@
 				$files["<b></b>"] = "";
 	    $files["Reportes"] = "";
 		    $files["&nbsp;&nbsp;&nbsp;&nbsp;Campa&ntilde;as"] = "Estadisticas&_op=campanas";
-		    $files["&nbsp;&nbsp;&nbsp;&nbsp;Ciclo de Prospecci&otilde;n"] = "Estadisticas&_op=ciclo";
+		    $files["&nbsp;&nbsp;&nbsp;&nbsp;Ciclo de Prospecci&otilde;n"] = "Estadisticas&_op=ciclo";*/
     }
     elseif($super == 8)
     {
@@ -86,7 +86,7 @@
 				$files["&nbsp;&nbsp;&nbsp;&nbsp;Prospectos finalizados"] = "Gerente&_op=reasignar";
 				$files["&nbsp;&nbsp;&nbsp;&nbsp;Carga de prospectos"] = "Gerente&_op=carga_contactos";
 				$files[""] = "";
-			$files["Monitoreo"] = "";
+			/*$files["Monitoreo"] = "";
 				$files["&nbsp;&nbsp;&nbsp;&nbsp;Ciclo de Venta"] = "Gerente&_op=ciclo_venta";
 				$files["&nbsp;&nbsp;&nbsp;&nbsp;Vendedores"] = "Gerente&_op=monitoreo_vendedores";
 				$files["&nbsp;&nbsp;&nbsp;&nbsp;Prospectos registrados"] = "Gerente&_op=monitoreo_alta_prospectos";
@@ -95,7 +95,7 @@
 				$files[""] = "";
 			$files["Reportes"] = "";
 				$files["&nbsp;&nbsp;&nbsp;&nbsp;Campa&ntilde;as"] = "Estadisticas&_op=campanas";
-				$files["&nbsp;&nbsp;&nbsp;&nbsp;Ciclo de venta"] = "Estadisticas&_op=ciclo";
+				$files["&nbsp;&nbsp;&nbsp;&nbsp;Ciclo de venta"] = "Estadisticas&_op=ciclo";*/
 		}
 		else
 		{
@@ -129,7 +129,7 @@
 	if ($user)
 	{
     $_content .= $_menu;
-    $_content .= "<br>Bienvenido <br><i>$name</i><br>";
+    /*$_content .= "<br>Bienvenido <br><i>$name</i><br>";
     if ($gid == 1 && $super == 2 )
       $_content .= ($super?"Coordinador de Gerentes de Zona":"Gerente de Zona")."<br>\n";
     elseif ($gid == 1 && ($super == 10 ||$super == 9 ))
@@ -139,7 +139,7 @@
     elseif ($super == 12)
       $_content .= "Hostess. Concesionaria $gid<br>\n";
     elseif($super == 6 || $super == 4)
-      $_content .= ($super?"Gerente de la ":"")."Distribuidora $gid<br>\n";
+      $_content .= ($super?"Gerente de la ":"")."Distribuidora $gid<br>\n";*/
     $_content .= "<br><br><a href=\"index.php?_do_logout=1\" class=\"box_content\">Salir</a><br>\n";
 	}
 	else if (!$_do_login)

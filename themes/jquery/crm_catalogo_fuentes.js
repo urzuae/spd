@@ -24,13 +24,13 @@ $(function(){
     $("#saveFont").click(function(){
         if($(".required").attr("value").length < 2)
         {
-            alert("El nombre del origen debe tener al menos dos caracteres");
+            alert("El nombre de la fuente debe tener al menos dos caracteres");
             return false;
         }
         if($("#flagAddChild").val() == "1")
             if($(".requiredChild").attr("value").length < 2)
             {
-                alert("El nombre del origen debe tener al menos dos caracteres");
+                alert("El nombre de la fuente debe tener al menos dos caracteres");
                 return false;
             }
         $("#flagAddChild").attr("value", "0");
